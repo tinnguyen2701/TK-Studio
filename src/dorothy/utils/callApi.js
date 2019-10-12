@@ -11,7 +11,7 @@ const callApi = (method, url, data = {}) => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       correlationId: uuid(),
-      Authorization: `Bearer ${window.localStorage.getItem('jwtToken')}`,
+      Authorization: `Bearer ${window.localStorage.getItem('JWT')}`,
     },
     timeout: data.timeout || defaultTimeout,
     data,

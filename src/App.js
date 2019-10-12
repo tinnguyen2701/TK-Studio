@@ -1,16 +1,21 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import store from 'store';
-import { FETCH_DATA_REQUEST } from './duck';
+import React from 'react';
+import { BrowserRouter, Switch as Router, Route } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import theme from './theme';
+import Home from './components/Home';
+import Admin from './components/Admin';
+import Login from './components/Login';
 
-const App = ({ data }) => {
-  useEffect(() => {
-    store.dispatch({ type: FETCH_DATA_REQUEST });
-  }, []);
-
-  return data && <div>chi cha ddc {data.success ? 'goi success' : ' goi false'}</div>;
+export default () => {
+  return (
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Router>
+          <Route exact path="/" component={Home} />
+          <Route path="/dashboard" component={Admin} />
+          <Route path="/login" component={Login} />
+        </Router>
+      </BrowserRouter>
+    </ThemeProvider>
+  );
 };
-
-export default connect(state => ({
-  data: state.data,
-}))(App);
