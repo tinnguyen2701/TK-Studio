@@ -1,21 +1,14 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { GET_CURRENT_USER_REQUEST } from './ducks';
+import Navigation from './Navigation';
+import Frame from './Frame';
 
 const Div = styled.div`
   display: flex;
   padding: 3% 8%;
-
-  > div:nth-child(1) {
-    width: 25%;
-    border: 1px solid ${props => props.theme.color};
-  }
-
-  > div:nth-child(2) {
-    width: 75%;
-    border: 1px solid ${props => props.theme.color};
-  }
 `;
 
 const Dashboard = ({ isAuthenticate, dispatch }) => {
@@ -27,22 +20,23 @@ const Dashboard = ({ isAuthenticate, dispatch }) => {
     }
   }, []);
 
+  const signOut = () => {
+    window.localStorage.removeItem('JWT');
+    window.location.href = `${process.env.REACT_APP_BASE_URL}login`;
+  };
+
   return (
     isAuthenticate && (
-      <Div>
-        <div>
-          <p>
-            <button type="button">teacher</button>
-          </p>
-          <p>
-            <button type="button">student</button>
-          </p>
-          <p>
-            <button type="button">tutorial</button>
-          </p>
-        </div>
-        <div>frame</div>
-      </Div>
+      <div>
+        <Link to="/">Home </Link>
+        <button type="button" onClick={() => signOut()}>
+          Sign out
+        </button>
+        <Div>
+          <Navigation />
+          <Frame />
+        </Div>
+      </div>
     )
   );
 };

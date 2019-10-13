@@ -30,6 +30,33 @@ adminRouter.post('/login', async (req, res) => {
   });
 });
 
+adminRouter.post(
+  '/changePassword',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const { oldPassword, newPassword } = req.body;
+
+    if (!oldPassword || !newPassword)
+      return res.status(403).send({ success: false, message: 'this field is required' });
+
+    Account.findOne({ username: req.user.username }).then(user => {
+      bcrypt.compare(oldPassword, user.password, async function(err, isMatch) {
+        if (!isMatch) {
+          return res.status(403).send('old password was wrong');
+        } else {
+          bcrypt.genSalt(10, function(err, salt) {
+            bcrypt.hash(newPassword, salt, async function(err, hash) {
+              user.password = hash;
+              await user.save().then(() => res.json({ success: true }));
+            });
+          });
+        }
+      });
+      return res.status(200);
+    });
+  },
+);
+
 adminRouter.get('/currentUser', passport.authenticate('jwt', { session: false }), (req, res) => {
   return res.sendStatus(200);
 });

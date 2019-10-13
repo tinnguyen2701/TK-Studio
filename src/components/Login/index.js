@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import store from 'store';
+import { connect } from 'react-redux';
 import { LOGIN_REQUEST } from './ducks';
 
-export default ({ history }) => {
+const Login = ({ history, isAuthenticate }) => {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
 
@@ -14,7 +14,7 @@ export default ({ history }) => {
 
   return (
     <form onSubmit={e => onSubmitHandler(e)}>
-      {/* {currentUser === false && <p>Email or password was wrong!</p>} */}
+      {isAuthenticate === false && <p>Email or password was wrong!</p>}
       <p>
         <span>username: </span>
         <input
@@ -41,7 +41,10 @@ export default ({ history }) => {
           Submit
         </button>
       </p>
-      <Link to="/auth/verify">forgot your password ?</Link>
     </form>
   );
 };
+
+export default connect(state => ({
+  isAuthenticate: state.login,
+}))(Login);
