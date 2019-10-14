@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import store from 'store';
-import { UPDATE_FRAME_REQUEST, GET_SETTING_REQUEST } from './ducks';
+import { UPDATE_FRAME_REQUEST } from './ducks';
 
 const Wrapper = styled.div`
   width: 25%;
@@ -10,7 +10,6 @@ const Wrapper = styled.div`
 
 export default () => {
   const onClickSettingHandler = () => {
-    store.dispatch({ type: GET_SETTING_REQUEST });
     store.dispatch({ type: UPDATE_FRAME_REQUEST, payload: 'setting' });
   };
   return (

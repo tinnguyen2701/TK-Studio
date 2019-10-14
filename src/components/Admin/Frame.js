@@ -11,17 +11,20 @@ const Wrapper = styled.div`
   border: 1px solid ${props => props.theme.color};
 `;
 
-const Frame = ({ tabVisible }) => {
+const Frame = ({ tabVisible, users }) => {
+  const students = users.filter(user => user.role === 'student');
+  const teachers = users.filter(user => user.role === 'teacher');
+
   if (tabVisible === 'student')
     return (
       <Wrapper>
-        <Student />
+        <Student students={students} />
       </Wrapper>
     );
   if (tabVisible === 'teacher')
     return (
       <Wrapper>
-        <Teacher />
+        <Teacher teachers={teachers} />
       </Wrapper>
     );
   if (tabVisible === 'tutorial')
@@ -46,4 +49,5 @@ const Frame = ({ tabVisible }) => {
 
 export default connect(state => ({
   tabVisible: state.modal.tabVisible,
+  users: state.users,
 }))(Frame);

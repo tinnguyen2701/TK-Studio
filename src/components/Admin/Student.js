@@ -1,10 +1,10 @@
 /* eslint-disable */
 import React, { useState } from 'react';
-import ListStudent from './ListStudent';
 import store from 'store';
+import SingleStudent from './SingleStudent';
 import { ADD_STUDENT_REQUEST } from './ducks';
 
-export default () => {
+export default ({ students }) => {
   const [name, setName] = useState(null);
   const [avatar, setAvatar] = useState(null);
 
@@ -40,9 +40,17 @@ export default () => {
           onChange={e => setName(e.target.value)}
         />
         avatar: <input type="file" onChange={e => setAvatarHandler(e)} />
-        <button type="submit">Add Student</button>
+        <button type="submit" disabled={!name && !avatar}>
+          Add Student
+        </button>
       </form>
-      <ListStudent />
+
+      <div>
+        <h3> danh sach hoc vien</h3>
+        {students.map((student, index) => (
+          <SingleStudent key={index.toString()} student={student} />
+        ))}
+      </div>
     </div>
   );
 };

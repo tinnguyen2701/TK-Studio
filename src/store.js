@@ -10,13 +10,19 @@ import {
   changeImageStudentSaga,
   settingSaga,
   changeImageTeacherSaga,
+  allUserSaga,
+  removeUserSaga,
+  editStudentSaga,
+  addTeacherSaga,
+  editTeacherSaga,
 } from './components/Admin/ducks';
-import { modalReducer as modal, settingReducer as setting } from './ducks';
+import { modalReducer as modal, settingReducer as setting, usersReducer as users } from './ducks';
 
 export const rootReducer = combineReducers({
   login,
   modal,
   setting,
+  users,
 });
 
 const rootSaga = function* rootSaga() {
@@ -25,10 +31,15 @@ const rootSaga = function* rootSaga() {
     ...currentUserSaga,
     ...frameSaga,
     ...addStudentSaga,
+    ...editStudentSaga,
+    ...addTeacherSaga,
+    ...editTeacherSaga,
     ...changePasswordSaga,
     ...changeImageStudentSaga,
     ...changeImageTeacherSaga,
     ...settingSaga,
+    ...allUserSaga,
+    ...removeUserSaga,
   ]);
 };
 

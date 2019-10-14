@@ -3,15 +3,15 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const tutorialSchema = new Schema({
-  name: {
+  nameCourse: {
+    type: String,
+    required: true,
+  },
+  description: {
     type: String,
     required: true,
   },
   poster: {
-    type: String,
-    required: true,
-  },
-  subject: {
     type: String,
     required: true,
   },
@@ -31,13 +31,9 @@ const tutorialSchema = new Schema({
     type: String,
     required: true,
   },
-  studients: [
+  artsTrainer: [
     {
-      nameAuthor: {
-        type: String,
-        required: true,
-      },
-      nameArt: {
+      author: {
         type: String,
         required: true,
       },

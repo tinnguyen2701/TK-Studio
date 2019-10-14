@@ -13,6 +13,18 @@ export const ADD_STUDENT_REQUEST = 'ADD_STUDENT_REQUEST';
 export const ADD_STUDENT_RESPONSE = 'ADD_STUDENT_RESPONSE';
 export const ADD_STUDENT_ERROR = 'ADD_STUDENT_ERROR';
 
+export const ADD_TEACHER_REQUEST = 'ADD_TEACHER_REQUEST';
+export const ADD_TEACHER_RESPONSE = 'ADD_TEACHER_RESPONSE';
+export const ADD_TEACHER_ERROR = 'ADD_TEACHER_ERROR';
+
+export const EDIT_STUDENT_REQUEST = 'EDIT_STUDENT_REQUEST';
+export const EDIT_STUDENT_RESPONSE = 'EDIT_STUDENT_RESPONSE';
+export const EDIT_STUDENT_ERROR = 'EDIT_STUDENT_ERROR';
+
+export const EDIT_TEACHER_REQUEST = 'EDIT_TEACHER_REQUEST';
+export const EDIT_TEACHER_RESPONSE = 'EDIT_TEACHER_RESPONSE';
+export const EDIT_TEACHER_ERROR = 'EDIT_TEACHER_ERROR';
+
 export const CHANGE_PASSWORD_ACCOUNT_REQUEST = 'CHANGE_PASSWORD_ACCOUNT_REQUEST';
 export const CHANGE_PASSWORD_ACCOUNT_RESPONSE = 'CHANGE_PASSWORD_ACCOUNT_RESPONSE';
 export const CHANGE_PASSWORD_ACCOUNT_ERROR = 'CHANGE_PASSWORD_ACCOUNT_RESPONSE';
@@ -29,6 +41,14 @@ export const GET_SETTING_REQUEST = 'GET_SETTING_REQUEST';
 export const GET_SETTING_RESPONSE = 'GET_SETTING_RESPONSE';
 export const GET_SETTING_ERROR = 'GET_SETTING_ERROR';
 
+export const GET_ALL_USER_REQUEST = 'GET_ALL_USER_REQUEST';
+export const GET_ALL_USER_RESPONSE = 'GET_ALL_USER_RESPONSE';
+export const GET_ALL_USER_ERROR = 'GET_ALL_USER_ERROR';
+
+export const REMOVE_USER_REQUEST = 'REMOVE_USER_REQUEST';
+export const REMOVE_USER_RESPONSE = 'REMOVE_USER_RESPONSE';
+export const REMOVE_USER_ERROR = 'REMOVE_USER_ERROR';
+
 /* handler state for get current user */
 function* requestCurrentUser() {
   try {
@@ -38,6 +58,8 @@ function* requestCurrentUser() {
       `${process.env.REACT_APP_BASE_URL}api/auth/currentUser`,
     );
     yield put(createAction(GET_CURRENT_USER_RESPONSE, response));
+    yield put({ type: GET_ALL_USER_REQUEST });
+    yield put({ type: GET_SETTING_REQUEST });
   } catch (error) {
     yield put(createAction(GET_CURRENT_USER_ERROR, error));
   }
@@ -75,7 +97,7 @@ function* requestAddStudent(action) {
       `${process.env.REACT_APP_BASE_URL}api/user/addStudent`,
       action.payload,
     );
-    yield put(createAction(ADD_STUDENT_RESPONSE, response));
+    yield put(createAction(ADD_STUDENT_RESPONSE, response.data));
   } catch (error) {
     yield put(createAction(ADD_STUDENT_ERROR, error));
   }
@@ -84,6 +106,63 @@ function* watchAddStudentRequest() {
   yield takeLatest(ADD_STUDENT_REQUEST, requestAddStudent);
 }
 export const addStudentSaga = [fork(watchAddStudentRequest)];
+
+/* handler state for add teacher */
+function* requestAddTeacher(action) {
+  try {
+    const response = yield call(
+      callApi,
+      'POST',
+      `${process.env.REACT_APP_BASE_URL}api/user/addTeacher`,
+      action.payload,
+    );
+    yield put(createAction(ADD_TEACHER_RESPONSE, response.data));
+  } catch (error) {
+    yield put(createAction(ADD_TEACHER_ERROR, error));
+  }
+}
+function* watchAddTeacherRequest() {
+  yield takeLatest(ADD_TEACHER_REQUEST, requestAddTeacher);
+}
+export const addTeacherSaga = [fork(watchAddTeacherRequest)];
+
+/* handler state for edit user */
+function* requestEditStudent(action) {
+  try {
+    const response = yield call(
+      callApi,
+      'POST',
+      `${process.env.REACT_APP_BASE_URL}api/user/editStudent`,
+      action.payload,
+    );
+    yield put(createAction(EDIT_STUDENT_RESPONSE, response.data));
+  } catch (error) {
+    yield put(createAction(EDIT_STUDENT_ERROR, error));
+  }
+}
+function* watchEditStudentRequest() {
+  yield takeLatest(EDIT_STUDENT_REQUEST, requestEditStudent);
+}
+export const editStudentSaga = [fork(watchEditStudentRequest)];
+
+/* handler state for edit user */
+function* requestEditTeacher(action) {
+  try {
+    const response = yield call(
+      callApi,
+      'POST',
+      `${process.env.REACT_APP_BASE_URL}api/user/editTeacher`,
+      action.payload,
+    );
+    yield put(createAction(EDIT_TEACHER_RESPONSE, response.data));
+  } catch (error) {
+    yield put(createAction(EDIT_TEACHER_ERROR, error));
+  }
+}
+function* watchEditTeacherRequest() {
+  yield takeLatest(EDIT_TEACHER_REQUEST, requestEditTeacher);
+}
+export const editTeacherSaga = [fork(watchEditTeacherRequest)];
 
 /* handler state for change account password */
 function* requestChangePassword(action) {
@@ -155,3 +234,41 @@ function* watchSettingRequest() {
   yield takeLatest(GET_SETTING_REQUEST, requestSetting);
 }
 export const settingSaga = [fork(watchSettingRequest)];
+
+/* handler state for get all user */
+function* requestAllUser(action) {
+  try {
+    const response = yield call(
+      callApi,
+      'GET',
+      `${process.env.REACT_APP_BASE_URL}api/user`,
+      action.payload,
+    );
+    yield put(createAction(GET_ALL_USER_RESPONSE, response.data));
+  } catch (error) {
+    yield put(createAction(GET_ALL_USER_ERROR, error));
+  }
+}
+function* watchAllUserRequest() {
+  yield takeLatest(GET_ALL_USER_REQUEST, requestAllUser);
+}
+export const allUserSaga = [fork(watchAllUserRequest)];
+
+/* handler state for remove user */
+function* requestRemoveUser(action) {
+  try {
+    const response = yield call(
+      callApi,
+      'POST',
+      `${process.env.REACT_APP_BASE_URL}api/user/remove`,
+      action.payload,
+    );
+    yield put(createAction(REMOVE_USER_RESPONSE, response.data));
+  } catch (error) {
+    yield put(createAction(REMOVE_USER_ERROR, error));
+  }
+}
+function* watchRemoveUserRequest() {
+  yield takeLatest(REMOVE_USER_REQUEST, requestRemoveUser);
+}
+export const removeUserSaga = [fork(watchRemoveUserRequest)];
