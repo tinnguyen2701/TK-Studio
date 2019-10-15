@@ -31,18 +31,9 @@ const tutorialSchema = new Schema({
     type: String,
     required: true,
   },
-  artsTrainer: [
-    {
-      author: {
-        type: String,
-        required: true,
-      },
-      image: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
+  images: {
+    type: Array,
+  },
 });
 
 module.exports = mongoose.model('Tutorial', tutorialSchema);

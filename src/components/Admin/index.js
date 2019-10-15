@@ -8,7 +8,29 @@ import Frame from './Frame';
 
 const Div = styled.div`
   display: flex;
+`;
+
+const Wrapper = styled.div`
   padding: 3% 8%;
+
+  > div {
+    padding: 10px 0;
+    font-size: 20px;
+  }
+
+  > div a {
+    text-decoration: none;
+  }
+
+  > div > button {
+    cursor: pointer;
+    float: right;
+    background: rgb(44, 166, 239);
+    border: none;
+    padding: 5px;
+    color: white;
+    border-radius: 3px;
+  }
 `;
 
 const Dashboard = ({ isAuthenticate, dispatch }) => {
@@ -27,16 +49,18 @@ const Dashboard = ({ isAuthenticate, dispatch }) => {
 
   return (
     isAuthenticate && (
-      <div>
-        <Link to="/">Home </Link>
-        <button type="button" onClick={() => signOut()}>
-          Sign out
-        </button>
+      <Wrapper>
+        <div>
+          <Link to="/">Home </Link>
+          <button type="button" onClick={() => signOut()}>
+            Sign out
+          </button>
+        </div>
         <Div>
           <Navigation />
           <Frame />
         </Div>
-      </div>
+      </Wrapper>
     )
   );
 };

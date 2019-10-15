@@ -9,12 +9,79 @@ import {
   UPDATE_IMAGE_TEACHER_DEFAULT_REQUEST,
 } from './ducks';
 
+const Form = styled.form`
+  width: 50%;
+  p {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    justify-content: space-between;
+  }
+
+  input {
+    background: rgb(44, 166, 239);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 5px;
+  }
+  input::placeholder {
+    color: white;
+  }
+  button {
+    cursor: pointer;
+    background: rgb(44, 166, 239);
+    border: none;
+    padding: 5px;
+    color: white;
+    border-radius: 3px;
+    margin: 5px 0;
+    padding: 5px 20px;
+  }
+
+  button:disabled {
+    cursor: default;
+    background: none;
+    color: black;
+    border: 1px solid black;
+  }
+`;
+
 const Image = styled.img`
   width: 90px;
   height: 90px;
 `;
 
-const Setting = ({ imageStudent, imageTeacher }) => {
+const ImageDefault = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  button {
+    cursor: pointer;
+    background: rgb(44, 166, 239);
+    border: none;
+    padding: 5px;
+    color: white;
+    border-radius: 3px;
+    margin: 5px 0;
+    padding: 5px 20px;
+  }
+
+  button:disabled {
+    cursor: default;
+    background: none;
+    color: black;
+    border: 1px solid black;
+  }
+`;
+
+const Alert = styled.p`
+  background: ${props => (props.status ? 'rgb(44, 166, 239);' : 'rgb(252, 32, 3)')};
+  color: white;
+`;
+
+const Setting = ({ imageStudent, imageTeacher, status }) => {
   const [oldPassword, setOldPassword] = useState(null);
   const [newPassword, setNewPassword] = useState(null);
   const [imageDefaultStudent, setImageDefaultStudent] = useState(null);
@@ -66,13 +133,15 @@ const Setting = ({ imageStudent, imageTeacher }) => {
   return (
     <div>
       <div>
-        <form onSubmit={e => onChangePasswordHandler(e)}>
+        <Form onSubmit={e => onChangePasswordHandler(e)}>
+          {status && <Alert status={status.success}>{status.message}</Alert>}
           <p>
             mật khẩu cũ:{' '}
             <input
               type="password"
               value={oldPassword || ''}
               onChange={e => setOldPassword(e.target.value)}
+              placeholder="Nhập mật khẩu cũ"
             />
           </p>
           <p>
@@ -81,27 +150,38 @@ const Setting = ({ imageStudent, imageTeacher }) => {
               type="password"
               value={newPassword || ''}
               onChange={e => setNewPassword(e.target.value)}
+              placeholder="Nhập mật khẩu mới"
             />
           </p>
           <p>
-            <button type="submit">Đổi</button>
+            <button type="submit" disabled={!oldPassword || !newPassword}>
+              Đổi
+            </button>
           </p>
-        </form>
+        </Form>
       </div>
-      <div>
+      <ImageDefault>
         ảnh mặc định cho học viên: <Image src={imageStudent} alt="student avatar" />{' '}
         <input type="file" onChange={e => setImageStudentHandler(e)} />{' '}
-        <button type="button" onClick={() => onChangeImageStudent()}>
+        <button
+          type="button"
+          onClick={() => onChangeImageStudent()}
+          disabled={!imageDefaultStudent}
+        >
           Đổi liền
         </button>
-      </div>
-      <div>
+      </ImageDefault>
+      <ImageDefault>
         ảnh mặc định cho giảng viên: <Image src={imageTeacher} alt="teacher avatar" />{' '}
         <input type="file" onChange={e => setImageTeacherHandler(e)} />{' '}
-        <button type="button" onClick={() => onChangeImageTeacher()}>
+        <button
+          type="button"
+          onClick={() => onChangeImageTeacher()}
+          disabled={!imageDefaultTeacher}
+        >
           Đổi liền
         </button>
-      </div>
+      </ImageDefault>
     </div>
   );
 };
@@ -109,4 +189,5 @@ const Setting = ({ imageStudent, imageTeacher }) => {
 export default connect(state => ({
   imageStudent: state.setting.imageStudent,
   imageTeacher: state.setting.imageTeacher,
+  status: state.status,
 }))(Setting);

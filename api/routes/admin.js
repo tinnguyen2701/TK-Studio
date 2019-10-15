@@ -42,17 +42,18 @@ adminRouter.post(
     Account.findOne({ username: req.user.username }).then(user => {
       bcrypt.compare(oldPassword, user.password, async function(err, isMatch) {
         if (!isMatch) {
-          return res.status(403).send('old password was wrong');
+          return res.send({ message: 'old password was wrong', success: false });
         } else {
           bcrypt.genSalt(10, function(err, salt) {
             bcrypt.hash(newPassword, salt, async function(err, hash) {
               user.password = hash;
-              await user.save().then(() => res.json({ success: true }));
+              await user
+                .save()
+                .then(() => res.status(200).send({ message: 'Change success', success: true }));
             });
           });
         }
       });
-      return res.status(200);
     });
   },
 );

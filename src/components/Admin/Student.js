@@ -1,8 +1,44 @@
 /* eslint-disable */
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import store from 'store';
 import SingleStudent from './SingleStudent';
 import { ADD_STUDENT_REQUEST } from './ducks';
+
+const Form = styled.form`
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  justify-content: space-between;
+
+  input:nth-child(1) {
+    background: rgb(44, 166, 239);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 5px;
+  }
+  input::placeholder {
+    color: white;
+  }
+  button {
+    cursor: pointer;
+    background: rgb(44, 166, 239);
+    border: none;
+    padding: 5px;
+    color: white;
+    border-radius: 3px;
+    margin: 5px 0;
+    padding: 5px 20px;
+  }
+
+  button:disabled {
+    cursor: default;
+    background: none;
+    color: black;
+    border: 1px solid black;
+  }
+`;
 
 export default ({ students }) => {
   const [name, setName] = useState(null);
@@ -31,7 +67,7 @@ export default ({ students }) => {
 
   return (
     <div>
-      <form onSubmit={e => onSubmitHandler(e)}>
+      <Form onSubmit={e => onSubmitHandler(e)}>
         name:{' '}
         <input
           type="text"
@@ -40,10 +76,10 @@ export default ({ students }) => {
           onChange={e => setName(e.target.value)}
         />
         avatar: <input type="file" onChange={e => setAvatarHandler(e)} />
-        <button type="submit" disabled={!name && !avatar}>
+        <button type="submit" disabled={!name}>
           Add Student
         </button>
-      </form>
+      </Form>
 
       <div>
         <h3> danh sach hoc vien</h3>

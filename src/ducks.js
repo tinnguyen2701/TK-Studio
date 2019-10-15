@@ -11,6 +11,12 @@ import {
   EDIT_STUDENT_RESPONSE,
   ADD_TEACHER_RESPONSE,
   EDIT_TEACHER_RESPONSE,
+  GET_ALL_TUTORIAL_RESPONSE,
+  ADD_TUTORIAL_RESPONSE,
+  REMOVE_TUTORIAL_RESPONSE,
+  EDIT_TUTORIAL_RESPONSE,
+  CHANGE_PASSWORD_ACCOUNT_ERROR,
+  CHANGE_PASSWORD_ACCOUNT_RESPONSE,
 } from './components/Admin/ducks';
 
 export const UPDATE_TAB = 'UPDATE_TAB';
@@ -23,6 +29,13 @@ const loginActionHandler = {
     tabVisible: action.payload,
   }),
 };
+
+const initStatus = null;
+const statusActionHandler = {
+  [CHANGE_PASSWORD_ACCOUNT_ERROR]: (state, action) => action.payload,
+  [CHANGE_PASSWORD_ACCOUNT_RESPONSE]: (state, action) => action.payload,
+};
+export const statusReducer = createReducer(initStatus, statusActionHandler);
 
 const setting = { imageStudent: null, imageTeacher: null };
 
@@ -72,3 +85,28 @@ const UsersActionHandler = {
   },
 };
 export const usersReducer = createReducer(users, UsersActionHandler);
+
+const initTutorial = [];
+const tutorialsActionHandler = {
+  [GET_ALL_TUTORIAL_RESPONSE]: (state, action) => action.payload,
+  [ADD_TUTORIAL_RESPONSE]: (state, action) => [...state, action.payload],
+  [REMOVE_TUTORIAL_RESPONSE]: (state, action) =>
+    state.filter(tutorial => tutorial._id !== action.payload.id),
+  [EDIT_TUTORIAL_RESPONSE]: (state, action) => {
+    return state.map(tutorial => {
+      if (tutorial._id === action.payload.id) {
+        tutorial.nameCourse = action.payload.nameCourse;
+        tutorial.description = action.payload.description;
+        tutorial.object = action.payload.object;
+        tutorial.content = action.payload.content;
+        tutorial.poster = action.payload.poster;
+        tutorial.images = action.payload.images;
+        tutorial.requirement = action.payload.requirement;
+        tutorial.start = action.payload.start;
+      }
+      return tutorial;
+    });
+  },
+};
+
+export const tutorialsReducer = createReducer(initTutorial, tutorialsActionHandler);

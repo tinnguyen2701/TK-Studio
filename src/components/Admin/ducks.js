@@ -1,5 +1,5 @@
 import { fork, put, call, takeLatest } from 'redux-saga/effects';
-import { callApi, createAction } from 'dorothy/utils';
+import { callApi, createAction, logger } from 'dorothy/utils';
 
 export const GET_CURRENT_USER_REQUEST = 'GET_CURRENT_USER_REQUEST';
 export const GET_CURRENT_USER_RESPONSE = 'GET_CURRENT_USER_RESPONSE';
@@ -17,6 +17,10 @@ export const ADD_TEACHER_REQUEST = 'ADD_TEACHER_REQUEST';
 export const ADD_TEACHER_RESPONSE = 'ADD_TEACHER_RESPONSE';
 export const ADD_TEACHER_ERROR = 'ADD_TEACHER_ERROR';
 
+export const ADD_TUTORIAL_REQUEST = 'ADD_TUTORIAL_REQUEST';
+export const ADD_TUTORIAL_RESPONSE = 'ADD_TUTORIAL_RESPONSE';
+export const ADD_TUTORIAL_ERROR = 'ADD_TUTORIAL_ERROR';
+
 export const EDIT_STUDENT_REQUEST = 'EDIT_STUDENT_REQUEST';
 export const EDIT_STUDENT_RESPONSE = 'EDIT_STUDENT_RESPONSE';
 export const EDIT_STUDENT_ERROR = 'EDIT_STUDENT_ERROR';
@@ -24,6 +28,10 @@ export const EDIT_STUDENT_ERROR = 'EDIT_STUDENT_ERROR';
 export const EDIT_TEACHER_REQUEST = 'EDIT_TEACHER_REQUEST';
 export const EDIT_TEACHER_RESPONSE = 'EDIT_TEACHER_RESPONSE';
 export const EDIT_TEACHER_ERROR = 'EDIT_TEACHER_ERROR';
+
+export const EDIT_TUTORIAL_REQUEST = 'EDIT_TUTORIAL_REQUEST';
+export const EDIT_TUTORIAL_RESPONSE = 'EDIT_TUTORIAL_RESPONSE';
+export const EDIT_TUTORIAL_ERROR = 'EDIT_TUTORIAL_ERROR';
 
 export const CHANGE_PASSWORD_ACCOUNT_REQUEST = 'CHANGE_PASSWORD_ACCOUNT_REQUEST';
 export const CHANGE_PASSWORD_ACCOUNT_RESPONSE = 'CHANGE_PASSWORD_ACCOUNT_RESPONSE';
@@ -45,9 +53,17 @@ export const GET_ALL_USER_REQUEST = 'GET_ALL_USER_REQUEST';
 export const GET_ALL_USER_RESPONSE = 'GET_ALL_USER_RESPONSE';
 export const GET_ALL_USER_ERROR = 'GET_ALL_USER_ERROR';
 
+export const GET_ALL_TUTORIAL_REQUEST = 'GET_ALL_TUTORIAL_REQUEST';
+export const GET_ALL_TUTORIAL_RESPONSE = 'GET_ALL_TUTORIAL_RESPONSE';
+export const GET_ALL_TUTORIAL_ERROR = 'GET_ALL_TUTORIAL_ERROR';
+
 export const REMOVE_USER_REQUEST = 'REMOVE_USER_REQUEST';
 export const REMOVE_USER_RESPONSE = 'REMOVE_USER_RESPONSE';
 export const REMOVE_USER_ERROR = 'REMOVE_USER_ERROR';
+
+export const REMOVE_TUTORIAL_REQUEST = 'REMOVE_TUTORIAL_REQUEST';
+export const REMOVE_TUTORIAL_RESPONSE = 'REMOVE_TUTORIAL_RESPONSE';
+export const REMOVE_TUTORIAL_ERROR = 'REMOVE_TUTORIAL_ERROR';
 
 /* handler state for get current user */
 function* requestCurrentUser() {
@@ -60,6 +76,7 @@ function* requestCurrentUser() {
     yield put(createAction(GET_CURRENT_USER_RESPONSE, response));
     yield put({ type: GET_ALL_USER_REQUEST });
     yield put({ type: GET_SETTING_REQUEST });
+    yield put({ type: GET_ALL_TUTORIAL_REQUEST });
   } catch (error) {
     yield put(createAction(GET_CURRENT_USER_ERROR, error));
   }
@@ -173,9 +190,13 @@ function* requestChangePassword(action) {
       `${process.env.REACT_APP_BASE_URL}api/auth/changePassword`,
       action.payload,
     );
-    yield put(createAction(CHANGE_PASSWORD_ACCOUNT_RESPONSE, response));
+    if (response.status === 200)
+      yield put(createAction(CHANGE_PASSWORD_ACCOUNT_RESPONSE, response.data));
+    else {
+      yield put(createAction(CHANGE_PASSWORD_ACCOUNT_ERROR, response.data));
+    }
   } catch (error) {
-    yield put(createAction(CHANGE_PASSWORD_ACCOUNT_ERROR, error));
+    logger.logError('Password was wrong');
   }
 }
 function* watchChangePasswordRequest() {
@@ -272,3 +293,79 @@ function* watchRemoveUserRequest() {
   yield takeLatest(REMOVE_USER_REQUEST, requestRemoveUser);
 }
 export const removeUserSaga = [fork(watchRemoveUserRequest)];
+
+/* handler state for add tutorial */
+function* requestAddTutorial(action) {
+  try {
+    const response = yield call(
+      callApi,
+      'POST',
+      `${process.env.REACT_APP_BASE_URL}api/tutorial/addTutorial`,
+      action.payload,
+    );
+    yield put(createAction(ADD_TUTORIAL_RESPONSE, response.data));
+  } catch (error) {
+    yield put(createAction(ADD_TUTORIAL_ERROR, error));
+  }
+}
+function* watchAddTutorialRequest() {
+  yield takeLatest(ADD_TUTORIAL_REQUEST, requestAddTutorial);
+}
+export const addTutorialSaga = [fork(watchAddTutorialRequest)];
+
+/* handler state for get all tutorial */
+function* requestAllTutorial(action) {
+  try {
+    const response = yield call(
+      callApi,
+      'GET',
+      `${process.env.REACT_APP_BASE_URL}api/tutorial`,
+      action.payload,
+    );
+    yield put(createAction(GET_ALL_TUTORIAL_RESPONSE, response.data));
+  } catch (error) {
+    yield put(createAction(GET_ALL_TUTORIAL_ERROR, error));
+  }
+}
+function* watchAllTutorialRequest() {
+  yield takeLatest(GET_ALL_TUTORIAL_REQUEST, requestAllTutorial);
+}
+export const allTutorialSaga = [fork(watchAllTutorialRequest)];
+
+/* handler state for edit tutorial */
+function* requestEditTutorial(action) {
+  try {
+    const response = yield call(
+      callApi,
+      'POST',
+      `${process.env.REACT_APP_BASE_URL}api/tutorial/editTutorial`,
+      action.payload,
+    );
+    yield put(createAction(EDIT_TUTORIAL_RESPONSE, response.data));
+  } catch (error) {
+    yield put(createAction(EDIT_TUTORIAL_ERROR, error));
+  }
+}
+function* watchEditTutorialRequest() {
+  yield takeLatest(EDIT_TUTORIAL_REQUEST, requestEditTutorial);
+}
+export const editTutorialSaga = [fork(watchEditTutorialRequest)];
+
+/* handler state for remove tutorial */
+function* requestRemoveTutorial(action) {
+  try {
+    const response = yield call(
+      callApi,
+      'POST',
+      `${process.env.REACT_APP_BASE_URL}api/tutorial/remove`,
+      action.payload,
+    );
+    yield put(createAction(REMOVE_TUTORIAL_RESPONSE, response.data));
+  } catch (error) {
+    yield put(createAction(REMOVE_TUTORIAL_ERROR, error));
+  }
+}
+function* watchRemoveTutorialRequest() {
+  yield takeLatest(REMOVE_TUTORIAL_REQUEST, requestRemoveTutorial);
+}
+export const removeTutorialSaga = [fork(watchRemoveTutorialRequest)];

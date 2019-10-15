@@ -5,7 +5,17 @@ import { UPDATE_FRAME_REQUEST } from './ducks';
 
 const Wrapper = styled.div`
   width: 25%;
-  border: 1px solid ${props => props.theme.color};
+
+  > p > button {
+    cursor: pointer;
+    background: rgb(44, 166, 239);
+    border: none;
+    padding: 5px;
+    color: white;
+    border-radius: 3px;
+    margin: 5px 0;
+    padding: 5px 20px;
+  }
 `;
 
 export default () => {

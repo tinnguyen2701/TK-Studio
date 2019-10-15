@@ -10,6 +10,7 @@ const passport = require('passport');
 const admin = require('./routes/admin');
 const user = require('./routes/user');
 const setting = require('./routes/setting');
+const tutorial = require('./routes/tutorial');
 // const Account = require('./models/account');
 
 const app = express();
@@ -43,6 +44,7 @@ require('./config/passport')(passport);
 app.use('/api/auth', admin);
 app.use('/api/user', user);
 app.use('/api/setting', setting);
+app.use('/api/tutorial', tutorial);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../build')));

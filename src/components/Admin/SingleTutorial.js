@@ -2,9 +2,19 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import store from 'store';
-import { ADD_TUTORIAL_REQUEST } from './ducks';
-import { connect } from 'react-redux';
-import SingleTutorial from './SingleTutorial';
+import { REMOVE_TUTORIAL_REQUEST, EDIT_TUTORIAL_REQUEST } from './ducks';
+
+const Div = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  img {
+    width: 50px;
+    height: 50px;
+  }
+`;
 
 const Modal = styled.div`
   height: 100vh;
@@ -14,6 +24,11 @@ const Modal = styled.div`
   z-index: 99;
   top: 0;
   left: 0;
+
+  img {
+    width: 80px;
+    height: 80px;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -22,53 +37,38 @@ const Wrapper = styled.div`
   height: auto;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
   background: white;
   padding: 10px;
-  transform: translate(-50%, -50%);
-  border: 1px solid black;
 `;
 
-const WrapperTutorial = styled.div`
-  button {
-    cursor: pointer;
-    background: rgb(44, 166, 239);
-    border: none;
-    padding: 5px;
-    color: white;
-    border-radius: 3px;
-    margin: 5px 0;
-    padding: 5px 20px;
-  }
-  button:disabled {
-    cursor: default;
-    background: none;
-    color: black;
-    border: 1px solid black;
-  }
-`;
-
-const Tutorials = ({ tutorials }) => {
-  const [nameCourse, setNameCourse] = useState(null);
-  const [description, setDescription] = useState(null);
+export default ({ tutorial }) => {
+  const [nameCourse, setNameCourse] = useState(tutorial.nameCourse);
+  const [description, setDescription] = useState(tutorial.description);
+  const [object, setObject] = useState(tutorial.object);
+  const [content, setContent] = useState(tutorial.content);
+  const [requirement, setRequirement] = useState(tutorial.requirement);
+  const [start, setStart] = useState(tutorial.start);
+  const [visibleRemove, setVisibleRemove] = useState(false);
+  const [visibleEditModal, setVisibleEditModal] = useState(false);
   const [poster, setPoster] = useState(null);
-  const [object, setObject] = useState(null);
-  const [content, setContent] = useState(null);
-  const [requirement, setRequirement] = useState(null);
-  const [start, setStart] = useState(null);
   const [images, setImages] = useState(null);
-  const [visible, setVisible] = useState(false);
+
+  const displayPoster = tutorial.poster;
+  const displayImages = tutorial.images;
 
   const onSubmitHandler = e => {
     e.preventDefault();
 
     const formData = new FormData();
+    formData.append('id', tutorial._id);
     formData.append('nameCourse', nameCourse);
     formData.append('description', description);
-    formData.append('poster', poster);
     formData.append('object', object);
     formData.append('content', content);
     formData.append('requirement', requirement);
     formData.append('start', start);
+    formData.append('poster', poster);
 
     if (images) {
       for (const image of images) {
@@ -77,18 +77,19 @@ const Tutorials = ({ tutorials }) => {
     }
 
     store.dispatch({
-      type: ADD_TUTORIAL_REQUEST,
+      type: EDIT_TUTORIAL_REQUEST,
       payload: formData,
     });
+    setVisibleEditModal(false);
+  };
 
-    setNameCourse(null);
-    setDescription(null);
-    setPoster(null);
-    setObject(null);
-    setContent(null);
-    setRequirement(null);
-    setStart(null);
-    setImages(null);
+  const onRemoveHandler = id => {
+    store.dispatch({ type: REMOVE_TUTORIAL_REQUEST, payload: { id } });
+    setVisibleRemove(false);
+  };
+
+  const visibleEditHandler = () => {
+    setVisibleEditModal(true);
   };
 
   const setPosterHandler = e => {
@@ -102,11 +103,38 @@ const Tutorials = ({ tutorials }) => {
   };
 
   return (
-    <WrapperTutorial>
-      <button type="button" onClick={() => setVisible(true)}>
-        Thêm khóa học
-      </button>
-      {visible && (
+    <Div>
+      <div>{tutorial.nameCourse}</div>
+      <div>
+        <img src={tutorial.poster} alt="anh khoa hoc" />
+      </div>
+      <div>{tutorial.description}</div>
+      <div>
+        <button type="button" onClick={() => visibleEditHandler()}>
+          Chỉnh sửa
+        </button>
+
+        {!visibleRemove ? (
+          <button
+            type="button"
+            onClick={() => setVisibleRemove(true)}
+            style={{ marginLeft: '5px' }}
+          >
+            Xóa
+          </button>
+        ) : (
+          <span>
+            {' '}
+            <button type="button" onClick={() => onRemoveHandler(tutorial._id)}>
+              Xác nhận
+            </button>
+            <button type="button" onClick={() => setVisibleRemove(false)}>
+              Hủy
+            </button>
+          </span>
+        )}
+      </div>
+      {visibleEditModal && (
         <Modal>
           <Wrapper>
             <form onSubmit={e => onSubmitHandler(e)}>
@@ -128,14 +156,13 @@ const Tutorials = ({ tutorials }) => {
                   onChange={e => setDescription(e.target.value)}
                 />
               </p>
-              <p>
-                Ảnh cho khóa học:
-                <input
-                  type="file"
-                  placeholder="ảnh cho khóa học.."
-                  onChange={e => setPosterHandler(e)}
-                />
-              </p>{' '}
+              Poster:{' '}
+              <div className="poster">
+                <img src={displayPoster} alt="anh poster" />
+              </div>
+              <div>
+                <input type="file" onChange={e => setPosterHandler(e)} />
+              </div>
               <p>
                 Đối tượng:{' '}
                 <input
@@ -172,44 +199,34 @@ const Tutorials = ({ tutorials }) => {
                   onChange={e => setStart(e.target.value)}
                 />
               </p>
+              <div>
+                <p>Images (Tối đa 20 ảnh):</p>
+                <div>
+                  {displayImages.map((image, index) => (
+                    <img
+                      style={{ margin: '5px' }}
+                      key={index.toString()}
+                      src={image}
+                      alt="anh art"
+                    />
+                  ))}
+                </div>
+                <div>
+                  <input type="file" multiple onChange={e => setImagesHandler(e)} />
+                </div>
+              </div>
               <p>
-                Images (Tối đa 20 ảnh):
-                <input type="file" multiple onChange={e => setImagesHandler(e)} />
-              </p>
-              <p>
-                <button
-                  type="submit"
-                  style={{ marginRight: '5px' }}
-                  disabled={
-                    !nameCourse ||
-                    !description ||
-                    !poster ||
-                    !object ||
-                    !content ||
-                    !requirement ||
-                    !start ||
-                    !images
-                  }
-                >
-                  Thêm khóa học
+                <button type="submit" style={{ marginRight: '5px' }}>
+                  Xác nhận
                 </button>
-                <button type="button" onClick={() => setVisible(false)}>
-                  Hủy bỏ
+                <button type="button" onClick={() => setVisibleEditModal(false)}>
+                  Hủy
                 </button>
               </p>
             </form>
           </Wrapper>
         </Modal>
       )}
-
-      <h3>Danh sách các khóa học: </h3>
-      {tutorials.map((tutorial, index) => (
-        <SingleTutorial key={index.toString()} tutorial={tutorial} />
-      ))}
-    </WrapperTutorial>
+    </Div>
   );
 };
-
-export default connect(state => ({
-  tutorials: state.tutorials,
-}))(Tutorials);

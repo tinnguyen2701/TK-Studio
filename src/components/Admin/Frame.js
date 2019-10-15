@@ -8,7 +8,6 @@ import Setting from './Setting';
 
 const Wrapper = styled.div`
   width: 75%;
-  border: 1px solid ${props => props.theme.color};
 `;
 
 const Frame = ({ tabVisible, users }) => {
