@@ -11,8 +11,8 @@ const Div = styled.div`
   align-items: center;
 
   img {
-    width: 50px;
-    height: 50px;
+    width: 120px;
+    height: 120px;
   }
 `;
 
@@ -24,6 +24,7 @@ const Modal = styled.div`
   z-index: 99;
   top: 0;
   left: 0;
+  overflow: auto;
 
   img {
     width: 80px;
@@ -40,6 +41,22 @@ const Wrapper = styled.div`
   transform: translate(-50%, -50%);
   background: white;
   padding: 10px;
+
+  margin-top: 170px;
+
+  form p {
+    textarea {
+      width: 100%;
+      height: 100px;
+      border: 1px solid rgb(44, 166, 239);
+      padding: 5px;
+    }
+
+    input {
+      border: 1px solid rgb(44, 166, 239);
+      padding: 5px;
+    }
+  }
 `;
 
 export default ({ tutorial }) => {
@@ -108,7 +125,6 @@ export default ({ tutorial }) => {
       <div>
         <img src={tutorial.poster} alt="anh khoa hoc" />
       </div>
-      <div>{tutorial.description}</div>
       <div>
         <button type="button" onClick={() => visibleEditHandler()}>
           Chỉnh sửa
@@ -149,7 +165,9 @@ export default ({ tutorial }) => {
               </p>
               <p>
                 Mô tả:{' '}
-                <input
+                <textarea
+                  cols="10"
+                  rows="5"
                   type="text"
                   placeholder="mô tả.."
                   value={description || ''}
@@ -165,7 +183,7 @@ export default ({ tutorial }) => {
               </div>
               <p>
                 Đối tượng:{' '}
-                <input
+                <textarea
                   type="text"
                   placeholder="đối tượng.."
                   value={object || ''}
@@ -174,7 +192,7 @@ export default ({ tutorial }) => {
               </p>
               <p>
                 Nội dung:{' '}
-                <input
+                <textarea
                   type="text"
                   placeholder="nội dung.."
                   value={content || ''}
@@ -183,7 +201,7 @@ export default ({ tutorial }) => {
               </p>
               <p>
                 Yêu cầu:{' '}
-                <input
+                <textarea
                   type="text"
                   placeholder="yêu cầu.."
                   value={requirement || ''}
@@ -192,7 +210,7 @@ export default ({ tutorial }) => {
               </p>
               <p>
                 Ngày khai giảng:{' '}
-                <input
+                <textarea
                   type="text"
                   placeholder="ngày khai giảng.."
                   value={start || ''}

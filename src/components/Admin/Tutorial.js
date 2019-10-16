@@ -14,6 +14,7 @@ const Modal = styled.div`
   z-index: 99;
   top: 0;
   left: 0;
+  overflow: auto;
 `;
 
 const Wrapper = styled.div`
@@ -26,6 +27,22 @@ const Wrapper = styled.div`
   padding: 10px;
   transform: translate(-50%, -50%);
   border: 1px solid black;
+
+  margin-top: 100px;
+
+  form p {
+    textarea {
+      width: 100%;
+      height: 100px;
+      border: 1px solid rgb(44, 166, 239);
+      padding: 5px;
+    }
+
+    input {
+      border: 1px solid rgb(44, 166, 239);
+      padding: 5px;
+    }
+  }
 `;
 
 const WrapperTutorial = styled.div`
@@ -121,7 +138,7 @@ const Tutorials = ({ tutorials }) => {
               </p>
               <p>
                 Mô tả:{' '}
-                <input
+                <textarea
                   type="text"
                   placeholder="mô tả.."
                   value={description || ''}
@@ -138,7 +155,7 @@ const Tutorials = ({ tutorials }) => {
               </p>{' '}
               <p>
                 Đối tượng:{' '}
-                <input
+                <textarea
                   type="text"
                   placeholder="đối tượng.."
                   value={object || ''}
@@ -147,7 +164,7 @@ const Tutorials = ({ tutorials }) => {
               </p>
               <p>
                 Nội dung:{' '}
-                <input
+                <textarea
                   type="text"
                   placeholder="nội dung.."
                   value={content || ''}
@@ -156,7 +173,7 @@ const Tutorials = ({ tutorials }) => {
               </p>
               <p>
                 Yêu cầu:{' '}
-                <input
+                <textarea
                   type="text"
                   placeholder="yêu cầu.."
                   value={requirement || ''}
@@ -165,7 +182,7 @@ const Tutorials = ({ tutorials }) => {
               </p>
               <p>
                 Ngày khai giảng:{' '}
-                <input
+                <textarea
                   type="text"
                   placeholder="ngày khai giảng.."
                   value={start || ''}
