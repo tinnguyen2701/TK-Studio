@@ -27,6 +27,18 @@ const tutorialSchema = new Schema({
     type: String,
     required: true,
   },
+  imageObject: {
+    type: String,
+    required: true,
+  },
+  imageContent: {
+    type: String,
+    required: true,
+  },
+  imageRequirement: {
+    type: String,
+    required: true,
+  },
   start: {
     type: String,
     required: true,

@@ -9,7 +9,13 @@ require('../config/cloudinary');
 tutorialRouter.post(
   '/addTutorial',
   passport.authenticate('jwt', { session: false }),
-  upload.fields([{ name: 'poster', maxCount: 1 }, { name: 'images[]', maxCount: 20 }]),
+  upload.fields([
+    { name: 'poster', maxCount: 1 },
+    { name: 'imageObject', maxCount: 1 },
+    { name: 'imageContent', maxCount: 1 },
+    { name: 'imageRequirement', maxCount: 1 },
+    { name: 'images[]', maxCount: 20 },
+  ]),
   async (req, res) => {
     const { nameCourse, description, object, content, requirement, start } = req.body;
 
@@ -20,6 +26,36 @@ tutorialRouter.post(
       })
       .catch(err => {
         logger.logError('failed to upload poster', err);
+        res.sendStatus(500);
+      });
+
+    const imageObject = await cloudinary.v2.uploader
+      .upload(req.files['imageObject'][0].path)
+      .then(result => {
+        return result.secure_url;
+      })
+      .catch(err => {
+        logger.logError('failed to upload imageObject', err);
+        res.sendStatus(500);
+      });
+
+    const imageContent = await cloudinary.v2.uploader
+      .upload(req.files['imageContent'][0].path)
+      .then(result => {
+        return result.secure_url;
+      })
+      .catch(err => {
+        logger.logError('failed to upload imageContent', err);
+        res.sendStatus(500);
+      });
+
+    const imageRequirement = await cloudinary.v2.uploader
+      .upload(req.files['imageRequirement'][0].path)
+      .then(result => {
+        return result.secure_url;
+      })
+      .catch(err => {
+        logger.logError('failed to upload imageRequirement', err);
         res.sendStatus(500);
       });
 
@@ -34,7 +70,18 @@ tutorialRouter.post(
         res.sendStatus(500);
       });
 
-    if (!nameCourse || !description || !object || !content || !requirement || !poster || !images) {
+    if (
+      !nameCourse ||
+      !description ||
+      !object ||
+      !content ||
+      !requirement ||
+      !poster ||
+      !images ||
+      !imageObject ||
+      !imageContent ||
+      !imageRequirement
+    ) {
       logger.logError('fields was required!');
       return res.status(400).send('fields was required!');
     }
@@ -48,6 +95,9 @@ tutorialRouter.post(
       requirement,
       start,
       images,
+      imageObject,
+      imageContent,
+      imageRequirement,
     });
 
     await newTutorial
@@ -86,7 +136,13 @@ tutorialRouter.post(
 tutorialRouter.post(
   '/editTutorial',
   passport.authenticate('jwt', { session: false }),
-  upload.fields([{ name: 'poster', maxCount: 1 }, { name: 'images[]', maxCount: 20 }]),
+  upload.fields([
+    { name: 'poster', maxCount: 1 },
+    { name: 'imageObject', maxCount: 1 },
+    { name: 'imageContent', maxCount: 1 },
+    { name: 'imageRequirement', maxCount: 1 },
+    { name: 'images[]', maxCount: 20 },
+  ]),
   async (req, res) => {
     const { id, nameCourse, description, object, content, requirement, start } = req.body;
 
@@ -111,6 +167,49 @@ tutorialRouter.post(
         });
     }
 
+    let imageObject;
+    if (req.files['imageObject'] === undefined) imageObject = tutorialCurrent.imageObject;
+    else {
+      imageObject = await cloudinary.v2.uploader
+        .upload(req.files['imageObject'][0].path)
+        .then(result => {
+          return result.secure_url;
+        })
+        .catch(err => {
+          logger.logError('failed to upload imageObject', err);
+          res.sendStatus(500);
+        });
+    }
+
+    let imageContent;
+    if (req.files['imageContent'] === undefined) imageContent = tutorialCurrent.imageContent;
+    else {
+      imageContent = await cloudinary.v2.uploader
+        .upload(req.files['imageContent'][0].path)
+        .then(result => {
+          return result.secure_url;
+        })
+        .catch(err => {
+          logger.logError('failed to upload imageContent', err);
+          res.sendStatus(500);
+        });
+    }
+
+    let imageRequirement;
+    if (req.files['imageRequirement'] === undefined)
+      imageRequirement = tutorialCurrent.imageRequirement;
+    else {
+      imageRequirement = await cloudinary.v2.uploader
+        .upload(req.files['imageRequirement'][0].path)
+        .then(result => {
+          return result.secure_url;
+        })
+        .catch(err => {
+          logger.logError('failed to upload imageRequirement', err);
+          res.sendStatus(500);
+        });
+    }
+
     let images;
     if (req.files['images[]'] === undefined) images = tutorialCurrent.images;
     else {
@@ -128,23 +227,35 @@ tutorialRouter.post(
 
     await Tutorial.updateOne(
       { _id: id },
-      { $set: { nameCourse, description, object, content, poster, images, requirement, start } },
+      {
+        $set: {
+          nameCourse,
+          description,
+          object,
+          content,
+          poster,
+          images,
+          requirement,
+          start,
+          imageObject,
+          imageContent,
+          imageRequirement,
+        },
+      },
     )
       .then(() => {
         logger.logInfo('edit success');
-        return res
-          .status(200)
-          .send({
-            id,
-            nameCourse,
-            description,
-            object,
-            content,
-            poster,
-            images,
-            requirement,
-            start,
-          });
+        return res.status(200).send({
+          id,
+          nameCourse,
+          description,
+          object,
+          content,
+          poster,
+          images,
+          requirement,
+          start,
+        });
       })
       .catch(err => {
         logger.logError('edit tutorial went wrong!', err);

@@ -120,7 +120,9 @@ const Login = ({ history, isAuthenticate }) => {
     <OverlayWrapper>
       <div className="overlay">
         <form onSubmit={e => onSubmitHandler(e)}>
-          {isAuthenticate === false && <p>Email or password was wrong!</p>}
+          {isAuthenticate === false && (
+            <p style={{ color: 'rgb(230, 70, 46)' }}>Email or password was wrong!</p>
+          )}
           <div className="con">
             <header className="head-form">
               <h2>Log In</h2>

@@ -28,7 +28,7 @@ const Wrapper = styled.div`
   transform: translate(-50%, -50%);
   border: 1px solid black;
 
-  margin-top: 100px;
+  margin-top: 150px;
 
   form p {
     textarea {
@@ -74,6 +74,9 @@ const Tutorials = ({ tutorials }) => {
   const [start, setStart] = useState(null);
   const [images, setImages] = useState(null);
   const [visible, setVisible] = useState(false);
+  const [imageObject, setImageObject] = useState(null);
+  const [imageContent, setImageContent] = useState(null);
+  const [imageRequirement, setImageRequirement] = useState(null);
 
   const onSubmitHandler = e => {
     e.preventDefault();
@@ -82,6 +85,9 @@ const Tutorials = ({ tutorials }) => {
     formData.append('nameCourse', nameCourse);
     formData.append('description', description);
     formData.append('poster', poster);
+    formData.append('imageObject', imageObject);
+    formData.append('imageContent', imageContent);
+    formData.append('imageRequirement', imageRequirement);
     formData.append('object', object);
     formData.append('content', content);
     formData.append('requirement', requirement);
@@ -111,6 +117,21 @@ const Tutorials = ({ tutorials }) => {
   const setPosterHandler = e => {
     e.persist();
     setPoster(e.target.files[0]);
+  };
+
+  const setImageObjectHandler = e => {
+    e.persist();
+    setImageObject(e.target.files[0]);
+  };
+
+  const setContentHandler = e => {
+    e.persist();
+    setImageContent(e.target.files[0]);
+  };
+
+  const setImageRequirementHandler = e => {
+    e.persist();
+    setImageRequirement(e.target.files[0]);
   };
 
   const setImagesHandler = e => {
@@ -163,6 +184,14 @@ const Tutorials = ({ tutorials }) => {
                 />
               </p>
               <p>
+                Ảnh cho đối tượng:
+                <input
+                  type="file"
+                  placeholder="ảnh cho đối tượng.."
+                  onChange={e => setImageObjectHandler(e)}
+                />
+              </p>
+              <p>
                 Nội dung:{' '}
                 <textarea
                   type="text"
@@ -172,12 +201,28 @@ const Tutorials = ({ tutorials }) => {
                 />
               </p>
               <p>
+                Ảnh cho nội dung:
+                <input
+                  type="file"
+                  placeholder="ảnh cho nội dung.."
+                  onChange={e => setContentHandler(e)}
+                />
+              </p>
+              <p>
                 Yêu cầu:{' '}
                 <textarea
                   type="text"
                   placeholder="yêu cầu.."
                   value={requirement || ''}
                   onChange={e => setRequirement(e.target.value)}
+                />
+              </p>
+              <p>
+                Ảnh cho yêu cầu:
+                <input
+                  type="file"
+                  placeholder="ảnh cho yêu cầu.."
+                  onChange={e => setImageRequirementHandler(e)}
                 />
               </p>
               <p>
@@ -205,7 +250,10 @@ const Tutorials = ({ tutorials }) => {
                     !content ||
                     !requirement ||
                     !start ||
-                    !images
+                    !images ||
+                    !imageObject ||
+                    !imageContent ||
+                    !imageRequirement
                   }
                 >
                   Thêm khóa học

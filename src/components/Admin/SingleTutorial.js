@@ -42,7 +42,7 @@ const Wrapper = styled.div`
   background: white;
   padding: 10px;
 
-  margin-top: 170px;
+  margin-top: 380px;
 
   form p {
     textarea {
@@ -69,9 +69,16 @@ export default ({ tutorial }) => {
   const [visibleRemove, setVisibleRemove] = useState(false);
   const [visibleEditModal, setVisibleEditModal] = useState(false);
   const [poster, setPoster] = useState(null);
+  const [imageObject, setImageObject] = useState(null);
+  const [imageContent, setImageContent] = useState(null);
+  const [imageRequirement, setImageRequirement] = useState(null);
+
   const [images, setImages] = useState(null);
 
   const displayPoster = tutorial.poster;
+  const displayImageObject = tutorial.imageObject;
+  const displayImageContent = tutorial.imageContent;
+  const displayImageRequirement = tutorial.imageRequirement;
   const displayImages = tutorial.images;
 
   const onSubmitHandler = e => {
@@ -86,6 +93,9 @@ export default ({ tutorial }) => {
     formData.append('requirement', requirement);
     formData.append('start', start);
     formData.append('poster', poster);
+    formData.append('imageObject', imageObject);
+    formData.append('imageContent', imageContent);
+    formData.append('imageRequirement', imageRequirement);
 
     if (images) {
       for (const image of images) {
@@ -112,6 +122,21 @@ export default ({ tutorial }) => {
   const setPosterHandler = e => {
     e.persist();
     setPoster(e.target.files[0]);
+  };
+
+  const setImageObjectHandler = e => {
+    e.persist();
+    setImageObject(e.target.files[0]);
+  };
+
+  const setContentHandler = e => {
+    e.persist();
+    setImageContent(e.target.files[0]);
+  };
+
+  const setImageRequirementHandler = e => {
+    e.persist();
+    setImageRequirement(e.target.files[0]);
   };
 
   const setImagesHandler = e => {
@@ -174,13 +199,15 @@ export default ({ tutorial }) => {
                   onChange={e => setDescription(e.target.value)}
                 />
               </p>
-              Poster:{' '}
-              <div className="poster">
-                <img src={displayPoster} alt="anh poster" />
-              </div>
-              <div>
-                <input type="file" onChange={e => setPosterHandler(e)} />
-              </div>
+              <p>
+                Poster:{' '}
+                <div className="poster">
+                  <img src={displayPoster} alt="anh poster" />
+                </div>
+                <div>
+                  <input type="file" onChange={e => setPosterHandler(e)} />
+                </div>
+              </p>
               <p>
                 Đối tượng:{' '}
                 <textarea
@@ -189,6 +216,15 @@ export default ({ tutorial }) => {
                   value={object || ''}
                   onChange={e => setObject(e.target.value)}
                 />
+              </p>
+              <p>
+                Thêm image cho đối tượng:{' '}
+                <div>
+                  <img src={displayImageObject} alt="anh poster object" />
+                </div>
+                <div>
+                  <input type="file" onChange={e => setImageObjectHandler(e)} />
+                </div>
               </p>
               <p>
                 Nội dung:{' '}
@@ -200,6 +236,15 @@ export default ({ tutorial }) => {
                 />
               </p>
               <p>
+                Thêm image cho nội dung:{' '}
+                <div>
+                  <img src={displayImageContent} alt="anh poster content" />
+                </div>
+                <div>
+                  <input type="file" onChange={e => setContentHandler(e)} />
+                </div>
+              </p>
+              <p>
                 Yêu cầu:{' '}
                 <textarea
                   type="text"
@@ -207,6 +252,15 @@ export default ({ tutorial }) => {
                   value={requirement || ''}
                   onChange={e => setRequirement(e.target.value)}
                 />
+              </p>
+              <p>
+                Thêm image cho yêu cầu:{' '}
+                <div>
+                  <img src={displayImageRequirement} alt="anh poster requirement" />
+                </div>
+                <div>
+                  <input type="file" onChange={e => setImageRequirementHandler(e)} />
+                </div>
               </p>
               <p>
                 Ngày khai giảng:{' '}
