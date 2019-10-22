@@ -218,7 +218,8 @@ const Wrapper = styled.div`
       overflow: hidden;
 
       > img {
-        width: 100%;
+        // width: 100%;
+        height: 100%;
       }
     }
 
@@ -364,7 +365,6 @@ const Home = ({ users }) => {
   }, []);
 
   const students = users.filter(user => user.role === 'student');
-  console.log(students);
 
   return (
     <Wrapper>
@@ -439,7 +439,7 @@ const Home = ({ users }) => {
         <div>
           <div>
             <AvatarStudent>
-              {students[0] && <img src={students[0].avatar} alt={students[1].name} />}
+              {students[0] && <img src={students[0].avatar} alt={students[0].name} />}
             </AvatarStudent>
             <AvatarStudent>
               {students[1] && <img src={students[1].avatar} alt={students[2].name} />}
