@@ -157,7 +157,7 @@ userRouter.post(
   },
 );
 
-userRouter.get('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
+userRouter.get('/', async (req, res) => {
   const users = await User.find({});
   return res.status(200).send(users);
 });
