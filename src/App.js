@@ -5,6 +5,7 @@ import theme from './theme';
 import Home from './components/Home';
 import Admin from './components/Admin';
 import Login from './components/Login';
+import About from './components/About';
 
 export default () => {
   return (
@@ -14,6 +15,7 @@ export default () => {
           <Route exact path="/" component={Home} />
           <Route path="/dashboard" component={Admin} />
           <Route path="/login" component={Login} />
+          <Route path="/gioi-thieu" component={About} />
         </Router>
       </BrowserRouter>
     </ThemeProvider>
