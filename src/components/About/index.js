@@ -143,6 +143,10 @@ const Banner = styled.div`
   overflow: hidden;
   margin-bottom: 50px;
 
+  @media (min-width: 1620px) {
+    height: 700px;
+  }
+
   > img {
     width: calc(100% + 145px);
     top: -300px;
