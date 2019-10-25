@@ -139,7 +139,7 @@ const Banner = styled.div`
   background-size: cover;
   background-position: center;
   position: relative;
-  height: 75%;
+  height: 550px;
   overflow: hidden;
   margin-bottom: 50px;
 
