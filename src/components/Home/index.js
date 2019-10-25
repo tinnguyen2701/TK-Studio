@@ -14,7 +14,6 @@ import instagram from 'images/logo/instagram.png';
 import youtube from 'images/logo/youtube.png';
 
 import nguoive from 'images/person/nguoive.png';
-import nguoingoi from 'images/person/nguoingoi.png';
 import lamp from 'images/home/lamp.png';
 import { GET_ALL_USER_REQUEST } from '../Admin/ducks';
 
@@ -33,13 +32,6 @@ const Navigation = styled.div`
     left: 54%;
     transform: scale(0.6);
     animation: move 10s linear alternate infinite;
-  }
-
-  img.nguoi-ngoi {
-    position: absolute;
-    top: 20%;
-    left: 85%;
-    transform: scale(0.6);
   }
 
   @keyframes move {
@@ -371,7 +363,6 @@ const Home = ({ users }) => {
         <Navigation>
           <img src={logo} alt="logo" />
           <img src={nguoive} className="nguoi-ve" alt="nguoi ve" />
-          <img src={nguoingoi} className="nguoi-ngoi" alt="nguoi ngoi" />
           <ul>
             <li>
               <Link to="/">TRANG CHỦ</Link>

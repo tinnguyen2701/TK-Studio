@@ -134,9 +134,14 @@ const Navigation = styled.div`
 `;
 
 const Banner = styled.div`
+  background-image: url(${backgroundHeader});
+  background-repeat: none;
+  background-size: cover;
+  background-position: center;
   position: relative;
-  height: 543px;
+  height: 75%;
   overflow: hidden;
+  margin-bottom: 50px;
 
   > img {
     width: calc(100% + 145px);
@@ -160,92 +165,99 @@ const Content = styled.div`
   div:nth-child(1) {
     font-size: 25px;
   }
+
   .partial {
     display: flex;
+    justify-content: center;
+    align-items: center;
+
     > div {
-      flex: 1;
-    }
+      display: flex;
+      > div {
+        flex: 1;
+      }
 
-    > div:nth-child(1) {
       > div:nth-child(1) {
-        width: 554px;
-        height: 418px;
-        margin: 10px 10px 10px 0px;
-        position: relative;
-        overflow: hidden;
-        border-radius: 10px;
+        > div:nth-child(1) {
+          width: 554px;
+          height: 418px;
+          margin: 10px 10px 10px 0px;
+          position: relative;
+          overflow: hidden;
+          border-radius: 10px;
 
-        > img {
-          position: absolute;
-          top: -160px;
-          transform: scale(0.65);
-          left: -195px;
+          > img {
+            position: absolute;
+            top: -160px;
+            transform: scale(0.65);
+            left: -195px;
+            border-radius: 10px;
+          }
+        }
+        > div:nth-child(2) {
+          width: 554px;
+          height: 457px;
+          margin: 30px 10px 10px 0;
+
+          position: relative;
+          overflow: hidden;
           border-radius: 10px;
         }
       }
+
       > div:nth-child(2) {
-        width: 554px;
-        height: 457px;
-        margin: 30px 10px 10px 0;
-
-        position: relative;
-        overflow: hidden;
-        border-radius: 10px;
-      }
-    }
-
-    > div:nth-child(2) {
-      > div:nth-child(1) {
-        width: 558px;
-        height: 287px;
-        margin: 10px;
-        position: relative;
-        overflow: hidden;
-        border-radius: 10px;
-      }
-      > div:nth-child(2) {
-        display: flex;
-        > div {
-          flex: 1;
-        }
-
         > div:nth-child(1) {
-          width: 257px;
-          height: 598px;
+          width: 558px;
+          height: 287px;
           margin: 10px;
           position: relative;
           overflow: hidden;
           border-radius: 10px;
         }
-
         > div:nth-child(2) {
+          display: flex;
           > div {
+            flex: 1;
+          }
+
+          > div:nth-child(1) {
+            width: 257px;
+            height: 598px;
+            margin: 10px;
             position: relative;
             overflow: hidden;
             border-radius: 10px;
           }
 
-          > div:nth-child(1) {
-            width: 264px;
-            height: 264px;
-            margin: 10px;
-
-            > img {
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%) scale(0.18);
-            }
-          }
           > div:nth-child(2) {
-            width: 264px;
-            height: 290px;
-            margin: 40px 10px 10px 10px;
+            > div {
+              position: relative;
+              overflow: hidden;
+              border-radius: 10px;
+            }
 
-            > img {
-              position: absolute;
-              top: -45%;
-              left: -10px;
+            > div:nth-child(1) {
+              width: 264px;
+              height: 264px;
+              margin: 10px;
+
+              > img {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0.18);
+              }
+            }
+            > div:nth-child(2) {
+              width: 264px;
+              height: 290px;
+              margin: 40px 10px 10px 10px;
+
+              > img {
+                position: absolute;
+                top: -45%;
+                left: -10px;
+              }
             }
           }
         }
@@ -254,67 +266,90 @@ const Content = styled.div`
   }
 
   .partial-reverse {
+    justify-content: center;
+    align-items: center;
     display: flex;
+
     > div {
-      flex: 1;
-    }
-
-    > div:nth-child(1) {
-      > div:nth-child(1) {
-        width: 558px;
-        height: 287px;
-        overflow: hidden;
-        border-radius: 10px;
-        margin: 10px 10px 10px 0;
-        position: relative;
-
-        > img {
-          position: absolute;
-          transform: scale(0.6);
-          top: -155px;
-          left: -230px;
-        }
+      display: flex;
+      > div {
+        flex: 1;
       }
 
-      > div:nth-child(2) {
-        display: flex;
-        div {
-          flex: 1;
-        }
+      > div:nth-child(1) {
         > div:nth-child(1) {
-          > div:nth-child(1) {
-            width: 264px;
-            height: 264px;
-            overflow: hidden;
-            border-radius: 10px;
-            margin: 10px 10px 10px 0;
-            position: relative;
+          width: 558px;
+          height: 287px;
+          overflow: hidden;
+          border-radius: 10px;
+          margin: 10px 10px 10px 0;
+          position: relative;
 
-            > img {
-              position: absolute;
-              transform: scale(1.4);
-              left: 28px;
+          > img {
+            position: absolute;
+            transform: scale(0.6);
+            top: -155px;
+            left: -230px;
+          }
+        }
+
+        > div:nth-child(2) {
+          display: flex;
+          div {
+            flex: 1;
+          }
+          > div:nth-child(1) {
+            > div:nth-child(1) {
+              width: 264px;
+              height: 264px;
+              overflow: hidden;
+              border-radius: 10px;
+              margin: 10px 10px 10px 0;
+              position: relative;
+
+              > img {
+                position: absolute;
+                transform: scale(1.4);
+                left: 28px;
+              }
+            }
+            > div:nth-child(2) {
+              width: 264px;
+              height: 289px;
+              overflow: hidden;
+              border-radius: 10px;
+              margin-top: 40px;
+              position: relative;
+
+              > img {
+                position: absolute;
+                transform: scale(0.9);
+                left: -100px;
+                top: -20px;
+              }
             }
           }
           > div:nth-child(2) {
-            width: 264px;
-            height: 289px;
+            width: 257px;
+            height: 598px;
             overflow: hidden;
             border-radius: 10px;
-            margin-top: 40px;
+            margin: 10px;
             position: relative;
 
             > img {
               position: absolute;
-              transform: scale(0.9);
-              left: -100px;
-              top: -20px;
+              transform: scale(0.6);
+              top: -205px;
+              left: -250px;
             }
           }
         }
-        > div:nth-child(2) {
-          width: 257px;
-          height: 598px;
+      }
+      > div:nth-child(2) {
+        > div:nth-child(1) {
+          width: 554px;
+          height: 418px;
           overflow: hidden;
           border-radius: 10px;
           margin: 10px;
@@ -322,42 +357,25 @@ const Content = styled.div`
 
           > img {
             position: absolute;
-            transform: scale(0.6);
-            top: -205px;
-            left: -250px;
+            transform: scale(0.61);
+            left: -270px;
+            top: -135px;
           }
         }
-      }
-    }
-    > div:nth-child(2) {
-      > div:nth-child(1) {
-        width: 554px;
-        height: 418px;
-        overflow: hidden;
-        border-radius: 10px;
-        margin: 10px;
-        position: relative;
+        > div:nth-child(2) {
+          width: 554px;
+          height: 457px;
+          overflow: hidden;
+          border-radius: 10px;
+          margin: 30px 10px 10px 10px;
+          position: relative;
 
-        > img {
-          position: absolute;
-          transform: scale(0.61);
-          left: -270px;
-          top: -135px;
-        }
-      }
-      > div:nth-child(2) {
-        width: 554px;
-        height: 457px;
-        overflow: hidden;
-        border-radius: 10px;
-        margin: 30px 10px 10px 10px;
-        position: relative;
-
-        > img {
-          position: absolute;
-          transform: scale(0.8);
-          top: -155px;
-          left: -335px;
+          > img {
+            position: absolute;
+            transform: scale(0.8);
+            top: -155px;
+            left: -335px;
+          }
         }
       }
     }
@@ -435,7 +453,7 @@ const Content = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-left: 20px;
+      padding-right: 20px;
 
       p:nth-child(1) {
         font-size: 42px;
@@ -458,7 +476,6 @@ export default () => {
   return (
     <Wrapper>
       <Banner>
-        <img src={backgroundHeader} alt="background header " />
         <Navigation>
           <img src={logo} alt="logo" />
           <ul>
@@ -493,26 +510,28 @@ export default () => {
           <div className="partial">
             <div>
               <div>
-                <img src={muoihai} alt="muoihai" />
-              </div>
-              <div>
-                <img src={muoimot} alt="muoimot" />
-              </div>
-            </div>
-            <div>
-              <div>
-                <img src={muoi} alt="muoi" />
+                <div>
+                  <img src={muoihai} alt="muoihai" />
+                </div>
+                <div>
+                  <img src={muoimot} alt="muoimot" />
+                </div>
               </div>
               <div>
                 <div>
-                  <img src={chin} alt="chin" />
+                  <img src={muoi} alt="muoi" />
                 </div>
                 <div>
                   <div>
-                    <img src={tam} alt="tam" />
+                    <img src={chin} alt="chin" />
                   </div>
                   <div>
-                    <img src={bay} alt="bay" />
+                    <div>
+                      <img src={tam} alt="tam" />
+                    </div>
+                    <div>
+                      <img src={bay} alt="bay" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -521,28 +540,30 @@ export default () => {
           <div className="partial-reverse">
             <div>
               <div>
-                <img src={bon} alt="bon" />
+                <div>
+                  <img src={bon} alt="bon" />
+                </div>
+                <div>
+                  <div>
+                    <div>
+                      <img src={hai} alt="hai" />
+                    </div>
+                    <div>
+                      <img src={mot} alt="mot" />
+                    </div>
+                  </div>
+                  <div>
+                    <img src={muoiba} alt="muoiba" />
+                  </div>
+                </div>
               </div>
               <div>
                 <div>
-                  <div>
-                    <img src={hai} alt="hai" />
-                  </div>
-                  <div>
-                    <img src={mot} alt="mot" />
-                  </div>
+                  <img src={sau} alt="sau" />
                 </div>
                 <div>
-                  <img src={muoiba} alt="muoiba" />
+                  <img src={nam} alt="nam" />
                 </div>
-              </div>
-            </div>
-            <div>
-              <div>
-                <img src={sau} alt="sau" />
-              </div>
-              <div>
-                <img src={nam} alt="nam" />
               </div>
             </div>
           </div>
