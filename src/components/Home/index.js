@@ -386,7 +386,7 @@ const Home = ({ users }) => {
         <div>
           <h1>TKStudio</h1>
           <br />
-          <p>Là trung tâm luyện thi kiến trúc - Mỹ thuật</p>
+          <p>Là trung tâm luyện thi Kiến trúc - Mỹ thuật</p>
           <p>Chất lượng hàng đầu trên địa bàn tỉnh Thừa Thiên Huế.</p>
           <p>
             Với tiêu chí &quot;thi là đậu&quot;, TK-Studio sẽ là điểm đến tin cậy đến các bạn có nhu

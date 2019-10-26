@@ -283,7 +283,7 @@ export default ({ tutorial }) => {
                 />
               </p>
               <div>
-                <p>Images (Tối đa 20 ảnh):</p>
+                <p>Images:</p>
                 <div>
                   {displayImages.map((image, index) => (
                     <img

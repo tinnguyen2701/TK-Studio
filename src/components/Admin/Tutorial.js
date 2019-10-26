@@ -247,7 +247,7 @@ const Tutorials = ({ tutorials }) => {
                 />
               </p>
               <p>
-                Images (Tối đa 20 ảnh):
+                Images:
                 <input type="file" multiple onChange={e => setImagesHandler(e)} />
               </p>
               <p>
@@ -262,7 +262,6 @@ const Tutorials = ({ tutorials }) => {
                     !content ||
                     !requirement ||
                     !start ||
-                    !images ||
                     !imageObject ||
                     !imageContent ||
                     !imageRequirement

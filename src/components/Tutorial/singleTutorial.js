@@ -153,10 +153,29 @@ const Banner = styled.div`
     text-align: center;
 
     > h1:nth-child(1) {
-      font-size: 42px;
+      font-size: 35px;
     }
     > h1:nth-child(2) {
-      font-size: 32px;
+      font-size: 35px;
+    }
+    > div {
+      display: flex;
+      justify-content: center;
+      padding: 5% 20%;
+      > div:nth-child(1) {
+        width: 250px;
+        height: 190px;
+
+        > img {
+          height: 100%;
+        }
+      }
+      > div:nth-child(2) {
+        font-size: 21px;
+        text-align: left;
+        padding-left: 100px;
+        white-space: pre-line;
+      }
     }
   }
 `;
@@ -165,7 +184,80 @@ const Wrapper = styled.div``;
 
 const Content = styled.div`
   padding: 0 10%;
+
+  > div:nth-child(1) {
+    display: flex;
+    justify-content: center;
+
+    > div {
+      flex: 1;
+      margin: 20px;
+      > p:nth-child(1) {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        > img {
+          height: 222px;
+        }
+      }
+
+      > p:nth-child(2) {
+        color: #e54107;
+        padding: 10px 0;
+        font-size: 22px;
+        text-align: center;
+      }
+
+      > p:nth-child(3) {
+        white-space: pre-line;
+        font-size: 19px;
+      }
+    }
+  }
+
+  > div:nth-child(2) {
+    margin-top: 50px;
+    > p:nth-child(1) {
+      color: #e54107;
+      padding: 10px 0;
+      font-size: 22px;
+    }
+
+    > p:nth-child(2) {
+      white-space: pre-line;
+      font-size: 19px;
+    }
+  }
+
+  > div:nth-child(3) {
+    margin-top: 50px;
+
+    > p:nth-child(1) {
+      color: #e54107;
+      padding: 10px 0;
+      font-size: 22px;
+    }
+  }
+`;
+
+const ItemTutorial = styled.div`
+  display: inline-block;
+  width: 323px;
+  height: 318px;
+  margin-right: 30px;
+  margin-top: 30px;
+
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 8px solid #2ca6ef;
+  background: #2ca6ef;
   text-align: center;
+
+  > img {
+    border-radius: 8px;
+    height: 100%;
+  }
 `;
 
 const Tutorial = ({ match, tutorial }) => {
@@ -210,12 +302,59 @@ const Tutorial = ({ match, tutorial }) => {
             </ul>
           </Navigation>
           <div>
-            <h1>CÁC KHÓA HỌC Ở TKSTUDIO</h1>
-            <h1>Bấm vào hình để xem chi tiết khóa học</h1>
+            <h1>KHÓA HỌC</h1>
+            <h1>
+              {tutorial.subject} {tutorial.nameCourse}
+            </h1>
+            <div>
+              <div>
+                <img src={tutorial.poster} alt="poster" />
+              </div>
+              <div>{tutorial.description}</div>
+            </div>
           </div>
         </Banner>
         <Content>
-          <div>content</div>
+          <div>
+            <div>
+              <p>
+                <img src={tutorial.imageObject} alt="object" />
+              </p>
+              <p>ĐỐI TƯỢNG</p>
+              <p>{tutorial.object}</p>
+            </div>
+            <div>
+              <p>
+                <img src={tutorial.imageContent} alt="object" />
+              </p>
+              <p>NỘI DUNG KHÓA HỌC</p>
+              <p>{tutorial.content}</p>
+            </div>
+            <div>
+              <p>
+                <img src={tutorial.imageRequirement} alt="object" />
+              </p>
+
+              <p>YÊU CẦU</p>
+              <p>{tutorial.requirement}</p>
+            </div>
+          </div>
+          <div>
+            <p>KHAI GIẢNG</p>
+            <p>{tutorial.start}</p>
+          </div>
+          {tutorial.images.length > 0 && (
+            <div>
+              <p>BÀI VẼ CỦA CÁC BÀI HỌC VIÊN KHÓA TRƯỚC</p>
+              <div>
+                {tutorial.images.map((item, index) => (
+                  <ItemTutorial key={index.toString()}>
+                    <img src={item} alt={item} />
+                  </ItemTutorial>
+                ))}
+              </div>
+            </div>
+          )}
         </Content>
         <Footer>
           <img src={backgroundFooter} alt="footer background" />

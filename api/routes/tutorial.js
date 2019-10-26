@@ -59,16 +59,19 @@ tutorialRouter.post(
         res.sendStatus(500);
       });
 
-    const images = await Promise.all(
-      req.files['images[]'].map(file => cloudinary.v2.uploader.upload(file.path)),
-    )
-      .then(responses => {
-        return responses.map(response => response.secure_url);
-      })
-      .catch(err => {
-        logger.logError('faild to upload images', err);
-        res.sendStatus(500);
-      });
+    let images = [];
+    if (req.files['images[]'] !== undefined) {
+      images = await Promise.all(
+        req.files['images[]'].map(file => cloudinary.v2.uploader.upload(file.path)),
+      )
+        .then(responses => {
+          return responses.map(response => response.secure_url);
+        })
+        .catch(err => {
+          logger.logError('faild to upload images', err);
+          res.sendStatus(500);
+        });
+    }
 
     if (
       !nameCourse ||
@@ -78,7 +81,6 @@ tutorialRouter.post(
       !content ||
       !requirement ||
       !poster ||
-      !images ||
       !imageObject ||
       !imageContent ||
       !imageRequirement
