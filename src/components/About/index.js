@@ -29,6 +29,7 @@ const Footer = styled.div`
   position: relative;
   > img {
     width: 100%;
+    vertical-align: middle;
   }
   > div {
     display: flex;
@@ -110,7 +111,7 @@ const Navigation = styled.div`
     display: flex;
 
     > li {
-      margin: 5px;
+      margin: 10px;
 
       a {
         text-decoration: none;
@@ -474,6 +475,7 @@ const Content = styled.div`
 
 const Wrapper = styled.div``;
 export default () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   const onClickHandler = () => {
     window.open('https://www.youtube.com/embed/fiUpq6k5BAU', '_blank');
   };

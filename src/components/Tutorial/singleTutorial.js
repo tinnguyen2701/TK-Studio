@@ -99,7 +99,7 @@ const Navigation = styled.div`
     display: flex;
 
     > li {
-      margin: 5px;
+      margin: 10px;
 
       a {
         text-decoration: none;

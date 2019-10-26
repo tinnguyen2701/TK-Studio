@@ -61,7 +61,7 @@ const Navigation = styled.div`
     display: flex;
 
     > li {
-      margin: 5px;
+      margin: 10px;
 
       a {
         text-decoration: none;
@@ -280,6 +280,7 @@ const Footer = styled.div`
   position: relative;
   > img {
     width: 100%;
+    vertical-align: middle;
   }
   > div {
     display: flex;
@@ -354,6 +355,8 @@ const Home = ({ users }) => {
   useEffect(() => {
     store.dispatch({ type: GET_ALL_USER_REQUEST });
   }, []);
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 
   const students = users.filter(user => user.role === 'student');
 

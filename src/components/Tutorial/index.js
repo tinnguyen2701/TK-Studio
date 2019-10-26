@@ -18,6 +18,7 @@ const Footer = styled.div`
   position: relative;
   > img {
     width: 100%;
+    vertical-align: middle;
   }
   > div {
     display: flex;
@@ -99,7 +100,7 @@ const Navigation = styled.div`
     display: flex;
 
     > li {
-      margin: 5px;
+      margin: 10px;
 
       a {
         text-decoration: none;
@@ -219,6 +220,8 @@ const Tutorial = ({ tutorials }) => {
   useEffect(() => {
     store.dispatch({ type: GET_ALL_TUTORIAL_REQUEST });
   }, []);
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 
   const onClickHandler = nameCourse => {
     const string = nameCourse

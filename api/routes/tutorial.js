@@ -116,7 +116,7 @@ tutorialRouter.post(
   },
 );
 
-tutorialRouter.get('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
+tutorialRouter.get('/', async (req, res) => {
   const tutorials = await Tutorial.find({});
   return res.status(200).send(tutorials);
 });

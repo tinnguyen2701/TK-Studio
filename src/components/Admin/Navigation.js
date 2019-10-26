@@ -13,7 +13,7 @@ const Wrapper = styled.div`
     padding: 5px;
     color: white;
     border-radius: 3px;
-    margin: 5px 0;
+    margin: 10px 0;
     padding: 5px 20px;
   }
 `;
