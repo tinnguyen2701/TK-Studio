@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import store from 'store';
 import { connect } from 'react-redux';
 import bannerBackground from 'images/banner/bannerBackground.png';
+import cup from 'images/banner/cup.png';
+import boom from 'images/banner/boom.png';
 import backgroundFooter from 'images/background/backgroundFooter.png';
 import doiNgu from 'images/home/doi-ngu.png';
 import logo from 'images/logo/logo.png';
@@ -34,6 +36,21 @@ const Navigation = styled.div`
     animation: move 10s linear alternate infinite;
   }
 
+  img.boom {
+    position: absolute;
+    top: 14%;
+    left: 82%;
+    animation: updown 3s linear infinite;
+  }
+
+  img.cup {
+    position: absolute;
+    transform: scale(0.6);
+    top: 18%;
+    left: 65%;
+    animation: shaky 3s linear infinite;
+  }
+
   @keyframes move {
     50% {
       top: 31%;
@@ -53,6 +70,33 @@ const Navigation = styled.div`
       top: 39%;
       left: 33%;
       transform: scale(0.6) skewX(6deg);
+    }
+  }
+
+  @keyframes shaky {
+    0% {
+      transform: scale(0.55) rotate(0);
+    }
+    25% {
+      transform: scale(0.55) rotate(-15deg);
+    }
+    50% {
+      transform: scale(0.55) rotate(0deg);
+    }
+    75% {
+      transform: scale(0.55) rotate(15deg);
+    }
+    100% {
+      transform: scale(0.55) rotate(0deg);
+    }
+  }
+
+  @keyframes updown {
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
     }
   }
 
@@ -77,6 +121,7 @@ const Navigation = styled.div`
         margin-top: -5px;
 
         > a {
+          font-family: font_strong;
           color: white;
         }
       }
@@ -107,6 +152,7 @@ const Banner = styled.div`
 
       > a {
         color: white;
+        font-family: font_strong;
         text-decoration: none;
       }
     }
@@ -134,6 +180,7 @@ const Wrapper = styled.div`
 
       > a {
         color: white;
+        font-family: font_strong;
         text-decoration: none;
       }
     }
@@ -155,19 +202,28 @@ const Wrapper = styled.div`
         margin-bottom: 300px;
       }
 
+      @media (min-width: 1620px) {
+        margin-bottom: 450px;
+      }
+
       > div {
         > div {
-          width: 150px;
-          height: 150px;
+          width: 180px;
+          height: 180px;
           border-radius: 50%;
           position: relative;
           z-index: 1;
           display: inline-block;
           margin: 50px 100px;
 
+          @media (min-width: 1620px) {
+            width: 250px;
+            height: 250px;
+          }
+
           > img {
-            width: 150px;
-            height: 150px;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             z-index: 9;
           }
@@ -366,6 +422,9 @@ const Home = ({ users }) => {
         <Navigation>
           <img src={logo} alt="logo" />
           <img src={nguoive} className="nguoi-ve" alt="nguoi ve" />
+          <img src={cup} className="cup" alt="cup" />
+          <img src={boom} className="boom" alt="boom" />
+
           <ul>
             <li>
               <Link to="/">TRANG CHỦ</Link>

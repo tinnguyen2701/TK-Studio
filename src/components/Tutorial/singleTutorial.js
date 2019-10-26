@@ -18,6 +18,7 @@ const Footer = styled.div`
   position: relative;
   > img {
     width: 100%;
+    vertical-align: middle;
   }
   > div {
     display: flex;
@@ -116,6 +117,7 @@ const Navigation = styled.div`
 
         > a {
           color: white;
+          font-family: font_strong;
         }
       }
     }

@@ -116,6 +116,7 @@ const Navigation = styled.div`
         margin-top: -5px;
 
         > a {
+          font-family: font_strong;
           color: white;
         }
       }
