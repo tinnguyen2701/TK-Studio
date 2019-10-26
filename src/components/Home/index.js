@@ -38,9 +38,30 @@ const Navigation = styled.div`
 
   img.boom {
     position: absolute;
-    top: 14%;
-    left: 82%;
+    top: 13%;
+    left: 84%;
     animation: updown 3s linear infinite;
+  }
+
+  @media (min-width: 1349px) {
+    img.boom {
+      top: 15%;
+      left: 80%;
+    }
+  }
+
+  @media (min-width: 1366px) {
+    img.boom {
+      left: 81%;
+      top: 16%;
+    }
+  }
+
+  @media (min-width: 1620px) {
+    img.boom {
+      left: 78%;
+      top: 18%;
+    }
   }
 
   img.cup {
