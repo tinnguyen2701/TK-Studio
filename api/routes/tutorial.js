@@ -17,7 +17,7 @@ tutorialRouter.post(
     { name: 'images[]', maxCount: 20 },
   ]),
   async (req, res) => {
-    const { nameCourse, description, object, content, requirement, start } = req.body;
+    const { nameCourse, description, object, subject, content, requirement, start } = req.body;
 
     const poster = await cloudinary.v2.uploader
       .upload(req.files['poster'][0].path)
@@ -74,6 +74,7 @@ tutorialRouter.post(
       !nameCourse ||
       !description ||
       !object ||
+      !subject ||
       !content ||
       !requirement ||
       !poster ||
@@ -91,6 +92,7 @@ tutorialRouter.post(
       description,
       poster,
       object,
+      subject,
       content,
       requirement,
       start,
@@ -115,6 +117,43 @@ tutorialRouter.post(
 tutorialRouter.get('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
   const tutorials = await Tutorial.find({});
   return res.status(200).send(tutorials);
+});
+
+tutorialRouter.get('/:nameCourse', async (req, res) => {
+  const { nameCourse } = req.params;
+
+  const khongDau = str => {
+    str = str.toLowerCase();
+    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, 'e');
+    str = str.replace(/ì|í|ị|ỉ|ĩ/g, 'i');
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, 'o');
+    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, 'u');
+    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, 'y');
+    str = str.replace(/đ/g, 'd');
+    str = str.replace(/ /g, '-');
+    str = str.replace(/\./g, '-');
+    return str;
+  };
+
+  await Tutorial.find({})
+    .then(tutorials => {
+      return Promise.all(
+        tutorials.map(item => {
+          if (khongDau(item.nameCourse) === nameCourse) {
+            return Promise.resolve(item);
+          }
+          return Promise.resolve(null);
+        }),
+      ).then(data => {
+        const itemTutorial = data.filter(item => item);
+        return res.status(200).send(itemTutorial);
+      });
+    })
+    .catch(err => {
+      logger.logError('server went wrong!', err);
+      return res.sendStatus(500);
+    });
 });
 
 tutorialRouter.post(
@@ -144,9 +183,9 @@ tutorialRouter.post(
     { name: 'images[]', maxCount: 20 },
   ]),
   async (req, res) => {
-    const { id, nameCourse, description, object, content, requirement, start } = req.body;
+    const { id, nameCourse, description, object, subject, content, requirement, start } = req.body;
 
-    if (!nameCourse || !description || !object || !content || !requirement || !start) {
+    if (!nameCourse || !description || !object || !subject || !content || !requirement || !start) {
       logger.logError('fields was required!');
       return res.status(400).send('fields was required!');
     }
@@ -232,6 +271,7 @@ tutorialRouter.post(
           nameCourse,
           description,
           object,
+          subject,
           content,
           poster,
           images,
@@ -250,6 +290,7 @@ tutorialRouter.post(
           nameCourse,
           description,
           object,
+          subject,
           content,
           poster,
           images,

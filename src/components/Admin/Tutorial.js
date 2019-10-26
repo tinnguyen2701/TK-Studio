@@ -28,7 +28,7 @@ const Wrapper = styled.div`
   transform: translate(-50%, -50%);
   border: 1px solid black;
 
-  margin-top: 150px;
+  margin-top: 200px;
 
   form p {
     textarea {
@@ -69,6 +69,7 @@ const Tutorials = ({ tutorials }) => {
   const [description, setDescription] = useState(null);
   const [poster, setPoster] = useState(null);
   const [object, setObject] = useState(null);
+  const [subject, setSubject] = useState(null);
   const [content, setContent] = useState(null);
   const [requirement, setRequirement] = useState(null);
   const [start, setStart] = useState(null);
@@ -89,6 +90,7 @@ const Tutorials = ({ tutorials }) => {
     formData.append('imageContent', imageContent);
     formData.append('imageRequirement', imageRequirement);
     formData.append('object', object);
+    formData.append('subject', subject);
     formData.append('content', content);
     formData.append('requirement', requirement);
     formData.append('start', start);
@@ -108,6 +110,7 @@ const Tutorials = ({ tutorials }) => {
     setDescription(null);
     setPoster(null);
     setObject(null);
+    setSubject(null);
     setContent(null);
     setRequirement(null);
     setStart(null);
@@ -155,6 +158,15 @@ const Tutorials = ({ tutorials }) => {
                   placeholder="tên khóa.."
                   value={nameCourse || ''}
                   onChange={e => setNameCourse(e.target.value)}
+                />
+              </p>
+              <p>
+                Chủ đề:{' '}
+                <textarea
+                  type="text"
+                  placeholder="chủ đề.."
+                  value={subject || ''}
+                  onChange={e => setSubject(e.target.value)}
                 />
               </p>
               <p>

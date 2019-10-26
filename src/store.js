@@ -27,6 +27,7 @@ import {
   tutorialsReducer as tutorials,
   statusReducer as status,
 } from './ducks';
+import { tutorialSaga, tutorialReducer as tutorial } from './components/Tutorial/duck';
 
 export const rootReducer = combineReducers({
   login,
@@ -35,6 +36,7 @@ export const rootReducer = combineReducers({
   users,
   tutorials,
   status,
+  tutorial,
 });
 
 const rootSaga = function* rootSaga() {
@@ -56,6 +58,7 @@ const rootSaga = function* rootSaga() {
     ...allTutorialSaga,
     ...removeUserSaga,
     ...removeTutorialSaga,
+    ...tutorialSaga,
   ]);
 };
 

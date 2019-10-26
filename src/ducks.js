@@ -98,6 +98,7 @@ const tutorialsActionHandler = {
         tutorial.nameCourse = action.payload.nameCourse;
         tutorial.description = action.payload.description;
         tutorial.object = action.payload.object;
+        tutorial.subject = action.payload.subject;
         tutorial.content = action.payload.content;
         tutorial.poster = action.payload.poster;
         tutorial.images = action.payload.images;

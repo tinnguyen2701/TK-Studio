@@ -42,7 +42,7 @@ const Wrapper = styled.div`
   background: white;
   padding: 10px;
 
-  margin-top: 380px;
+  margin-top: 450px;
 
   form p {
     textarea {
@@ -63,6 +63,7 @@ export default ({ tutorial }) => {
   const [nameCourse, setNameCourse] = useState(tutorial.nameCourse);
   const [description, setDescription] = useState(tutorial.description);
   const [object, setObject] = useState(tutorial.object);
+  const [subject, setSubject] = useState(tutorial.subject);
   const [content, setContent] = useState(tutorial.content);
   const [requirement, setRequirement] = useState(tutorial.requirement);
   const [start, setStart] = useState(tutorial.start);
@@ -89,6 +90,7 @@ export default ({ tutorial }) => {
     formData.append('nameCourse', nameCourse);
     formData.append('description', description);
     formData.append('object', object);
+    formData.append('subject', subject);
     formData.append('content', content);
     formData.append('requirement', requirement);
     formData.append('start', start);
@@ -189,6 +191,15 @@ export default ({ tutorial }) => {
                 />
               </p>
               <p>
+                Chủ đề:{' '}
+                <textarea
+                  type="text"
+                  placeholder="chủ đề.."
+                  value={subject || ''}
+                  onChange={e => setSubject(e.target.value)}
+                />
+              </p>
+              <p>
                 Mô tả:{' '}
                 <textarea
                   cols="10"
@@ -199,15 +210,15 @@ export default ({ tutorial }) => {
                   onChange={e => setDescription(e.target.value)}
                 />
               </p>
-              <p>
+              <div>
                 Poster:{' '}
-                <div className="poster">
+                <p className="poster">
                   <img src={displayPoster} alt="anh poster" />
-                </div>
-                <div>
+                </p>
+                <p>
                   <input type="file" onChange={e => setPosterHandler(e)} />
-                </div>
-              </p>
+                </p>
+              </div>
               <p>
                 Đối tượng:{' '}
                 <textarea
@@ -217,15 +228,15 @@ export default ({ tutorial }) => {
                   onChange={e => setObject(e.target.value)}
                 />
               </p>
-              <p>
+              <div>
                 Thêm image cho đối tượng:{' '}
-                <div>
+                <p>
                   <img src={displayImageObject} alt="anh poster object" />
-                </div>
-                <div>
+                </p>
+                <p>
                   <input type="file" onChange={e => setImageObjectHandler(e)} />
-                </div>
-              </p>
+                </p>
+              </div>
               <p>
                 Nội dung:{' '}
                 <textarea
@@ -235,15 +246,15 @@ export default ({ tutorial }) => {
                   onChange={e => setContent(e.target.value)}
                 />
               </p>
-              <p>
+              <div>
                 Thêm image cho nội dung:{' '}
-                <div>
+                <p>
                   <img src={displayImageContent} alt="anh poster content" />
-                </div>
-                <div>
+                </p>
+                <p>
                   <input type="file" onChange={e => setContentHandler(e)} />
-                </div>
-              </p>
+                </p>
+              </div>
               <p>
                 Yêu cầu:{' '}
                 <textarea
@@ -253,15 +264,15 @@ export default ({ tutorial }) => {
                   onChange={e => setRequirement(e.target.value)}
                 />
               </p>
-              <p>
+              <div>
                 Thêm image cho yêu cầu:{' '}
-                <div>
+                <p>
                   <img src={displayImageRequirement} alt="anh poster requirement" />
-                </div>
-                <div>
+                </p>
+                <p>
                   <input type="file" onChange={e => setImageRequirementHandler(e)} />
-                </div>
-              </p>
+                </p>
+              </div>
               <p>
                 Ngày khai giảng:{' '}
                 <textarea

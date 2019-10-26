@@ -6,6 +6,8 @@ import Home from './components/Home';
 import Admin from './components/Admin';
 import Login from './components/Login';
 import About from './components/About';
+import Tutorial from './components/Tutorial';
+import singleTutorial from './components/Tutorial/singleTutorial';
 
 export default () => {
   return (
@@ -16,6 +18,9 @@ export default () => {
           <Route path="/dashboard" component={Admin} />
           <Route path="/login" component={Login} />
           <Route path="/gioi-thieu" component={About} />
+          <Route exact path="/khoa-hoc" component={Tutorial} />
+          <Route exact path="/" component={Tutorial} />
+          <Route path="/khoa-hoc/:nameCourse" component={singleTutorial} />
         </Router>
       </BrowserRouter>
     </ThemeProvider>
