@@ -1,3 +1,5 @@
+/* eslint-disable*/
+
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -217,7 +219,7 @@ const ItemTutorial = styled.div`
   }
 `;
 
-const Tutorial = ({ tutorials }) => {
+const Tutorial = ({ tutorials, history }) => {
   useEffect(() => {
     store.dispatch({ type: GET_ALL_TUTORIAL_REQUEST });
   }, []);
@@ -236,7 +238,8 @@ const Tutorial = ({ tutorials }) => {
       .split(' ')
       .join('-')
       .toLowerCase();
-    window.open(`${process.env.REACT_APP_BASE_URL}khoa-hoc/${string}`, '_blank');
+
+    history.push(`/khoa-hoc/${string}`);
   };
 
   return (
@@ -255,7 +258,7 @@ const Tutorial = ({ tutorials }) => {
               <Link to="/khoa-hoc">KHÓA HỌC</Link>
             </li>
             <li>
-              <Link to="/#" onClick={() => subcriptionHandler()}>
+              <Link to="#" onClick={() => subcriptionHandler()}>
                 ĐĂNG KÝ
               </Link>
             </li>

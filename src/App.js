@@ -15,7 +15,7 @@ const MobiPhoneSize = styled.div`
   background-repeat: none;
   background-size: cover;
   background-position: center;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   color: white;
   text-align: center;

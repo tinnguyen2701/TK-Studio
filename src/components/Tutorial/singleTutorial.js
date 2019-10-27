@@ -1,4 +1,4 @@
-// /* eslint-disable */
+/* eslint-disable */
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -300,7 +300,7 @@ const Tutorial = ({ match, tutorial }) => {
                 <Link to="/khoa-hoc">KHÓA HỌC</Link>
               </li>
               <li>
-                <Link to="/#" onClick={() => subcriptionHandler()}>
+                <Link to="#" onClick={() => subcriptionHandler()}>
                   ĐĂNG KÝ
                 </Link>
               </li>
