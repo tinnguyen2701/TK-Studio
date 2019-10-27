@@ -275,7 +275,13 @@ const Tutorial = ({ match, tutorial }) => {
 
     store.dispatch({ type: GET_TUTORIAL_REQUEST, payload: string });
   }, []);
-  console.log(tutorial);
+
+  const subcriptionHandler = () => {
+    window.open(
+      'https://forms.gle/bNtEgyX6ijdGWeL16?fbclid=IwAR36hqYi-XTc_CsdWFukFKB8CNgIhPtYGoCuSddOFi_As2x9ZGtu0BUe3vE',
+      '_blank',
+    );
+  };
 
   if (tutorial) {
     return (
@@ -294,7 +300,9 @@ const Tutorial = ({ match, tutorial }) => {
                 <Link to="/khoa-hoc">KHÓA HỌC</Link>
               </li>
               <li>
-                <Link to="/dang-ky">ĐĂNG KÝ</Link>
+                <Link to="/#" onClick={() => subcriptionHandler()}>
+                  ĐĂNG KÝ
+                </Link>
               </li>
               <li>
                 <button type="button">

@@ -224,6 +224,13 @@ const Tutorial = ({ tutorials }) => {
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
+  const subcriptionHandler = () => {
+    window.open(
+      'https://forms.gle/bNtEgyX6ijdGWeL16?fbclid=IwAR36hqYi-XTc_CsdWFukFKB8CNgIhPtYGoCuSddOFi_As2x9ZGtu0BUe3vE',
+      '_blank',
+    );
+  };
+
   const onClickHandler = nameCourse => {
     const string = nameCourse
       .split(' ')
@@ -248,7 +255,9 @@ const Tutorial = ({ tutorials }) => {
               <Link to="/khoa-hoc">KHÓA HỌC</Link>
             </li>
             <li>
-              <Link to="/dang-ky">ĐĂNG KÝ</Link>
+              <Link to="/#" onClick={() => subcriptionHandler()}>
+                ĐĂNG KÝ
+              </Link>
             </li>
             <li>
               <button type="button">

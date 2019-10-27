@@ -477,9 +477,18 @@ const Content = styled.div`
 const Wrapper = styled.div``;
 export default () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
+
   const onClickHandler = () => {
     window.open('https://www.youtube.com/embed/fiUpq6k5BAU', '_blank');
   };
+
+  const subcriptionHandler = () => {
+    window.open(
+      'https://forms.gle/bNtEgyX6ijdGWeL16?fbclid=IwAR36hqYi-XTc_CsdWFukFKB8CNgIhPtYGoCuSddOFi_As2x9ZGtu0BUe3vE',
+      '_blank',
+    );
+  };
+
   return (
     <Wrapper>
       <Banner>
@@ -496,7 +505,9 @@ export default () => {
               <Link to="/khoa-hoc">KHÓA HỌC</Link>
             </li>
             <li>
-              <Link to="/dang-ky">ĐĂNG KÝ</Link>
+              <Link to="#" onClick={() => subcriptionHandler()}>
+                ĐĂNG KÝ
+              </Link>
             </li>
             <li>
               <button type="button">
