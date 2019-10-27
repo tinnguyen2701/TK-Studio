@@ -3,6 +3,8 @@
   margin: 0;
   padding: 0;
 }
+
+
 body{
   font-family: font_strong;
   background: rgb(255, 252, 244);
@@ -13,5 +15,5 @@ body{
   src:url('./font/TTF/helveticaneue.ttf') format('truetype');
   
   font-weight:normal;
-   font-style:normal;
+  font-style:normal;
 }
