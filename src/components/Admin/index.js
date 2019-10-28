@@ -36,7 +36,10 @@ const Wrapper = styled.div`
 const Dashboard = ({ isAuthenticate, dispatch }) => {
   useEffect(() => {
     if (window.localStorage.getItem('JWT')) {
-      dispatch({ type: GET_CURRENT_USER_REQUEST });
+      dispatch({
+        type: GET_CURRENT_USER_REQUEST,
+        payload: { token: window.localStorage.getItem('JWT') },
+      });
     } else {
       window.location.href = `${process.env.REACT_APP_BASE_URL}login`;
     }

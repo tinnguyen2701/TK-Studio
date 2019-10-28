@@ -14,7 +14,7 @@ tutorialRouter.post(
     { name: 'imageObject', maxCount: 1 },
     { name: 'imageContent', maxCount: 1 },
     { name: 'imageRequirement', maxCount: 1 },
-    { name: 'images[]', maxCount: 20 },
+    { name: 'images[]', maxCount: 100 },
   ]),
   async (req, res) => {
     const { nameCourse, description, object, subject, content, requirement, start } = req.body;
@@ -182,7 +182,7 @@ tutorialRouter.post(
     { name: 'imageObject', maxCount: 1 },
     { name: 'imageContent', maxCount: 1 },
     { name: 'imageRequirement', maxCount: 1 },
-    { name: 'images[]', maxCount: 20 },
+    { name: 'images[]', maxCount: 100 },
   ]),
   async (req, res) => {
     const { id, nameCourse, description, object, subject, content, requirement, start } = req.body;

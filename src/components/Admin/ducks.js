@@ -66,19 +66,23 @@ export const REMOVE_TUTORIAL_RESPONSE = 'REMOVE_TUTORIAL_RESPONSE';
 export const REMOVE_TUTORIAL_ERROR = 'REMOVE_TUTORIAL_ERROR';
 
 /* handler state for get current user */
-function* requestCurrentUser() {
+function* requestCurrentUser(action) {
   try {
     const response = yield call(
       callApi,
-      'GET',
+      'POST',
       `${process.env.REACT_APP_BASE_URL}api/auth/currentUser`,
+      action.payload,
     );
-    yield put(createAction(GET_CURRENT_USER_RESPONSE, response));
-    yield put({ type: GET_ALL_USER_REQUEST });
-    yield put({ type: GET_SETTING_REQUEST });
-    yield put({ type: GET_ALL_TUTORIAL_REQUEST });
+    if (response.status === 200) {
+      yield put(createAction(GET_CURRENT_USER_RESPONSE, response));
+      yield put({ type: GET_ALL_USER_REQUEST });
+      yield put({ type: GET_SETTING_REQUEST });
+      yield put({ type: GET_ALL_TUTORIAL_REQUEST });
+    }
   } catch (error) {
-    yield put(createAction(GET_CURRENT_USER_ERROR, error));
+    logger.logError('invalid token');
+    window.location.href = `${process.env.REACT_APP_BASE_URL}login`;
   }
 }
 function* watchCurrentUserRequest() {

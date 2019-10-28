@@ -524,23 +524,23 @@ const Home = ({ users }) => {
               {students[0] && <img src={students[0].avatar} alt={students[0].name} />}
             </AvatarStudent>
             <AvatarStudent>
-              {students[1] && <img src={students[1].avatar} alt={students[2].name} />}
+              {students[1] && <img src={students[1].avatar} alt={students[1].name} />}
             </AvatarStudent>
           </div>
           <div>
             <AvatarStudent>
-              {students[2] && <img src={students[2].avatar} alt={students[3].name} />}
+              {students[2] && <img src={students[2].avatar} alt={students[2].name} />}
             </AvatarStudent>
             <div>
               <AvatarStudent>
-                {students[3] && <img src={students[3].avatar} alt={students[4].name} />}
+                {students[3] && <img src={students[3].avatar} alt={students[3].name} />}
               </AvatarStudent>
               <div>
                 <AvatarStudent>
-                  {students[4] && <img src={students[4].avatar} alt={students[5].name} />}
+                  {students[4] && <img src={students[4].avatar} alt={students[4].name} />}
                 </AvatarStudent>
                 <AvatarStudent>
-                  {students[5] && <img src={students[5].avatar} alt={students[6].name} />}
+                  {students[5] && <img src={students[5].avatar} alt={students[5].name} />}
                 </AvatarStudent>
               </div>
             </div>

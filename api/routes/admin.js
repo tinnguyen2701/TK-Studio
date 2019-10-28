@@ -58,8 +58,23 @@ adminRouter.post(
   },
 );
 
-adminRouter.get('/currentUser', passport.authenticate('jwt', { session: false }), (req, res) => {
-  return res.sendStatus(200);
+adminRouter.post('/currentUser', async (req, res) => {
+  await jwt.verify(req.body.token, process.env.JWT_SECRET, async function(err, decoded) {
+    await Account.find({})
+      .then(account => {
+        if (account[0]._id.equals(decoded.id)) {
+          if (Date.now() >= decoded.exp * 1000) {
+            return res.sendStatus(304);
+          }
+          return res.sendStatus(200);
+        } else {
+          return res.sendStatus(304);
+        }
+      })
+      .catch(err => {
+        return res.status(500).send('call dataproxy went wrong!');
+      });
+  });
 });
 
 module.exports = adminRouter;
