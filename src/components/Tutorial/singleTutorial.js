@@ -38,7 +38,7 @@ const Footer = styled.div`
     > div:nth-child(1) {
       @media screen and (max-width: 800px) {
         > img {
-          width: 100px;
+          width: 90px;
         }
       }
 
@@ -85,7 +85,8 @@ const Footer = styled.div`
       > div:nth-child(2) {
         p {
           margin-bottom: 10px;
-          font-size: 10px;
+          font-size: 9px;
+          text-align: center;
         }
         a {
           text-decoration: none;
@@ -98,14 +99,13 @@ const Footer = styled.div`
         p {
           margin-bottom: 10px;
           font-weight: 600;
-          font-size: 10px;
+          font-size: 9px;
         }
       }
 
       > div:nth-child(4) {
         font-weight: 600;
-        font-size: 10px;
-        margin-bottom: 10px;
+        font-size: 9px;
       }
     }
 
@@ -219,7 +219,7 @@ const Banner = styled.div`
   position: relative;
 
   @media screen and (max-width: 800px) {
-    height: 580px;
+    height: 600px;
   }
 
   @media screen and (min-width: 800px) {
@@ -245,7 +245,7 @@ const Banner = styled.div`
     position: absolute;
 
     @media screen and (max-width: 800px) {
-      top: 20%;
+      top: 18%;
     }
     @media screen and (min-width: 800px) {
       top: 25%;

@@ -40,7 +40,7 @@ const Footer = styled.div`
     > div:nth-child(1) {
       @media screen and (max-width: 800px) {
         > img {
-          width: 100px;
+          width: 90px;
         }
       }
 
@@ -87,7 +87,8 @@ const Footer = styled.div`
       > div:nth-child(2) {
         p {
           margin-bottom: 10px;
-          font-size: 10px;
+          font-size: 9px;
+          text-align: center;
         }
         a {
           text-decoration: none;
@@ -100,14 +101,13 @@ const Footer = styled.div`
         p {
           margin-bottom: 10px;
           font-weight: 600;
-          font-size: 10px;
+          font-size: 9px;
         }
       }
 
       > div:nth-child(4) {
         font-weight: 600;
-        font-size: 10px;
-        margin-bottom: 10px;
+        font-size: 9px;
       }
     }
 
@@ -281,9 +281,6 @@ const Wrapper = styled.div``;
 const Content = styled.div`
   @media screen and (min-width: 800px) {
     padding: 0 10%;
-  }
-  @media screen and (max-width: 800px) {
-    padding: 0 5%;
   }
   text-align: center;
 `;
