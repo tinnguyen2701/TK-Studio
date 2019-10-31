@@ -27,15 +27,17 @@ import youtube from 'images/logo/youtube.png';
 const Footer = styled.div`
   margin-top: 10%;
   position: relative;
+
   > img {
     width: 100%;
     vertical-align: middle;
   }
   > div {
     display: flex;
+    flex-flow: wrap;
     justify-content: space-between;
     width: 100%;
-    padding: 0 10%;
+    padding: 0 5%;
     top: 50%;
     transform: translateY(0%);
     position: absolute;
@@ -45,51 +47,104 @@ const Footer = styled.div`
     }
 
     > div:nth-child(1) {
-      > img {
-        width: 200px;
+      @media screen and (max-width: 800px) {
+        > img {
+          width: 100px;
+        }
+      }
+
+      @media screen and (min-width: 800px) {
+        > img {
+          width: 200px;
+        }
       }
 
       position: relative;
 
       > div {
         position: absolute;
-        top: 60px;
-        left: 100px;
+
+        @media screen and (max-width: 800px) {
+          display: flex;
+          left: 0;
+          top: 50%;
+        }
+
+        @media screen and (min-width: 800px) {
+          top: 60px;
+          left: 100px;
+        }
       }
 
       a {
         margin-left: 4px;
-      }
+        @media screen and (max-width: 800px) {
+          > img {
+            width: 20px;
+          }
+        }
 
-      a > img {
-        width: 30px;
+        @media screen and (min-width: 800px) {
+          > img {
+            width: 30px;
+          }
+        }
       }
     }
 
-    > div:nth-child(2) {
-      p {
+    @media screen and (max-width: 800px) {
+      > div:nth-child(2) {
+        p {
+          margin-bottom: 10px;
+          font-size: 10px;
+        }
+        a {
+          text-decoration: none;
+          color: black;
+          font-weight: 600;
+        }
+      }
+
+      > div:nth-child(3) {
+        p {
+          margin-bottom: 10px;
+          font-weight: 600;
+          font-size: 10px;
+        }
+      }
+
+      > div:nth-child(4) {
+        font-weight: 600;
+        font-size: 10px;
         margin-bottom: 10px;
+      }
+    }
+
+    @media screen and (min-width: 800px) {
+      > div:nth-child(2) {
+        p {
+          margin-bottom: 10px;
+          font-size: 18px;
+        }
+        a {
+          text-decoration: none;
+          color: black;
+          font-weight: 600;
+        }
+      }
+
+      > div:nth-child(3) {
+        p {
+          margin-bottom: 10px;
+          font-weight: 600;
+          font-size: 18px;
+        }
+      }
+
+      > div:nth-child(4) {
+        font-weight: 600;
         font-size: 18px;
       }
-      a {
-        text-decoration: none;
-        color: black;
-        font-weight: 600;
-      }
-    }
-
-    > div:nth-child(3) {
-      p {
-        margin-bottom: 10px;
-        font-weight: 600;
-        font-size: 18px;
-      }
-    }
-
-    > div:nth-child(4) {
-      font-weight: 600;
-      font-size: 18px;
-      margin-bottom: 10px;
     }
   }
 `;
@@ -98,21 +153,54 @@ const Navigation = styled.div`
   position: absolute;
   top: 0;
   width: 100%;
-  padding: 15px 10% 0 10%;
+  padding: 15px 5% 0 5%;
+  flex-flow: wrap;
+
+  @media screen and (max-width: 800px) {
+    img {
+      width: 110px;
+    }
+  }
+
+  @media screen and (min-width: 800px) {
+    img {
+      width: 165px;
+    }  
+  }
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  img {
-    width: 165px;
-  }
+
 
   ul {
     list-style: none;
     display: flex;
 
-    > li {
-      margin: 10px;
+    @media (max-width: 800px) {
+      > li {
+        margin: 5px;
 
+        font-size: 10px;
+
+        a {
+          white-space: nowrap;
+        }
+
+        button {
+          font-size: 10px !important;
+          padding: 0px 5px;
+        }
+      }
+    }
+
+    @media (min-width: 800px) {
+      > li {
+        margin: 10px;
+      }
+    }
+
+    > li {
       a {
         text-decoration: none;
         color: black;
@@ -132,7 +220,6 @@ const Navigation = styled.div`
         }
       }
     }
-  }
 `;
 
 const Banner = styled.div`
@@ -141,9 +228,17 @@ const Banner = styled.div`
   background-size: cover;
   background-position: center;
   position: relative;
-  height: 550px;
+
+  @media screen and (max-width: 800px) {
+    height: 350px;
+  }
+
+  @media screen and (min-width: 800px) {
+    margin-bottom: 50px;
+    height: 550px;
+  }
+
   overflow: hidden;
-  margin-bottom: 50px;
 
   @media (min-width: 1620px) {
     height: 700px;
@@ -156,11 +251,24 @@ const Banner = styled.div`
     left: -145px;
   }
 
+  @media screen and (max-width: 800px) {
+    > h1 {
+      font-size: 30px;
+      text-align: center;
+      top: 30%;
+    }
+  }
+
+  @media screen and (min-width: 800px) {
+    > h1 {
+      top: 25%;
+      font-size: 42px;
+    }
+  }
+
   > h1 {
-    font-size: 42px;
     color: white;
     position: absolute;
-    top: 25%;
     left: 50%;
     transform: translate(-50%);
   }
@@ -169,7 +277,24 @@ const Banner = styled.div`
 const Content = styled.div`
   padding: 0 10%;
   div:nth-child(1) {
-    font-size: 25px;
+    p:nth-child(1) {
+      @media screen and (max-width: 800px) {
+        font-size: 16px;
+      }
+      @media screen and (min-width: 800px) {
+        font-size: 25px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    div:nth-child(2) {
+      text-align: center;
+      padding-top: 20px;
+      > img {
+        width: 45%;
+      }
+    }
   }
 
   .partial {
@@ -389,13 +514,22 @@ const Content = styled.div`
 
   .video-des {
     display: flex;
+    flex-flow: wrap;
 
     > div:nth-child(1) {
       cursor: pointer;
-      flex: 1;
-      width: 600px;
-      height: 570px;
       position: relative;
+
+      @media screen and (max-width: 800px) {
+        width: 100%;
+        height: 310px;
+      }
+
+      @media screen and (min-width: 800px) {
+        flex: 1;
+        width: 600px;
+        height: 570px;
+      }
 
       > img {
         height: 100%;
@@ -416,29 +550,58 @@ const Content = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-left: 20px;
 
-      p:nth-child(1) {
-        font-size: 42px;
-        margin-bottom: 20px;
+      @media screen and (max-width: 800px) {
+        p:nth-child(1) {
+          font-size: 30px;
+          margin-bottom: 5px;
+        }
+
+        p:nth-child(2) {
+          text-align: left;
+          font-size: 16px;
+          letter-spacing: 1px;
+        }
       }
 
-      p:nth-child(2) {
-        font-size: 16px;
-        letter-spacing: 1px;
+      @media screen and (min-width: 800px) {
+        padding-left: 20px;
+
+        p:nth-child(1) {
+          font-size: 42px;
+          margin-bottom: 20px;
+        }
+
+        p:nth-child(2) {
+          font-size: 16px;
+          letter-spacing: 1px;
+        }
       }
     }
   }
 
   .video-des-reverse {
     display: flex;
+    flex-flow: wrap;
+
+    @media screen and (max-width: 800px) {
+      margin-top: 40px;
+    }
 
     > div:nth-child(2) {
       cursor: pointer;
-      flex: 1;
-      width: 600px;
-      height: 570px;
       position: relative;
+
+      @media screen and (max-width: 800px) {
+        width: 100%;
+        height: 310px;
+      }
+
+      @media screen and (min-width: 800px) {
+        flex: 1;
+        width: 600px;
+        height: 570px;
+      }
 
       > img {
         height: 100%;
@@ -459,16 +622,31 @@ const Content = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-right: 20px;
 
-      p:nth-child(1) {
-        font-size: 42px;
-        margin-bottom: 20px;
+      @media screen and (max-width: 800px) {
+        p:nth-child(1) {
+          font-size: 30px;
+          margin-bottom: 5px;
+        }
+
+        p:nth-child(2) {
+          font-size: 16px;
+          letter-spacing: 1px;
+        }
       }
 
-      p:nth-child(2) {
-        font-size: 16px;
-        letter-spacing: 1px;
+      @media screen and (min-width: 800px) {
+        padding-right: 20px;
+
+        p:nth-child(1) {
+          font-size: 42px;
+          margin-bottom: 20px;
+        }
+
+        p:nth-child(2) {
+          font-size: 16px;
+          letter-spacing: 1px;
+        }
       }
     }
   }
@@ -524,68 +702,86 @@ export default () => {
           Thừa Thiên Huế. Với tiêu chí “Thi là đậu”, TKStudio sẽ là điểm đến tin cậy đến các bạn có
           nhu cầu luyện thi nói riêng, có niềm đam mê hội họa – mỹ thuật nói chung.
         </div>
-        <div>
-          <div className="partial">
-            <div>
+        {window.innerWidth > 800 ? (
+          <div>
+            <div className="partial">
               <div>
                 <div>
-                  <img src={muoihai} alt="muoihai" />
-                </div>
-                <div>
-                  <img src={muoimot} alt="muoimot" />
-                </div>
-              </div>
-              <div>
-                <div>
-                  <img src={muoi} alt="muoi" />
+                  <div>
+                    <img src={muoihai} alt="muoihai" />
+                  </div>
+                  <div>
+                    <img src={muoimot} alt="muoimot" />
+                  </div>
                 </div>
                 <div>
                   <div>
-                    <img src={chin} alt="chin" />
+                    <img src={muoi} alt="muoi" />
                   </div>
                   <div>
                     <div>
-                      <img src={tam} alt="tam" />
+                      <img src={chin} alt="chin" />
                     </div>
                     <div>
-                      <img src={bay} alt="bay" />
+                      <div>
+                        <img src={tam} alt="tam" />
+                      </div>
+                      <div>
+                        <img src={bay} alt="bay" />
+                      </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="partial-reverse">
+              <div>
+                <div>
+                  <div>
+                    <img src={bon} alt="bon" />
+                  </div>
+                  <div>
+                    <div>
+                      <div>
+                        <img src={hai} alt="hai" />
+                      </div>
+                      <div>
+                        <img src={mot} alt="mot" />
+                      </div>
+                    </div>
+                    <div>
+                      <img src={muoiba} alt="muoiba" />
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <img src={sau} alt="sau" />
+                  </div>
+                  <div>
+                    <img src={nam} alt="nam" />
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="partial-reverse">
-            <div>
-              <div>
-                <div>
-                  <img src={bon} alt="bon" />
-                </div>
-                <div>
-                  <div>
-                    <div>
-                      <img src={hai} alt="hai" />
-                    </div>
-                    <div>
-                      <img src={mot} alt="mot" />
-                    </div>
-                  </div>
-                  <div>
-                    <img src={muoiba} alt="muoiba" />
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <img src={sau} alt="sau" />
-                </div>
-                <div>
-                  <img src={nam} alt="nam" />
-                </div>
-              </div>
-            </div>
+        ) : (
+          <div>
+            <img src={muoimot} alt="muoimot" />
+            <img src={muoi} alt="muoi" />
+            <img src={muoiba} alt="muoiba" />
+            <img src={bay} alt="bay" />
+            <img src={tam} alt="tam" />
+            <img src={muoihai} alt="muoihai" />
+            <img src={bon} alt="bon" />
+            <img src={mot} alt="mot" />
+            <img src={hai} alt="hai" />
+            <img src={chin} alt="chin" />
+            <img src={nam} alt="nam" />
+            <img src={sau} alt="sau" />
           </div>
-        </div>
+        )}
+
         <div className="video-des">
           <div onClick={() => onClickHandler()}>
             <iframe src="https://www.youtube.com/embed/fiUpq6k5BAU" />

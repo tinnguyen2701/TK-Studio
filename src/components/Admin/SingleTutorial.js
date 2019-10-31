@@ -19,12 +19,12 @@ const Div = styled.div`
 const Modal = styled.div`
   height: 100vh;
   width: 100vw;
-  position: absolute;
+  position: fixed;
   background: rgba(0, 0, 0, 0.5);
   z-index: 99;
   top: 0;
   left: 0;
-  overflow: auto;
+  overflow-y: auto;
 
   img {
     width: 80px;
@@ -36,13 +36,11 @@ const Wrapper = styled.div`
   position: absolute;
   width: 50%;
   height: auto;
-  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   background: white;
   padding: 10px;
-
-  margin-top: 450px;
+  margin-top: 50px;
 
   form p {
     textarea {

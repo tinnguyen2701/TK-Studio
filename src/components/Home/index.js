@@ -1,10 +1,11 @@
-// /* eslint-disable */
+/* eslint-disable */
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import store from 'store';
 import { connect } from 'react-redux';
 import bannerBackground from 'images/banner/bannerBackground.png';
+import bannerBackgroundPhone from 'images/banner/bannerBackgroundPhone.png';
 import cup from 'images/banner/cup.png';
 import boom from 'images/banner/boom.png';
 import backgroundFooter from 'images/background/backgroundFooter.png';
@@ -20,27 +21,51 @@ import lamp from 'images/home/lamp.png';
 import { GET_ALL_USER_REQUEST } from '../Admin/ducks';
 
 const Navigation = styled.div`
-  padding: 15px 10% 0 10%;
+  padding: 15px 5% 0 5%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  img {
-    width: 165px;
+  flex-flow: wrap;
+
+  @media screen and (max-width: 800px) {
+    img {
+      width: 110px;
+    }
+
+    img.nguoi-ve,
+    img.boom,
+    img.cup {
+      display: none;
+    }
   }
 
-  img.nguoi-ve {
-    position: absolute;
-    top: 21%;
-    left: 54%;
-    transform: scale(0.6);
-    animation: move 10s linear alternate infinite;
-  }
+  @media screen and (min-width: 800px) {
+    img {
+      width: 165px;
+    }
 
-  img.boom {
-    position: absolute;
-    top: 13%;
-    left: 84%;
-    animation: updown 3s linear infinite;
+    img.nguoi-ve {
+      position: absolute;
+      top: 21%;
+      left: 54%;
+      transform: scale(0.6);
+      animation: move 10s linear alternate infinite;
+    }
+
+    img.boom {
+      position: absolute;
+      top: 13%;
+      left: 84%;
+      animation: updown 3s linear infinite;
+    }
+
+    img.cup {
+      position: absolute;
+      transform: scale(0.6);
+      top: 18%;
+      left: 65%;
+      animation: shaky 3s linear infinite;
+    }
   }
 
   @media (min-width: 1349px) {
@@ -62,14 +87,6 @@ const Navigation = styled.div`
       left: 78%;
       top: 18%;
     }
-  }
-
-  img.cup {
-    position: absolute;
-    transform: scale(0.6);
-    top: 18%;
-    left: 65%;
-    animation: shaky 3s linear infinite;
   }
 
   @keyframes move {
@@ -125,9 +142,29 @@ const Navigation = styled.div`
     list-style: none;
     display: flex;
 
-    > li {
-      margin: 10px;
+    @media (max-width: 800px) {
+      > li {
+        margin: 5px;
+        font-size: 10px;
 
+        a {
+          white-space: nowrap;
+        }
+
+        button {
+          font-size: 10px !important;
+          padding: 0px 5px;
+        }
+      }
+    }
+
+    @media (min-width: 800px) {
+      > li {
+        margin: 10px;
+      }
+    }
+
+    > li {
       a {
         text-decoration: none;
         color: black;
@@ -152,17 +189,36 @@ const Navigation = styled.div`
 
 const Banner = styled.div`
   position: relative;
-  background-image: url(${bannerBackground});
-  background-repeat: none;
-  background-size: cover;
-  background-position: center;
+
+  @media screen and (max-width: 800px) {
+    background-image: url(${bannerBackgroundPhone});
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  @media screen and (min-width: 800px) {
+    background-image: url(${bannerBackground});
+    background-repeat: none;
+    background-size: cover;
+    background-position: center;
+  }
 
   div:nth-child(2) {
-    padding: 0 10%;
+    @media screen and (max-width: 800px) {
+      color: black;
+      font-size: 16px;
+      padding-bottom: 10%;
+      width: 100%;
+    }
+
+    @media screen and (min-width: 800px) {
+      color: white;
+      padding-bottom: 30%;
+      font-size: 20px;
+    }
+    padding: 0 5%;
     width: 44%;
     font-size: 20px;
-    color: white;
-    padding-bottom: 30%;
     padding-top: 10%;
 
     button {
@@ -182,6 +238,13 @@ const Banner = styled.div`
 
 const Wrapper = styled.div`
   > div:nth-child(2) {
+    @media screen and (max-width: 800px) {
+      h1 {
+        text-align: center;
+        font-size: 20px !important;
+      }
+    }
+
     display: flex;
     margin-top: 3%;
     margin-bottom: 50px;
@@ -208,16 +271,29 @@ const Wrapper = styled.div`
   }
 
   > div:nth-child(3) {
+    @media screen and (max-width: 800px) {
+      h1 {
+        text-align: center;
+        font-size: 20px !important;
+        margin-bottom: 0 !important;
+      }
+      img.background-doi-ngu {
+        display: none;
+      }
+    }
+
     position: relative;
     margin-top: 3%;
 
     > div {
-      position: absolute;
-      text-align: center;
-      left: 50%;
-      top: 0;
-      transform: translateX(-50%);
-      width: 100%;
+      @media screen and (min-width: 800px) {
+        position: absolute;
+        text-align: center;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+        width: 100%;
+      }
 
       h1 {
         margin-bottom: 300px;
@@ -228,14 +304,44 @@ const Wrapper = styled.div`
       }
 
       > div {
+        @media screen and (max-width: 800px) {
+          display: flex;
+          flex-flow: wrap;
+          justify-content: center;
+        }
+
         > div {
-          width: 180px;
-          height: 180px;
+          @media screen and (min-width: 800px) {
+            width: 180px;
+            height: 180px;
+            margin: 50px 100px;
+            ::before {
+              width: calc(100% + 50px);
+              height: calc(100% + 50px);
+            }
+            ::after {
+              width: calc(100% + 20px);
+              height: calc(100% + 20px);
+            }
+          }
+          @media screen and (max-width: 800px) {
+            width: 100px;
+            height: 100px;
+            margin: 20px 20px;
+            ::before {
+              width: calc(100% + 20px);
+              height: calc(100% + 20px);
+            }
+            ::after {
+              width: calc(100% + 10px);
+              height: calc(100% + 10px);
+            }
+          }
+
           border-radius: 50%;
           position: relative;
           z-index: 1;
           display: inline-block;
-          margin: 50px 100px;
 
           @media (min-width: 1620px) {
             width: 250px;
@@ -251,8 +357,6 @@ const Wrapper = styled.div`
           ::after {
             content: '';
             position: absolute;
-            width: calc(100% + 20px);
-            height: calc(100% + 20px);
             background: rgb(244, 244, 238);
             top: 50%;
             left: 50%;
@@ -264,8 +368,6 @@ const Wrapper = styled.div`
           ::before {
             content: '';
             position: absolute;
-            width: calc(100% + 50px);
-            height: calc(100% + 50px);
             background: rgb(233, 235, 243);
             top: 50%;
             left: 50%;
@@ -279,7 +381,14 @@ const Wrapper = styled.div`
   }
 
   > div:nth-child(4) {
-    padding: 0 10%;
+    @media screen and (max-width: 800px) {
+      h1 {
+        text-align: center;
+        font-size: 20px !important;
+      }
+    }
+
+    padding: 5% 5%;
     text-align: center;
 
     div {
@@ -292,58 +401,62 @@ const Wrapper = styled.div`
     }
 
     > div {
-      display: flex;
-      justify-content: center;
-
-      > div:nth-child(1) {
-        > div {
-          margin: 10px;
-          background: rgb(223, 236, 243);
-        }
+      @media screen and (min-width: 800px) {
+        display: flex;
+        justify-content: center;
 
         > div:nth-child(1) {
-          width: 400px;
-          height: 400px;
-        }
-        > div:nth-child(2) {
-          width: 400px;
-          height: 200px;
-          margin-top: 20px;
-        }
-      }
-
-      > div:nth-child(2) {
-        > div {
-          margin: 10px;
-        }
-
-        > div:nth-child(1) {
-          width: 400px;
-          height: 200px;
-          background: rgb(223, 236, 243);
-        }
-
-        > div:nth-child(2) {
-          display: flex;
+          > div {
+            margin: 10px;
+            background: rgb(223, 236, 243);
+          }
 
           > div:nth-child(1) {
-            width: 200px;
+            width: 400px;
             height: 400px;
+          }
+          > div:nth-child(2) {
+            width: 400px;
+            height: 200px;
+            margin-top: 20px;
+          }
+        }
+
+        > div:nth-child(2) {
+          > div {
+            margin: 10px;
+          }
+
+          > div:nth-child(1) {
+            width: 400px;
+            height: 200px;
             background: rgb(223, 236, 243);
-            margin-top: 10px;
-            margin-right: 10px;
           }
 
           > div:nth-child(2) {
-            > div {
-              width: 190px;
-              height: 190px;
+            @media screen and (min-width: 800px) {
+              display: flex;
+            }
+
+            > div:nth-child(1) {
+              width: 200px;
+              height: 400px;
               background: rgb(223, 236, 243);
               margin-top: 10px;
+              margin-right: 10px;
             }
 
             > div:nth-child(2) {
-              margin-top: 20px;
+              > div {
+                width: 190px;
+                height: 190px;
+                background: rgb(223, 236, 243);
+                margin-top: 10px;
+              }
+
+              > div:nth-child(2) {
+                margin-top: 20px;
+              }
             }
           }
         }
@@ -355,15 +468,17 @@ const Wrapper = styled.div`
 const Footer = styled.div`
   margin-top: 10%;
   position: relative;
+
   > img {
     width: 100%;
     vertical-align: middle;
   }
   > div {
     display: flex;
+    flex-flow: wrap;
     justify-content: space-between;
     width: 100%;
-    padding: 0 10%;
+    padding: 0 5%;
     top: 50%;
     transform: translateY(0%);
     position: absolute;
@@ -373,56 +488,117 @@ const Footer = styled.div`
     }
 
     > div:nth-child(1) {
-      > img {
-        width: 200px;
+      @media screen and (max-width: 800px) {
+        > img {
+          width: 100px;
+        }
+      }
+
+      @media screen and (min-width: 800px) {
+        > img {
+          width: 200px;
+        }
       }
 
       position: relative;
 
       > div {
         position: absolute;
-        top: 60px;
-        left: 100px;
+
+        @media screen and (max-width: 800px) {
+          display: flex;
+          left: 0;
+          top: 50%;
+        }
+
+        @media screen and (min-width: 800px) {
+          top: 60px;
+          left: 100px;
+        }
       }
 
       a {
         margin-left: 4px;
-      }
+        @media screen and (max-width: 800px) {
+          > img {
+            width: 20px;
+          }
+        }
 
-      a > img {
-        width: 30px;
+        @media screen and (min-width: 800px) {
+          > img {
+            width: 30px;
+          }
+        }
       }
     }
 
-    > div:nth-child(2) {
-      p {
-        margin-bottom: 10px;
-        font-size: 18px;
+    @media screen and (max-width: 800px) {
+      > div:nth-child(2) {
+        p {
+          margin-bottom: 10px;
+          font-size: 10px;
+        }
+        a {
+          text-decoration: none;
+          color: black;
+          font-weight: 600;
+        }
       }
-      a {
-        text-decoration: none;
-        color: black;
+
+      > div:nth-child(3) {
+        p {
+          margin-bottom: 10px;
+          font-weight: 600;
+          font-size: 10px;
+        }
+      }
+
+      > div:nth-child(4) {
         font-weight: 600;
+        font-size: 10px;
+        margin-bottom: 10px;
       }
     }
 
-    > div:nth-child(3) {
-      p {
-        margin-bottom: 10px;
+    @media screen and (min-width: 800px) {
+      > div:nth-child(2) {
+        p {
+          margin-bottom: 10px;
+          font-size: 18px;
+        }
+        a {
+          text-decoration: none;
+          color: black;
+          font-weight: 600;
+        }
+      }
+
+      > div:nth-child(3) {
+        p {
+          margin-bottom: 10px;
+          font-weight: 600;
+          font-size: 18px;
+        }
+      }
+
+      > div:nth-child(4) {
         font-weight: 600;
         font-size: 18px;
+        margin-bottom: 10px;
       }
-    }
-
-    > div:nth-child(4) {
-      font-weight: 600;
-      font-size: 18px;
-      margin-bottom: 10px;
     }
   }
 `;
 
 const AvatarStudent = styled.div`
+  @media screen and (max-width: 800px) {
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    margin: 10px;
+    width: 130px;
+    height: 130px;
+  }
   display: flex;
   justify-content: center;
   align-items: center;
@@ -500,7 +676,7 @@ const Home = ({ users }) => {
       </div>
 
       <div>
-        <img alt="anh test" src={doiNgu} style={{ width: '100%' }} />
+        <img className="background-doi-ngu" alt="anh test" src={doiNgu} style={{ width: '100%' }} />
         <div>
           <h1>ĐỘI NGŨ GIẢNG VIÊN</h1>
           <div>
@@ -518,34 +694,69 @@ const Home = ({ users }) => {
       </div>
       <div>
         <h1>HỌC VIÊN TIÊU BIỂU</h1>
-        <div>
+        {window.innerWidth > 800 ? (
           <div>
-            <AvatarStudent>
-              {students[0] && <img src={students[0].avatar} alt={students[0].name} />}
-            </AvatarStudent>
-            <AvatarStudent>
-              {students[1] && <img src={students[1].avatar} alt={students[1].name} />}
-            </AvatarStudent>
-          </div>
-          <div>
-            <AvatarStudent>
-              {students[2] && <img src={students[2].avatar} alt={students[2].name} />}
-            </AvatarStudent>
             <div>
               <AvatarStudent>
-                {students[3] && <img src={students[3].avatar} alt={students[3].name} />}
+                {students[0] && <img src={students[0].avatar} alt={students[0].name} />}
+              </AvatarStudent>
+              <AvatarStudent>
+                {students[1] && <img src={students[1].avatar} alt={students[1].name} />}
+              </AvatarStudent>
+            </div>
+            <div>
+              <AvatarStudent>
+                {students[2] && <img src={students[2].avatar} alt={students[2].name} />}
               </AvatarStudent>
               <div>
                 <AvatarStudent>
-                  {students[4] && <img src={students[4].avatar} alt={students[4].name} />}
+                  {students[3] && <img src={students[3].avatar} alt={students[3].name} />}
                 </AvatarStudent>
-                <AvatarStudent>
-                  {students[5] && <img src={students[5].avatar} alt={students[5].name} />}
-                </AvatarStudent>
+                <div>
+                  <AvatarStudent>
+                    {students[4] && <img src={students[4].avatar} alt={students[4].name} />}
+                  </AvatarStudent>
+                  <AvatarStudent>
+                    {students[5] && <img src={students[5].avatar} alt={students[5].name} />}
+                  </AvatarStudent>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div>
+            {students[0] && (
+              <AvatarStudent>
+                {students[0] && <img src={students[0].avatar} alt={students[0].name} />}
+              </AvatarStudent>
+            )}
+            {students[1] && (
+              <AvatarStudent>
+                {students[1] && <img src={students[1].avatar} alt={students[1].name} />}
+              </AvatarStudent>
+            )}
+            {students[2] && (
+              <AvatarStudent>
+                {students[2] && <img src={students[2].avatar} alt={students[2].name} />}
+              </AvatarStudent>
+            )}
+            {students[3] && (
+              <AvatarStudent>
+                {students[3] && <img src={students[3].avatar} alt={students[3].name} />}
+              </AvatarStudent>
+            )}
+            {students[4] && (
+              <AvatarStudent>
+                {students[4] && <img src={students[4].avatar} alt={students[4].name} />}
+              </AvatarStudent>
+            )}
+            {students[5] && (
+              <AvatarStudent>
+                {students[5] && <img src={students[5].avatar} alt={students[5].name} />}
+              </AvatarStudent>
+            )}
+          </div>
+        )}
       </div>
       <Footer>
         <img src={backgroundFooter} alt="footer background" />

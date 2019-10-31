@@ -16,15 +16,17 @@ import { GET_TUTORIAL_REQUEST } from './duck';
 const Footer = styled.div`
   margin-top: 10%;
   position: relative;
+
   > img {
     width: 100%;
     vertical-align: middle;
   }
   > div {
     display: flex;
+    flex-flow: wrap;
     justify-content: space-between;
     width: 100%;
-    padding: 0 10%;
+    padding: 0 5%;
     top: 50%;
     transform: translateY(0%);
     position: absolute;
@@ -34,51 +36,104 @@ const Footer = styled.div`
     }
 
     > div:nth-child(1) {
-      > img {
-        width: 200px;
+      @media screen and (max-width: 800px) {
+        > img {
+          width: 100px;
+        }
+      }
+
+      @media screen and (min-width: 800px) {
+        > img {
+          width: 200px;
+        }
       }
 
       position: relative;
 
       > div {
         position: absolute;
-        top: 60px;
-        left: 100px;
+
+        @media screen and (max-width: 800px) {
+          display: flex;
+          left: 0;
+          top: 50%;
+        }
+
+        @media screen and (min-width: 800px) {
+          top: 60px;
+          left: 100px;
+        }
       }
 
       a {
         margin-left: 4px;
-      }
+        @media screen and (max-width: 800px) {
+          > img {
+            width: 20px;
+          }
+        }
 
-      a > img {
-        width: 30px;
+        @media screen and (min-width: 800px) {
+          > img {
+            width: 30px;
+          }
+        }
       }
     }
 
-    > div:nth-child(2) {
-      p {
+    @media screen and (max-width: 800px) {
+      > div:nth-child(2) {
+        p {
+          margin-bottom: 10px;
+          font-size: 10px;
+        }
+        a {
+          text-decoration: none;
+          color: black;
+          font-weight: 600;
+        }
+      }
+
+      > div:nth-child(3) {
+        p {
+          margin-bottom: 10px;
+          font-weight: 600;
+          font-size: 10px;
+        }
+      }
+
+      > div:nth-child(4) {
+        font-weight: 600;
+        font-size: 10px;
         margin-bottom: 10px;
+      }
+    }
+
+    @media screen and (min-width: 800px) {
+      > div:nth-child(2) {
+        p {
+          margin-bottom: 10px;
+          font-size: 18px;
+        }
+        a {
+          text-decoration: none;
+          color: black;
+          font-weight: 600;
+        }
+      }
+
+      > div:nth-child(3) {
+        p {
+          margin-bottom: 10px;
+          font-weight: 600;
+          font-size: 18px;
+        }
+      }
+
+      > div:nth-child(4) {
+        font-weight: 600;
         font-size: 18px;
       }
-      a {
-        text-decoration: none;
-        color: black;
-        font-weight: 600;
-      }
-    }
-
-    > div:nth-child(3) {
-      p {
-        margin-bottom: 10px;
-        font-weight: 600;
-        font-size: 18px;
-      }
-    }
-
-    > div:nth-child(4) {
-      font-weight: 600;
-      font-size: 18px;
-      margin-bottom: 10px;
     }
   }
 `;
@@ -87,21 +142,54 @@ const Navigation = styled.div`
   position: absolute;
   top: 0;
   width: 100%;
-  padding: 15px 10% 0 10%;
+  padding: 15px 5% 0 5%;
+  flex-flow: wrap;
+
+  @media screen and (max-width: 800px) {
+    img {
+      width: 110px;
+    }
+  }
+
+  @media screen and (min-width: 800px) {
+    img {
+      width: 165px;
+    }  
+  }
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  img {
-    width: 165px;
-  }
+
 
   ul {
     list-style: none;
     display: flex;
 
-    > li {
-      margin: 10px;
+    @media (max-width: 800px) {
+      > li {
+        margin: 5px;
 
+        font-size: 10px;
+
+        a {
+          white-space: nowrap;
+        }
+
+        button {
+          font-size: 10px !important;
+          padding: 0px 5px;
+        }
+      }
+    }
+
+    @media (min-width: 800px) {
+      > li {
+        margin: 10px;
+      }
+    }
+
+    > li {
       a {
         text-decoration: none;
         color: black;
@@ -116,12 +204,11 @@ const Navigation = styled.div`
         margin-top: -5px;
 
         > a {
-          color: white;
           font-family: font_strong;
+          color: white;
         }
       }
     }
-  }
 `;
 
 const Banner = styled.div`
@@ -130,7 +217,15 @@ const Banner = styled.div`
   background-size: cover;
   background-position: center;
   position: relative;
-  height: 550px;
+
+  @media screen and (max-width: 800px) {
+    height: 580px;
+  }
+
+  @media screen and (min-width: 800px) {
+    height: 550px;
+  }
+
   overflow: hidden;
   margin-bottom: 50px;
 
@@ -148,34 +243,73 @@ const Banner = styled.div`
   > div:nth-child(2) {
     width: 100%;
     position: absolute;
-    top: 25%;
+
+    @media screen and (max-width: 800px) {
+      top: 20%;
+    }
+    @media screen and (min-width: 800px) {
+      top: 25%;
+    }
+
     left: 50%;
     transform: translateX(-50%);
     color: white;
     text-align: center;
 
-    > h1:nth-child(1) {
-      font-size: 35px;
+    @media screen and (max-width: 800px) {
+      > h1:nth-child(1) {
+        font-size: 30px;
+      }
+      > h1:nth-child(2) {
+        padding: 5px;
+        font-size: 30px;
+      }
     }
-    > h1:nth-child(2) {
-      font-size: 35px;
+
+    @media screen and (min-width: 800px) {
+      > h1:nth-child(1) {
+        font-size: 35px;
+      }
+      > h1:nth-child(2) {
+        font-size: 35px;
+      }
     }
+
     > div {
+      @media screen and (max-width: 800px) {
+        flex-flow: wrap;
+        padding: 2% 0%;
+      }
+      @media screen and (min-width: 800px) {
+        padding: 5% 20%;
+      }
+
       display: flex;
       justify-content: center;
-      padding: 5% 20%;
       > div:nth-child(1) {
-        width: 250px;
-        height: 190px;
+        @media screen and (max-width: 800px) {
+          height: 150px;
+        }
+        @media screen and (min-width: 800px) {
+          width: 250px;
+          height: 190px;
+        }
 
         > img {
           height: 100%;
         }
       }
       > div:nth-child(2) {
-        font-size: 21px;
+        @media screen and (max-width: 800px) {
+          font-size: 16px;
+          padding-left: 15px;
+          padding-top: 5px;
+        }
+        @media screen and (min-width: 800px) {
+          font-size: 21px;
+          padding-left: 100px;
+        }
         text-align: left;
-        padding-left: 100px;
         white-space: pre-line;
       }
     }
@@ -185,7 +319,16 @@ const Banner = styled.div`
 const Wrapper = styled.div``;
 
 const Content = styled.div`
-  padding: 0 10%;
+  @media screen and (max-width: 800px) {
+    padding: 0 5%;
+
+    > div:nth-child(1) {
+      flex-flow: wrap;
+    }
+  }
+  @media screen and (min-width: 800px) {
+    padding: 0 10%;
+  }
 
   > div:nth-child(1) {
     display: flex;
@@ -233,11 +376,13 @@ const Content = styled.div`
 
   > div:nth-child(3) {
     margin-top: 50px;
+    text-align: center;
 
     > p:nth-child(1) {
       color: #e54107;
       padding: 10px 0;
       font-size: 22px;
+      text-align: left;
     }
   }
 `;
@@ -248,6 +393,10 @@ const ItemTutorial = styled.div`
   height: 318px;
   margin-right: 30px;
   margin-top: 30px;
+
+  @media screen and (max-width: 800px) {
+    margin: 10px auto;
+  }
 
   position: relative;
   overflow: hidden;
