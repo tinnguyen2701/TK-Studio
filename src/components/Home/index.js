@@ -54,8 +54,8 @@ const Navigation = styled.div`
 
     img.boom {
       position: absolute;
-      top: 13%;
-      left: 84%;
+      top: 14.5%;
+      right: 7.5%;
       animation: updown 3s linear infinite;
     }
 
@@ -68,24 +68,23 @@ const Navigation = styled.div`
     }
   }
 
-  @media (min-width: 1349px) {
+  @media (min-width: 1497px) {
     img.boom {
-      top: 15%;
-      left: 80%;
+      top: 13.5%;
+      right: 10.5%;
+    }
+  }
+  @media (min-width: 1685px) {
+    img.boom {
+      top: 16.5%;
+      right: 12.5%;
     }
   }
 
-  @media (min-width: 1366px) {
+  @media (min-width: 1797px) {
     img.boom {
-      left: 81%;
-      top: 16%;
-    }
-  }
-
-  @media (min-width: 1620px) {
-    img.boom {
-      left: 78%;
-      top: 18%;
+      top: 17.5%;
+      right: 13.5%;
     }
   }
 
@@ -141,6 +140,11 @@ const Navigation = styled.div`
   ul {
     list-style: none;
     display: flex;
+
+    > li:hover a {
+      color: white;
+      transition: 200ms all;
+    }
 
     @media (max-width: 800px) {
       > li {
@@ -478,7 +482,12 @@ const Footer = styled.div`
     flex-flow: wrap;
     justify-content: space-between;
     width: 100%;
-    padding: 0 5%;
+    @media screen and (min-width: 800px) {
+      padding: 0 5%;
+    }
+    @media screen and (max-width: 800px) {
+      padding: 0 1%;
+    }
     top: 50%;
     transform: translateY(0%);
     position: absolute;
@@ -536,7 +545,7 @@ const Footer = styled.div`
     @media screen and (max-width: 800px) {
       > div:nth-child(2) {
         p {
-          margin-bottom: 10px;
+          margin-bottom: 5px;
           font-size: 9px;
           text-align: center;
         }
@@ -552,12 +561,20 @@ const Footer = styled.div`
           margin-bottom: 10px;
           font-weight: 600;
           font-size: 9px;
+          text-align: center;
+
+          > span {
+            display: block;
+            margin: 5px;
+          }
         }
       }
 
       > div:nth-child(4) {
         font-weight: 600;
         font-size: 9px;
+        position: relative;
+        top: -4px;
       }
     }
 
@@ -572,6 +589,11 @@ const Footer = styled.div`
           color: black;
           font-weight: 600;
         }
+
+        a:hover {
+          color: white;
+          transition: 200ms all;
+        }
       }
 
       > div:nth-child(3) {
@@ -585,6 +607,8 @@ const Footer = styled.div`
       > div:nth-child(4) {
         font-weight: 600;
         font-size: 18px;
+        position: relative;
+        top: -4px;
       }
     }
   }
@@ -763,10 +787,10 @@ const Home = ({ users }) => {
           <div>
             <img src={logoBlack} alt="logo black" />
             <div>
-              <a href="/">
+              <a href="https://www.facebook.com/TonKhoaStudio/" target="_blank">
                 <img src={facebook} alt="logo facebook" />
               </a>
-              <a href="/">
+              <a href="https://www.instagram.com/tonkhoastudio/" target="_blank">
                 <img src={instagram} alt="logo instagram" />
               </a>
               <a href="/">
@@ -786,7 +810,10 @@ const Home = ({ users }) => {
             </p>
           </div>
           <div>
-            <p>ĐĂNG KÝ LIÊN HỆ</p>
+            <p>
+              ĐĂNG KÝ <span />
+              LIÊN HỆ
+            </p>
             <p>0702450542</p>
           </div>
           <div>
