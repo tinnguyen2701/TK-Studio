@@ -245,7 +245,7 @@ const Banner = styled.div`
   position: relative;
 
   @media screen and (max-width: 800px) {
-    height: 350px;
+    height: 420px;
   }
 
   @media screen and (min-width: 800px) {

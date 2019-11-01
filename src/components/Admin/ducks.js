@@ -49,6 +49,8 @@ export const GET_SETTING_REQUEST = 'GET_SETTING_REQUEST';
 export const GET_SETTING_RESPONSE = 'GET_SETTING_RESPONSE';
 export const GET_SETTING_ERROR = 'GET_SETTING_ERROR';
 
+export const GET_VIDEOS_RESPONSE = 'GET_VIDEOS_RESPONSE';
+
 export const GET_ALL_USER_REQUEST = 'GET_ALL_USER_REQUEST';
 export const GET_ALL_USER_RESPONSE = 'GET_ALL_USER_RESPONSE';
 export const GET_ALL_USER_ERROR = 'GET_ALL_USER_ERROR';
@@ -64,6 +66,18 @@ export const REMOVE_USER_ERROR = 'REMOVE_USER_ERROR';
 export const REMOVE_TUTORIAL_REQUEST = 'REMOVE_TUTORIAL_REQUEST';
 export const REMOVE_TUTORIAL_RESPONSE = 'REMOVE_TUTORIAL_RESPONSE';
 export const REMOVE_TUTORIAL_ERROR = 'REMOVE_TUTORIAL_ERROR';
+
+export const ADD_VIDEO_REQUEST = 'ADD_VIDEO_REQUEST';
+export const ADD_VIDEO_RESPONSE = 'ADD_VIDEO_RESPONSE';
+export const ADD_VIDEO_ERROR = 'ADD_VIDEO_ERROR';
+
+export const REMOVE_VIDEO_REQUEST = 'REMOVE_VIDEO_REQUEST';
+export const REMOVE_VIDEO_RESPONSE = 'REMOVE_VIDEO_RESPONSE';
+export const REMOVE_VIDEO_ERROR = 'REMOVE_VIDEO_ERROR';
+
+export const EDIT_VIDEO_REQUEST = 'EDIT_VIDEO_REQUEST';
+export const EDIT_VIDEO_RESPONSE = 'EDIT_VIDEO_RESPONSE';
+export const EDIT_VIDEO_ERROR = 'EDIT_VIDEO_ERROR';
 
 /* handler state for get current user */
 function* requestCurrentUser(action) {
@@ -250,7 +264,8 @@ export const changeImageTeacherSaga = [fork(watchChangeImageTeacherRequest)];
 function* requestSetting() {
   try {
     const response = yield call(callApi, 'GET', `${process.env.REACT_APP_BASE_URL}api/setting`);
-    yield put(createAction(GET_SETTING_RESPONSE, response.data));
+    yield put(createAction(GET_SETTING_RESPONSE, response.data.setting));
+    yield put(createAction(GET_VIDEOS_RESPONSE, response.data.videos));
   } catch (error) {
     yield put(createAction(GET_SETTING_ERROR, error));
   }
@@ -373,3 +388,60 @@ function* watchRemoveTutorialRequest() {
   yield takeLatest(REMOVE_TUTORIAL_REQUEST, requestRemoveTutorial);
 }
 export const removeTutorialSaga = [fork(watchRemoveTutorialRequest)];
+
+/* handler state for add video */
+function* requestAddVideo(action) {
+  try {
+    const response = yield call(
+      callApi,
+      'POST',
+      `${process.env.REACT_APP_BASE_URL}api/setting/addVideo`,
+      action.payload,
+    );
+    yield put(createAction(ADD_VIDEO_RESPONSE, response.data));
+  } catch (error) {
+    yield put(createAction(ADD_VIDEO_ERROR, error));
+  }
+}
+function* watchAddVideoRequest() {
+  yield takeLatest(ADD_VIDEO_REQUEST, requestAddVideo);
+}
+export const addVideoSaga = [fork(watchAddVideoRequest)];
+
+/* handler state for remove video */
+function* requestRemoveVideo(action) {
+  try {
+    const response = yield call(
+      callApi,
+      'POST',
+      `${process.env.REACT_APP_BASE_URL}api/setting/removeVideo`,
+      action.payload,
+    );
+    yield put(createAction(REMOVE_VIDEO_RESPONSE, response.data));
+  } catch (error) {
+    yield put(createAction(REMOVE_VIDEO_ERROR, error));
+  }
+}
+function* watchRemoveVideoRequest() {
+  yield takeLatest(REMOVE_VIDEO_REQUEST, requestRemoveVideo);
+}
+export const RemoveVideoSaga = [fork(watchRemoveVideoRequest)];
+
+/* handler state for edit video */
+function* requestEditVideo(action) {
+  try {
+    const response = yield call(
+      callApi,
+      'POST',
+      `${process.env.REACT_APP_BASE_URL}api/setting/editVideo`,
+      action.payload,
+    );
+    yield put(createAction(EDIT_VIDEO_RESPONSE, response.data));
+  } catch (error) {
+    yield put(createAction(EDIT_VIDEO_ERROR, error));
+  }
+}
+function* watchEditVideoRequest() {
+  yield takeLatest(EDIT_VIDEO_REQUEST, requestEditVideo);
+}
+export const EditVideoSaga = [fork(watchEditVideoRequest)];

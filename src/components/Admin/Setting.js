@@ -7,7 +7,9 @@ import {
   CHANGE_PASSWORD_ACCOUNT_REQUEST,
   UPDATE_IMAGE_STUDENT_DEFAULT_REQUEST,
   UPDATE_IMAGE_TEACHER_DEFAULT_REQUEST,
+  ADD_VIDEO_REQUEST,
 } from './ducks';
+import Video from './Video';
 
 const Form = styled.form`
   width: 50%;
@@ -81,11 +83,85 @@ const Alert = styled.p`
   color: white;
 `;
 
-const Setting = ({ imageStudent, imageTeacher, status }) => {
+const VideoContainer = styled.div`
+  padding-top: 100px;
+  > button {
+    padding: 7px;
+    color: white;
+    background: rgb(44, 166, 239);
+    border: none;
+    border-radius: 6px;
+  }
+  > .add-video {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    > div {
+      background: white;
+      height: 70vh;
+      width: 700px;
+      padding: 0 10px;
+      box-shadow: 3px 3px 30px rgba(0, 0, 0, 1);
+      border-radius: 5px;
+
+      > p {
+        margin: 45px 0;
+
+        > input,
+        textarea {
+          float: right;
+          width: 375px;
+          padding: 5px;
+          border: 1px solid rgb(44, 166, 239);
+        }
+
+        > textarea {
+          height: 185px;
+        }
+      }
+
+      > p:nth-child(3) {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      > p:nth-child(4) {
+        > button {
+          float: right;
+          margin-left: 12px;
+          padding: 7px;
+          color: white;
+          background: rgb(44, 166, 239);
+          border: none;
+          border-radius: 6px;
+        }
+
+        > button:disabled {
+          color: black;
+          background: none;
+          border: 1px solid black;
+        }
+      }
+    }
+  }
+`;
+
+const Setting = ({ imageStudent, imageTeacher, status, videos }) => {
   const [oldPassword, setOldPassword] = useState(null);
   const [newPassword, setNewPassword] = useState(null);
   const [imageDefaultStudent, setImageDefaultStudent] = useState(null);
   const [imageDefaultTeacher, setImageDefaultTeacher] = useState(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [link, setLink] = useState(null);
+  const [description, setDescription] = useState(null);
+  const [poster, setPoster] = useState(null);
 
   const onChangePasswordHandler = e => {
     e.preventDefault();
@@ -128,6 +204,29 @@ const Setting = ({ imageStudent, imageTeacher, status }) => {
     });
 
     setImageDefaultTeacher(null);
+  };
+
+  const setPosterHandler = e => {
+    e.persist();
+    setPoster(e.target.files[0]);
+  };
+
+  const onSaveHandler = e => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('link', link);
+    formData.append('description', description);
+    formData.append('poster', poster);
+
+    store.dispatch({
+      type: ADD_VIDEO_REQUEST,
+      payload: formData,
+    });
+
+    setPoster(null);
+    setLink(null);
+    setDescription(null);
   };
 
   return (
@@ -182,6 +281,57 @@ const Setting = ({ imageStudent, imageTeacher, status }) => {
           Đổi liền
         </button>
       </ImageDefault>
+      <VideoContainer>
+        <button type="button" onClick={() => setIsVisible(true)}>
+          Thêm video
+        </button>
+        {isVisible && (
+          <div className="add-video">
+            <div>
+              <p>
+                Thêm hình đại diện cho video:
+                <input type="file" onChange={e => setPosterHandler(e)} />
+              </p>
+              <p>
+                Thêm link youtube:
+                <input
+                  type="text"
+                  placeholder="link.."
+                  value={link || ''}
+                  onChange={e => setLink(e.target.value)}
+                />
+              </p>
+              <p>
+                Thêm mô tả:
+                <textarea
+                  type="text"
+                  placeholder="mô tả.."
+                  value={description || ''}
+                  onChange={e => setDescription(e.target.value)}
+                />
+              </p>
+              <p>
+                <button type="button" onClick={() => setIsVisible(false)}>
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  disabled={!poster || !description || !link}
+                  onClick={e => onSaveHandler(e)}
+                >
+                  Save
+                </button>
+              </p>
+            </div>
+          </div>
+        )}
+        <div className="show-video">
+          Các video hiện có:
+          {videos.map((video, index) => (
+            <Video key={index.toString()} video={video} />
+          ))}
+        </div>
+      </VideoContainer>
     </div>
   );
 };
@@ -190,4 +340,5 @@ export default connect(state => ({
   imageStudent: state.setting.imageStudent,
   imageTeacher: state.setting.imageTeacher,
   status: state.status,
+  videos: state.videos,
 }))(Setting);

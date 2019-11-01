@@ -19,6 +19,9 @@ import {
   allTutorialSaga,
   removeTutorialSaga,
   editTutorialSaga,
+  addVideoSaga,
+  RemoveVideoSaga,
+  EditVideoSaga,
 } from './components/Admin/ducks';
 import {
   modalReducer as modal,
@@ -26,8 +29,10 @@ import {
   usersReducer as users,
   tutorialsReducer as tutorials,
   statusReducer as status,
+  videosReducer as videos,
 } from './ducks';
 import { tutorialSaga, tutorialReducer as tutorial } from './components/Tutorial/duck';
+import { allVideosSaga } from './components/About/duck';
 
 export const rootReducer = combineReducers({
   login,
@@ -37,6 +42,7 @@ export const rootReducer = combineReducers({
   tutorials,
   status,
   tutorial,
+  videos,
 });
 
 const rootSaga = function* rootSaga() {
@@ -59,6 +65,10 @@ const rootSaga = function* rootSaga() {
     ...removeUserSaga,
     ...removeTutorialSaga,
     ...tutorialSaga,
+    ...addVideoSaga,
+    ...RemoveVideoSaga,
+    ...EditVideoSaga,
+    ...allVideosSaga,
   ]);
 };
 

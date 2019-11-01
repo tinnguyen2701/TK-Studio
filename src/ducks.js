@@ -17,7 +17,12 @@ import {
   EDIT_TUTORIAL_RESPONSE,
   CHANGE_PASSWORD_ACCOUNT_ERROR,
   CHANGE_PASSWORD_ACCOUNT_RESPONSE,
+  GET_VIDEOS_RESPONSE,
+  REMOVE_VIDEO_RESPONSE,
+  ADD_VIDEO_RESPONSE,
+  EDIT_VIDEO_RESPONSE,
 } from './components/Admin/ducks';
+import { GET_VIDEO_RESPONSE } from './components/About/duck';
 
 export const UPDATE_TAB = 'UPDATE_TAB';
 
@@ -111,3 +116,23 @@ const tutorialsActionHandler = {
 };
 
 export const tutorialsReducer = createReducer(initTutorial, tutorialsActionHandler);
+
+const initVideos = [];
+const videosActionHandler = {
+  [GET_VIDEO_RESPONSE]: (state, action) => action.payload,
+  [GET_VIDEOS_RESPONSE]: (state, action) => action.payload,
+  [REMOVE_VIDEO_RESPONSE]: (state, action) => state.filter(item => item._id !== action.payload.id),
+  [ADD_VIDEO_RESPONSE]: (state, action) => [...state, action.payload.newVideo],
+  [EDIT_VIDEO_RESPONSE]: (state, action) => {
+    return state.map(video => {
+      if (video._id === action.payload.id) {
+        video.poster = action.payload.poster;
+        video.description = action.payload.description;
+        video.link = action.payload.link;
+      }
+      return video;
+    });
+  },
+};
+
+export const videosReducer = createReducer(initVideos, videosActionHandler);

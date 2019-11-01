@@ -1,7 +1,9 @@
 /* eslint-disable */
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import store from 'store';
 import backgroundHeader from 'images/about/backgroundHeader.png';
 import muoiba from 'images/about/muoiba.jpg';
 import muoihai from 'images/about/muoihai.jpg';
@@ -23,6 +25,7 @@ import logoBlack from 'images/logo/logoBlack.png';
 import facebook from 'images/logo/facebook.png';
 import instagram from 'images/logo/instagram.png';
 import youtube from 'images/logo/youtube.png';
+import { GET_VIDEO_REQUEST } from './duck';
 
 const Footer = styled.div`
   margin-top: 10%;
@@ -277,6 +280,7 @@ const Banner = styled.div`
 
   @media screen and (max-width: 800px) {
     > h1 {
+      width: 100%;
       font-size: 30px;
       text-align: center;
       top: 30%;
@@ -536,155 +540,61 @@ const Content = styled.div`
       }
     }
   }
+`;
 
-  .video-des {
+const Video = styled.div`
+  padding-top: 5%;
+  > div {
     display: flex;
     flex-flow: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+    letter-spacing: 1px;
 
-    > div:nth-child(1) {
-      cursor: pointer;
-      position: relative;
+    @media screen and (max-width: 800px) {
+      padding-top: 20px;
 
-      @media screen and (max-width: 800px) {
+      img {
         width: 100%;
-        height: 310px;
       }
-
-      @media screen and (min-width: 800px) {
-        flex: 1;
-        width: 600px;
-        height: 570px;
-      }
-
-      > img {
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
-
-      > iframe {
-        width: 100%;
-        height: 100%;
+      > div:nth-child(2) {
+        text-align: left;
       }
     }
 
-    > div:nth-child(2) {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-
-      @media screen and (max-width: 800px) {
-        p:nth-child(1) {
-          font-size: 30px;
-          margin-bottom: 5px;
-          text-align: left;
-        }
-
-        p:nth-child(2) {
-          text-align: left;
-          font-size: 16px;
-          letter-spacing: 1px;
-        }
+    @media screen and (min-width: 800px) {
+      > div:nth-child(1) {
+        flex: 1;
       }
 
-      @media screen and (min-width: 800px) {
-        padding-left: 20px;
-
-        p:nth-child(1) {
-          font-size: 42px;
-          margin-bottom: 20px;
-        }
-
-        p:nth-child(2) {
-          font-size: 16px;
-          letter-spacing: 1px;
-        }
+      > div:nth-child(2) {
+        flex: 1;
       }
     }
   }
 
-  .video-des-reverse {
-    display: flex;
-    flex-flow: wrap;
-
-    @media screen and (max-width: 800px) {
-      margin-top: 40px;
-    }
-
+  > div:nth-child(odd) {
     > div:nth-child(2) {
-      cursor: pointer;
-      position: relative;
-
-      @media screen and (max-width: 800px) {
-        width: 100%;
-        height: 310px;
-      }
-
-      @media screen and (min-width: 800px) {
-        flex: 1;
-        width: 600px;
-        height: 570px;
-      }
-
-      > img {
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
-
-      > iframe {
-        width: 100%;
-        height: 100%;
-      }
+      padding-left: 3%;
     }
+  }
 
-    > div:nth-child(1) {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-
-      @media screen and (max-width: 800px) {
-        p:nth-child(1) {
-          font-size: 30px;
-          margin-bottom: 5px;
-        }
-
-        p:nth-child(2) {
-          font-size: 16px;
-          letter-spacing: 1px;
-        }
-      }
-
-      @media screen and (min-width: 800px) {
-        padding-right: 20px;
-
-        p:nth-child(1) {
-          font-size: 42px;
-          margin-bottom: 20px;
-        }
-
-        p:nth-child(2) {
-          font-size: 16px;
-          letter-spacing: 1px;
-        }
-      }
+  > div:nth-child(even) {
+    flex-direction: row-reverse;
+    > div:nth-child(2) {
+      padding-right: 3%;
     }
   }
 `;
 
 const Wrapper = styled.div``;
-export default () => {
+const About = ({ videos }) => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  const onClickHandler = () => {
-    window.open('https://www.youtube.com/embed/fiUpq6k5BAU', '_blank');
-  };
+  useEffect(() => {
+    store.dispatch({ type: GET_VIDEO_REQUEST });
+  }, []);
 
   const subcriptionHandler = () => {
     window.open(
@@ -709,7 +619,7 @@ export default () => {
               <Link to="/khoa-hoc">KHÓA HỌC</Link>
             </li>
             <li>
-              <Link to="#" onClick={() => subcriptionHandler()}>
+              <Link to="/gioi-thieu" onClick={() => subcriptionHandler()}>
                 ĐĂNG KÝ
               </Link>
             </li>
@@ -808,34 +718,18 @@ export default () => {
           </div>
         )}
 
-        <div className="video-des">
-          <div onClick={() => onClickHandler()}>
-            <iframe src="https://www.youtube.com/embed/fiUpq6k5BAU" />
-            <img src={pool} alt="pool" />
-          </div>
-          <div>
-            <p>TKStudio</p>
-            <p>
-              Là trung tâm luyện thi Kiến trúc – Mỹ thuật chất lượng hàng đầu trên địa bàn tỉnh Thừa
-              Thiên Huế. Với tiêu chí “Thi là đậu”, TKStudio sẽ là điểm đến tin cậy đến các bạn có
-              nhu cầu luyện thi nói riêng, có niềm đam mê hội họa – mỹ thuật nói chung.
-            </p>
-          </div>
-        </div>
-        <div className="video-des-reverse">
-          <div>
-            <p>TKStudio</p>
-            <p>
-              Là trung tâm luyện thi Kiến trúc – Mỹ thuật chất lượng hàng đầu trên địa bàn tỉnh Thừa
-              Thiên Huế. Với tiêu chí “Thi là đậu”, TKStudio sẽ là điểm đến tin cậy đến các bạn có
-              nhu cầu luyện thi nói riêng, có niềm đam mê hội họa – mỹ thuật nói chung.
-            </p>
-          </div>
-          <div onClick={() => onClickHandler()}>
-            <iframe src="https://www.youtube.com/embed/fiUpq6k5BAU" />
-            <img src={pool} alt="pool" />
-          </div>
-        </div>
+        <Video>
+          {videos.map((video, index) => (
+            <div key={index.toString()}>
+              <div>
+                <a target="_blank" href={video.link}>
+                  <img src={video.poster} />
+                </a>
+              </div>
+              <div>{video.description}</div>
+            </div>
+          ))}
+        </Video>
       </Content>
 
       <Footer>
@@ -885,3 +779,7 @@ export default () => {
     </Wrapper>
   );
 };
+
+export default connect(state => ({
+  videos: state.videos,
+}))(About);
