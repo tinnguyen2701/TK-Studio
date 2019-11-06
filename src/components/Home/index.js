@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import store from 'store';
@@ -21,17 +21,62 @@ import lamp from 'images/home/lamp.png';
 import { GET_ALL_USER_REQUEST } from '../Admin/ducks';
 
 const Navigation = styled.div`
-  padding: 15px 5% 0 5%;
+  position: absolute;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-flow: wrap;
 
+  ${props => props.isShowNavbar && 'background: rgba(0, 0, 0, 0.6);'}
+  > ul.navigation-phone {
+    height: ${props => (props.isShowNavbar ? 'auto' : 0)};
+    padding: 0 auto;
+
+    li {
+      display: ${props => (props.isShowNavbar ? 'block' : 'none')};
+    }
+  }
+
   @media screen and (max-width: 800px) {
+    > button {
+      display: block;
+      margin-right: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      border: none;
+      background: none;
+
+      > span {
+        margin: 2px;
+        display: block;
+        position: relative;
+        background: ${props => (props.isShowNavbar ? 'white' : 'rgba(0,0,0,.6);')};
+        width: 22px;
+        height: 4px;
+        border-radius: 2px;
+
+        ::after {
+          content: '';
+          position: absolute;
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          top: 0;
+          left: -10px;
+          background: ${props => (props.isShowNavbar ? 'white' : 'rgba(0,0,0,.6);')};
+        }
+      }
+    }
     img {
-      width: 110px;
+      width: 120px;
     }
 
+    img.logo {
+      margin: 15px 0 15px 15px;
+    }
     img.nguoi-ve,
     img.boom,
     img.cup {
@@ -40,72 +85,165 @@ const Navigation = styled.div`
   }
 
   @media screen and (min-width: 800px) {
-    img {
-      width: 165px;
+    padding: 15px 5% 0 5%;
+
+    > button {
+      display: none;
     }
 
     img.nguoi-ve {
       position: absolute;
-      top: 21%;
+      top: 210%;
       left: 54%;
       transform: scale(0.6);
-      animation: move 10s linear alternate infinite;
+      @media (min-width: 1225px) {
+        animation: move1 10s linear alternate infinite;
+      }
+      @media (min-width: 1348px) {
+        animation: move2 10s linear alternate infinite;
+      }
+      @media (min-width: 1497px) {
+        animation: move3 10s linear alternate infinite;
+      }
+      @media (min-width: 1685px) {
+        animation: move4 10s linear alternate infinite;
+      }
     }
 
     img.boom {
       position: absolute;
-      top: 14.5%;
-      right: 7.5%;
+      top: 49%;
+      left: 87%;
       animation: updown 3s linear infinite;
     }
 
     img.cup {
       position: absolute;
       transform: scale(0.6);
-      top: 18%;
-      left: 65%;
       animation: shaky 3s linear infinite;
+      top: 126%;
+      left: 67%;
+    }
+  }
+
+  @media (min-width: 1225px) {
+    img.boom {
+      top: 79%;
+      left: 81%;
+    }
+    img.cup {
+      top: 154%;
+      left: 65%;
+    }
+  }
+  @media (min-width: 1348px) {
+    img.boom {
+      top: 89%;
+      left: 79%;
+    }
+    img.cup {
+      top: 167%;
+      left: 64%;
     }
   }
 
   @media (min-width: 1497px) {
     img.boom {
-      top: 13.5%;
-      right: 10.5%;
+      top: 105%;
+      left: 78%;
+    }
+    img.cup {
+      top: 187%;
+      left: 64%;
     }
   }
+
   @media (min-width: 1685px) {
     img.boom {
-      top: 16.5%;
-      right: 12.5%;
+      top: 112%;
+      left: 76%;
+    }
+    img.cup {
+      top: 201%;
+      left: 63%;
     }
   }
 
   @media (min-width: 1797px) {
     img.boom {
-      top: 17.5%;
-      right: 13.5%;
+      top: 126%;
+      left: 75%;
+    }
+    img.cup {
+      top: 206%;
+      left: 63%;
     }
   }
 
-  @keyframes move {
+  @keyframes move4 {
     50% {
-      top: 31%;
-      left: 39%;
+      top: 310%;
+      left: 40%;
     }
     75% {
-      top: 39%;
-      left: 33%;
-      transform: scale(0.6) skewX(6deg);
-    }
-    85% {
-      top: 40%;
-      left: 30%;
+      top: 350%;
+      left: 35%;
       transform: scale(0.6) skewX(6deg);
     }
     100% {
-      top: 39%;
-      left: 33%;
+      top: 310%;
+      left: 40%;
+      transform: scale(0.6) skewX(6deg);
+    }
+  }
+
+  @keyframes move3 {
+    50% {
+      top: 270%;
+      left: 40%;
+    }
+    75% {
+      top: 310%;
+      left: 35%;
+      transform: scale(0.6) skewX(6deg);
+    }
+    100% {
+      top: 270%;
+      left: 40%;
+      transform: scale(0.6) skewX(6deg);
+    }
+  }
+
+  @keyframes move2 {
+    50% {
+      top: 250%;
+      left: 40%;
+    }
+    75% {
+      top: 290%;
+      left: 35%;
+      transform: scale(0.6) skewX(6deg);
+    }
+    100% {
+      top: 250%;
+      left: 40%;
+      transform: scale(0.6) skewX(6deg);
+    }
+  }
+
+  @keyframes move1 {
+    50% {
+      top: 250%;
+      left: 36%;
+    }
+    75% {
+      top: 280%;
+      left: 31%;
+      transform: scale(0.6) skewX(6deg);
+    }
+    100% {
+      top: 250%;
+      left: 36%;
       transform: scale(0.6) skewX(6deg);
     }
   }
@@ -136,8 +274,13 @@ const Navigation = styled.div`
       transform: translateY(0px);
     }
   }
+`;
 
-  ul {
+const NavigationTablet = styled.ul`
+  @media screen and (max-width: 800px) {
+    display: none;
+  }
+  @media screen and (min-width: 800px) {
     list-style: none;
     display: flex;
 
@@ -146,26 +289,12 @@ const Navigation = styled.div`
       transition: 200ms all;
     }
 
-    @media (max-width: 800px) {
-      > li {
-        margin: 5px;
-        font-size: 10px;
-
-        a {
-          white-space: nowrap;
-        }
-
-        button {
-          font-size: 10px !important;
-          padding: 0px 5px;
-        }
-      }
+    > li:hover button {
+      background: rgb(44, 166, 239);
     }
 
-    @media (min-width: 800px) {
-      > li {
-        margin: 10px;
-      }
+    > li {
+      margin: 10px;
     }
 
     > li {
@@ -176,16 +305,51 @@ const Navigation = styled.div`
       }
 
       button {
-        background: rgb(44, 166, 239);
-        border: none;
+        background: none;
+        border: 2px solid rgb(44, 166, 239);
         border-radius: 12px;
         padding: 5px 10px;
         margin-top: -5px;
+        transition: 200ms all;
 
         > a {
           font-family: font_strong;
-          color: white;
+          color: black;
         }
+      }
+    }
+  }
+`;
+
+const NavigationPhone = styled.ul`
+  @media screen and (min-width: 800px) {
+    display: none;
+  }
+  @media screen and (max-width: 800px) {
+    width: 100%;
+    padding: 0% 5%;
+    list-style: none;
+
+    li {
+      margin: 15px 0;
+    }
+
+    a {
+      color: white;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    button {
+      background: rgb(44, 166, 239);
+      border: none;
+      border-radius: 12px;
+      padding: 5px 10px;
+      margin-top: -5px;
+
+      > a {
+        font-family: font_strong;
+        color: white;
       }
     }
   }
@@ -212,6 +376,7 @@ const Banner = styled.div`
       color: black;
       font-size: 16px;
       padding-bottom: 10%;
+      padding-top: 260px;
       width: 100%;
     }
 
@@ -219,22 +384,33 @@ const Banner = styled.div`
       color: white;
       padding-bottom: 30%;
       font-size: 20px;
+      position: relative;
+      top: 70px;
     }
     padding: 0 5%;
-    width: 44%;
+    width: 35%;
     font-size: 20px;
     padding-top: 10%;
 
     button {
-      background: rgb(10, 199, 244);
-      border: none;
+      background: none;
+      border: 2px solid rgb(10, 199, 244);
       border-radius: 20px;
       padding: 10px 8px;
+      transition: 200ms all;
 
       > a {
-        color: white;
+        transition: 200ms all;
+        color: black;
         font-family: font_strong;
         text-decoration: none;
+      }
+    }
+
+    button:hover {
+      background: rgb(10, 199, 244);
+      > a {
+        color: white;
       }
     }
   }
@@ -261,15 +437,25 @@ const Wrapper = styled.div`
     }
 
     button {
-      background: rgb(10, 199, 244);
-      border: none;
+      background: none;
+      border: 2px solid rgb(10, 199, 244);
       border-radius: 20px;
       padding: 10px 10px;
+      transition: 200ms all;
+      margin-top: 20px;
 
       > a {
-        color: white;
+        color: black;
         font-family: font_strong;
+        transition: 200ms all;
         text-decoration: none;
+      }
+    }
+
+    button:hover {
+      background: rgb(10, 199, 244);
+      > a {
+        color: white;
       }
     }
   }
@@ -632,6 +818,8 @@ const Home = ({ users }) => {
     store.dispatch({ type: GET_ALL_USER_REQUEST });
   }, []);
 
+  const [isShowNavbar, setIsShowNavbar] = useState(false);
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
   const students = users.filter(user => user.role === 'student');
@@ -646,13 +834,18 @@ const Home = ({ users }) => {
   return (
     <Wrapper>
       <Banner>
-        <Navigation>
-          <img src={logo} alt="logo" />
+        <Navigation isShowNavbar={isShowNavbar}>
+          <img src={logo} className="logo" alt="logo" />
           <img src={nguoive} className="nguoi-ve" alt="nguoi ve" />
           <img src={cup} className="cup" alt="cup" />
           <img src={boom} className="boom" alt="boom" />
+          <button type="button" onClick={() => setIsShowNavbar(!isShowNavbar)}>
+            <span />
+            <span />
+            <span />
+          </button>
 
-          <ul>
+          <NavigationTablet>
             <li>
               <Link to="/">TRANG CHỦ</Link>
             </li>
@@ -672,8 +865,30 @@ const Home = ({ users }) => {
                 <Link to="/lien-he">LIÊN HỆ</Link>
               </button>
             </li>
-          </ul>
+          </NavigationTablet>
+          <NavigationPhone className="navigation-phone">
+            <li>
+              <Link to="/">TRANG CHỦ</Link>
+            </li>
+            <li>
+              <Link to="/gioi-thieu">GIỚI THIỆU</Link>
+            </li>
+            <li>
+              <Link to="/khoa-hoc">KHÓA HỌC</Link>
+            </li>
+            <li>
+              <Link to="/#" onClick={() => subcriptionHandler()}>
+                ĐĂNG KÝ
+              </Link>
+            </li>
+            <li>
+              <button type="button">
+                <Link to="/lien-he">LIÊN HỆ</Link>
+              </button>
+            </li>
+          </NavigationPhone>
         </Navigation>
+
         <div>
           <h1>TKStudio</h1>
           <br />

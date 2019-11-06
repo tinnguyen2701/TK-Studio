@@ -1,6 +1,6 @@
 /* eslint-disable*/
 
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import backgroundHeader from 'images/about/backgroundHeader.png';
@@ -162,86 +162,163 @@ const Footer = styled.div`
 
 const Navigation = styled.div`
   position: absolute;
-  top: 0;
   width: 100%;
-  padding: 15px 5% 0 5%;
   flex-flow: wrap;
 
+  ${props => props.isShowNavbar && 'background: rgba(0, 0, 0, 0.6);'}
+  > ul.navigation-phone {
+    height: ${props => (props.isShowNavbar ? 'auto' : 0)};
+    padding: 0 auto;
+
+    li {
+      display: ${props => (props.isShowNavbar ? 'block' : 'none')};
+    }
+  }
+
   @media screen and (max-width: 800px) {
+    > button {
+      display: block;
+      margin-right: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      border: none;
+      background: none;
+
+      > span {
+        margin: 2px;
+        display: block;
+        position: relative;
+        background: ${props => (props.isShowNavbar ? 'white' : 'rgba(0,0,0,.6);')};
+        width: 22px;
+        height: 4px;
+        border-radius: 2px;
+
+        ::after {
+          content: '';
+          position: absolute;
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          top: 0;
+          left: -10px;
+          background: ${props => (props.isShowNavbar ? 'white' : 'rgba(0,0,0,.6);')};
+        }
+      }
+    }
     img {
-      width: 110px;
+      width: 120px;
+    }
+    img.logo {
+      margin: 15px 0 15px 15px;
     }
   }
 
   @media screen and (min-width: 800px) {
+    padding: 15px 5% 0 5%;
+
     img {
       width: 165px;
-    }  
+    }
+    > button {
+      display: none;
+    }
   }
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
 
+const NavigationTablet = styled.ul`
+  @media screen and (max-width: 800px) {
+    display: none !important;
+  }
 
-  ul {
+  @media screen and (min-width: 800px) {
     list-style: none;
     display: flex;
-    
+
     > li:hover a {
       color: white;
-      transition: 200ms all;
-    }
-    @media (max-width: 800px) {
-      > li {
-        margin: 5px;
-
-        font-size: 10px;
-
-        a {
-          white-space: nowrap;
-        }
-
-        button {
-          font-size: 10px !important;
-          padding: 0px 5px;
-        }
-      }
     }
 
-    @media (min-width: 800px) {
-      > li {
-        margin: 10px;
-      }
+    > li {
+      margin: 10px;
     }
 
     > li {
       a {
         text-decoration: none;
         color: black;
+        transition: 200ms all;
         font-weight: 600;
       }
 
       button {
-        background: rgb(44, 166, 239);
-        border: none;
+        background: none !important;
+        border: 2px solid rgb(44, 166, 239) !important;
         border-radius: 12px;
         padding: 5px 10px;
         margin-top: -5px;
+        transition: 200ms all;
 
         > a {
           font-family: font_strong;
-          color: white;
+          color: black !important;
+        }
+      }
+      button:hover {
+        background: rgb(44, 166, 239) !important;
+        > a {
+          color: white !important;
         }
       }
     }
+  }
+`;
+
+const NavigationPhone = styled.ul`
+  @media screen and (min-width: 800px) {
+    display: none !important;
+  }
+  @media screen and (max-width: 800px) {
+    z-index: 9;
+    width: 100%;
+    padding: 0% 5%;
+    list-style: none;
+
+    li {
+      margin: 15px 0 !important;
+    }
+
+    a {
+      color: white !important;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    button {
+      background: rgb(44, 166, 239);
+      border: none;
+      border-radius: 12px;
+      padding: 5px 10px;
+      margin-top: -5px;
+
+      > a {
+        font-family: font_strong;
+        color: white;
+      }
+    }
+  }
 `;
 
 const Banner = styled.div`
   background-image: url(${backgroundHeader});
   background-repeat: none;
   background-size: cover;
-  background-position: center;
+  background-position: 35% 50%;
   position: relative;
 
   @media screen and (max-width: 800px) {
@@ -271,7 +348,7 @@ const Banner = styled.div`
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    color: white;
+    color: ${props => (props.isShowNavbar ? 'rgba(255,255,255,.2)' : 'white')};
     text-align: center;
 
     @media screen and (max-width: 800px) {
@@ -360,6 +437,7 @@ const Tutorial = ({ tutorials, history }) => {
   useEffect(() => {
     store.dispatch({ type: GET_ALL_TUTORIAL_REQUEST });
   }, []);
+  const [isShowNavbar, setIsShowNavbar] = useState(false);
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -381,10 +459,15 @@ const Tutorial = ({ tutorials, history }) => {
 
   return (
     <Wrapper>
-      <Banner>
-        <Navigation>
-          <img src={logo} alt="logo" />
-          <ul>
+      <Banner isShowNavbar={isShowNavbar}>
+        <Navigation isShowNavbar={isShowNavbar}>
+          <img src={logo} className="logo" alt="logo" />
+          <button type="button" onClick={() => setIsShowNavbar(!isShowNavbar)}>
+            <span />
+            <span />
+            <span />
+          </button>
+          <NavigationTablet>
             <li>
               <Link to="/">TRANG CHỦ</Link>
             </li>
@@ -395,7 +478,7 @@ const Tutorial = ({ tutorials, history }) => {
               <Link to="/khoa-hoc">KHÓA HỌC</Link>
             </li>
             <li>
-              <Link to="#" onClick={() => subcriptionHandler()}>
+              <Link to="/#" onClick={() => subcriptionHandler()}>
                 ĐĂNG KÝ
               </Link>
             </li>
@@ -404,7 +487,28 @@ const Tutorial = ({ tutorials, history }) => {
                 <Link to="/lien-he">LIÊN HỆ</Link>
               </button>
             </li>
-          </ul>
+          </NavigationTablet>
+          <NavigationPhone className="navigation-phone">
+            <li>
+              <Link to="/">TRANG CHỦ</Link>
+            </li>
+            <li>
+              <Link to="/gioi-thieu">GIỚI THIỆU</Link>
+            </li>
+            <li>
+              <Link to="/khoa-hoc">KHÓA HỌC</Link>
+            </li>
+            <li>
+              <Link to="/#" onClick={() => subcriptionHandler()}>
+                ĐĂNG KÝ
+              </Link>
+            </li>
+            <li>
+              <button type="button">
+                <Link to="/lien-he">LIÊN HỆ</Link>
+              </button>
+            </li>
+          </NavigationPhone>
         </Navigation>
         <div>
           <h1>CÁC KHÓA HỌC Ở TKSTUDIO</h1>
