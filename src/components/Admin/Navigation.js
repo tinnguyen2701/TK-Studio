@@ -49,6 +49,14 @@ export default () => {
         </button>
       </p>
       <p>
+        <button
+          type="button"
+          onClick={() => store.dispatch({ type: UPDATE_FRAME_REQUEST, payload: 'blog' })}
+        >
+          blog
+        </button>
+      </p>
+      <p>
         <button type="button" onClick={() => onClickSettingHandler()}>
           setting
         </button>

@@ -5,6 +5,7 @@ import Student from './Student';
 import Teacher from './Teacher';
 import Tutorial from './Tutorial';
 import Setting from './Setting';
+import Blog from '../Blog';
 
 const Wrapper = styled.div`
   width: 75%;
@@ -32,16 +33,26 @@ const Frame = ({ tabVisible, users }) => {
         <Tutorial />
       </Wrapper>
     );
+
+  if (tabVisible === 'blog')
+    return (
+      <Wrapper>
+        <Blog />
+      </Wrapper>
+    );
+
   if (tabVisible === 'setting')
     return (
       <Wrapper>
         <Setting />
+        <Blog />
       </Wrapper>
     );
 
   return (
     <Wrapper>
       <h1>T K ____ S T U D I O ____ A R T</h1>
+      {/* <Blog /> */}
     </Wrapper>
   );
 };
