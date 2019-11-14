@@ -11,6 +11,9 @@ const settingSchema = new Schema({
     type: String,
     required: true,
   },
+  tags: {
+    type: Array,
+  },
 });
 
 module.exports = mongoose.model('Setting', settingSchema);

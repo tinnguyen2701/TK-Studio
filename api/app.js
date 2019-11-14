@@ -11,6 +11,7 @@ const admin = require('./routes/admin');
 const user = require('./routes/user');
 const setting = require('./routes/setting');
 const tutorial = require('./routes/tutorial');
+const post = require('./routes/post');
 // const Account = require('./models/account');
 
 const app = express();
@@ -45,6 +46,7 @@ app.use('/api/auth', admin);
 app.use('/api/user', user);
 app.use('/api/setting', setting);
 app.use('/api/tutorial', tutorial);
+app.use('/api/post', passport.authenticate('jwt', { session: false }), post);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../build')));

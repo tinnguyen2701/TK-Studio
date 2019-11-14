@@ -45,7 +45,6 @@ const Frame = ({ tabVisible, users }) => {
     return (
       <Wrapper>
         <Setting />
-        <Blog />
       </Wrapper>
     );
 

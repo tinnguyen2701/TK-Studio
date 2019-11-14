@@ -135,4 +135,42 @@ settingRouter.get('/videos', async (req, res) => {
     });
 });
 
+settingRouter.post(
+  '/addTag',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res) => {
+    const setting = await Setting.find({});
+    const tags = setting[0].tags;
+    tags.push(req.body.tag);
+
+    await Setting.updateOne({}, { $set: { tags } }, { upsert: true })
+      .then(() => {
+        return res.status(200).send({ tags });
+      })
+      .catch(err => {
+        logger.logError('add tag went wrong', err);
+        return res.sendStatus(500);
+      });
+  },
+);
+
+settingRouter.post(
+  '/removeTag',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res) => {
+    const setting = await Setting.find({});
+    var tags = setting[0].tags;
+    tags = tags.filter(tag => !req.body.tags.includes(tag));
+
+    await Setting.updateOne({}, { $set: { tags } }, { upsert: true })
+      .then(() => {
+        return res.status(200).send({ tags });
+      })
+      .catch(err => {
+        logger.logError('remove tag went wrong', err);
+        return res.sendStatus(500);
+      });
+  },
+);
+
 module.exports = settingRouter;

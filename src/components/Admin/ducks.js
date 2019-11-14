@@ -1,5 +1,6 @@
 import { fork, put, call, takeLatest } from 'redux-saga/effects';
 import { callApi, createAction, logger } from 'dorothy/utils';
+import { GET_ALL_POST_REQUEST } from '../Blog/ducks';
 
 export const GET_CURRENT_USER_REQUEST = 'GET_CURRENT_USER_REQUEST';
 export const GET_CURRENT_USER_RESPONSE = 'GET_CURRENT_USER_RESPONSE';
@@ -93,6 +94,7 @@ function* requestCurrentUser(action) {
       yield put({ type: GET_ALL_USER_REQUEST });
       yield put({ type: GET_SETTING_REQUEST });
       yield put({ type: GET_ALL_TUTORIAL_REQUEST });
+      yield put({ type: GET_ALL_POST_REQUEST });
     }
   } catch (error) {
     logger.logError('invalid token');
