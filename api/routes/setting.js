@@ -8,7 +8,7 @@ const Video = require('../models/videos');
 
 require('../config/cloudinary');
 
-settingRouter.get('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
+settingRouter.get('/', async (req, res) => {
   const setting = await Setting.find({});
   const videos = await Video.find({});
   return res.status(200).send({ setting: setting[0], videos });

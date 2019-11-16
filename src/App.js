@@ -8,6 +8,7 @@ import Login from './components/Login';
 import About from './components/About';
 import Tutorial from './components/Tutorial';
 import singleTutorial from './components/Tutorial/singleTutorial';
+import Feed from './components/Feed';
 
 export default () => {
   return (
@@ -18,6 +19,9 @@ export default () => {
           <Route path="/dashboard" component={Admin} />
           <Route path="/login" component={Login} />
           <Route path="/gioi-thieu" component={About} />
+          <Route exact path="/feed" component={Feed} />
+          <Route exact path="/feed/page/:numberPage" component={Feed} />
+          <Route exact path="/feed/tags/:tag" component={Feed} />
           <Route exact path="/khoa-hoc" component={Tutorial} />
           <Route exact path="/" component={Tutorial} />
           <Route path="/khoa-hoc/:nameCourse" component={singleTutorial} />

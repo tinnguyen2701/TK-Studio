@@ -711,6 +711,9 @@ const About = ({ videos }) => {
               <Link to="/gioi-thieu">GIỚI THIỆU</Link>
             </li>
             <li>
+              <Link to="/feed">FEED</Link>
+            </li>
+            <li>
               <Link to="/khoa-hoc">KHÓA HỌC</Link>
             </li>
             <li>
@@ -727,6 +730,9 @@ const About = ({ videos }) => {
           <NavigationPhone className="navigation-phone">
             <li>
               <Link to="/">TRANG CHỦ</Link>
+            </li>
+            <li>
+              <Link to="/feed">FEED</Link>
             </li>
             <li>
               <Link to="/gioi-thieu">GIỚI THIỆU</Link>
@@ -873,6 +879,9 @@ const About = ({ videos }) => {
             </p>
             <p>
               <Link to="/gioi-thieu">GIỚI THIỆU</Link>
+            </p>
+            <p>
+              <Link to="/feed">FEED</Link>
             </p>
             <p>
               <Link to="/khoa-hoc">KHÓA HỌC</Link>

@@ -853,6 +853,9 @@ const Home = ({ users }) => {
               <Link to="/gioi-thieu">GIỚI THIỆU</Link>
             </li>
             <li>
+              <Link to="/feed">FEED</Link>
+            </li>
+            <li>
               <Link to="/khoa-hoc">KHÓA HỌC</Link>
             </li>
             <li>
@@ -872,6 +875,9 @@ const Home = ({ users }) => {
             </li>
             <li>
               <Link to="/gioi-thieu">GIỚI THIỆU</Link>
+            </li>
+            <li>
+              <Link to="/feed">FEED</Link>
             </li>
             <li>
               <Link to="/khoa-hoc">KHÓA HỌC</Link>
@@ -1019,6 +1025,9 @@ const Home = ({ users }) => {
             </p>
             <p>
               <Link to="/gioi-thieu">GIỚI THIỆU</Link>
+            </p>
+            <p>
+              <Link to="/feed">FEED</Link>
             </p>
             <p>
               <Link to="/khoa-hoc">KHÓA HỌC</Link>

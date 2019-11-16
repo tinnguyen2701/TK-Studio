@@ -30,6 +30,9 @@ import {
   REMOVE_POST_RESPONSE,
   ADD_POST_RESPONSE,
   EDIT_POST_RESPONSE,
+  GET_ALL_POST_POLULATE_RESPONSE,
+  GET_LIMIT_POST_RESPONSE,
+  GET_TAGS_POST_RESPONSE,
 } from './components/Blog/ducks';
 
 export const UPDATE_TAB = 'UPDATE_TAB';
@@ -73,6 +76,10 @@ const settingActionHandler = {
     tags: action.payload.tags,
   }),
   [REMOVE_TAG_RESPONSE]: (state, action) => ({
+    ...state,
+    tags: action.payload.tags,
+  }),
+  [EDIT_POST_RESPONSE]: (state, action) => ({
     ...state,
     tags: action.payload.tags,
   }),
@@ -157,20 +164,28 @@ export const videosReducer = createReducer(initVideos, videosActionHandler);
 const initPosts = [];
 const postsActionHandler = {
   [GET_ALL_POST_RESPONSE]: (state, action) => action.payload.posts,
+  [GET_LIMIT_POST_RESPONSE]: (state, action) => action.payload.posts,
+  [GET_TAGS_POST_RESPONSE]: (state, action) => action.payload.posts,
   [ADD_POST_RESPONSE]: (state, action) => [...state, action.payload],
   [REMOVE_POST_RESPONSE]: (state, action) => state.filter(item => item._id !== action.payload.id),
   [EDIT_POST_RESPONSE]: (state, action) => {
     return state.map(post => {
-      if (post._id === action.payload.id) {
-        post.title = action.payload.title;
-        post.description = action.payload.description;
-        post.isPopulate = action.payload.isPopulate;
-        post.images = action.payload.images;
-        post.videos = action.payload.videos;
-        post.tags = action.payload.tags;
+      if (post._id === action.payload.post.id) {
+        post.title = action.payload.post.title;
+        post.description = action.payload.post.description;
+        post.isPopulate = action.payload.post.isPopulate;
+        post.images = action.payload.post.images;
+        post.videos = action.payload.post.videos;
+        post.tags = action.payload.post.tags;
       }
       return post;
     });
   },
 };
 export const postsReducer = createReducer(initPosts, postsActionHandler);
+
+const initPopulatePosts = [];
+const populatePostsActionHandler = {
+  [GET_ALL_POST_POLULATE_RESPONSE]: (state, action) => action.payload.posts,
+};
+export const populatePostsReducer = createReducer(initPopulatePosts, populatePostsActionHandler);

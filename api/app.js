@@ -46,7 +46,7 @@ app.use('/api/auth', admin);
 app.use('/api/user', user);
 app.use('/api/setting', setting);
 app.use('/api/tutorial', tutorial);
-app.use('/api/post', passport.authenticate('jwt', { session: false }), post);
+app.use('/api/post', post);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../build')));

@@ -17,6 +17,18 @@ export const GET_ALL_POST_REQUEST = 'GET_ALL_POST_REQUEST';
 export const GET_ALL_POST_RESPONSE = 'GET_ALL_POST_RESPONSE';
 export const GET_ALL_POST_ERROR = 'GET_ALL_POST_ERROR';
 
+export const GET_LIMIT_POST_REQUEST = 'GET_LIMIT_POST_REQUEST';
+export const GET_LIMIT_POST_RESPONSE = 'GET_LIMIT_POST_RESPONSE';
+export const GET_LIMIT_POST_ERROR = 'GET_LIMIT_POST_ERROR';
+
+export const GET_TAGS_POST_REQUEST = 'GET_TAGS_POST_REQUEST';
+export const GET_TAGS_POST_RESPONSE = 'GET_TAGS_POST_RESPONSE';
+export const GET_TAGS_POST_ERROR = 'GET_TAGS_POST_ERROR';
+
+export const GET_ALL_POST_POLULATE_REQUEST = 'GET_ALL_POST_POLULATE_REQUEST';
+export const GET_ALL_POST_POLULATE_RESPONSE = 'GET_ALL_POST_POLULATE_RESPONSE';
+export const GET_ALL_POST_POLULATE_ERROR = 'GET_ALL_POST_POLULATE_ERROR';
+
 export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUEST';
 export const REMOVE_POST_RESPONSE = 'REMOVE_POST_RESPONSE';
 export const REMOVE_POST_ERROR = 'REMOVE_POST_ERROR';
@@ -99,6 +111,60 @@ function* watchGetAllPostRequest() {
 export const getAllPostSaga = [fork(watchGetAllPostRequest)];
 
 /* handler state for get all post */
+function* requestGetALlPostPopulate() {
+  try {
+    const response = yield call(
+      callApi,
+      'get',
+      `${process.env.REACT_APP_BASE_URL}api/post/populate`,
+    );
+    yield put(createAction(GET_ALL_POST_POLULATE_RESPONSE, response.data));
+  } catch (error) {
+    yield put(createAction(GET_ALL_POST_POLULATE_ERROR, error));
+  }
+}
+function* watchGetAllPostPopulateRequest() {
+  yield takeLatest(GET_ALL_POST_POLULATE_REQUEST, requestGetALlPostPopulate);
+}
+export const getAllPostPopulateSaga = [fork(watchGetAllPostPopulateRequest)];
+
+/* handler state for get limit post */
+function* requestGetLimitPost(action) {
+  try {
+    const response = yield call(
+      callApi,
+      'get',
+      `${process.env.REACT_APP_BASE_URL}api/post/page/${action.payload.numberPage}`,
+    );
+    yield put(createAction(GET_LIMIT_POST_RESPONSE, response.data));
+  } catch (error) {
+    yield put(createAction(GET_LIMIT_POST_ERROR, error));
+  }
+}
+function* watchGetLimitPostRequest() {
+  yield takeLatest(GET_LIMIT_POST_REQUEST, requestGetLimitPost);
+}
+export const getLimitPostSaga = [fork(watchGetLimitPostRequest)];
+
+/* handler state for get tags posts */
+function* requestGetTagsPost(action) {
+  try {
+    const response = yield call(
+      callApi,
+      'get',
+      `${process.env.REACT_APP_BASE_URL}api/post/tags/${action.payload.tag}`,
+    );
+    yield put(createAction(GET_TAGS_POST_RESPONSE, response.data));
+  } catch (error) {
+    yield put(createAction(GET_TAGS_POST_ERROR, error));
+  }
+}
+function* watchGetTasgPostRequest() {
+  yield takeLatest(GET_TAGS_POST_REQUEST, requestGetTagsPost);
+}
+export const getTagsPostSaga = [fork(watchGetTasgPostRequest)];
+
+/* handler state for get remove post */
 function* requestRemovePost(action) {
   try {
     const response = yield call(

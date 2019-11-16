@@ -1,5 +1,4 @@
-/* eslint-disable*/
-
+/* eslint-disable */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -13,7 +12,13 @@ import instagram from 'images/logo/instagram.png';
 import youtube from 'images/logo/youtube.png';
 import { connect } from 'react-redux';
 import store from 'store';
-import { GET_ALL_TUTORIAL_REQUEST } from '../Admin/ducks';
+import {
+  GET_ALL_POST_POLULATE_REQUEST,
+  GET_LIMIT_POST_REQUEST,
+  GET_TAGS_POST_REQUEST,
+} from '../Blog/ducks';
+import { GET_SETTING_REQUEST } from '../Admin/ducks';
+import ListPost from './ListPost';
 
 const Footer = styled.div`
   margin-top: 10%;
@@ -221,6 +226,7 @@ const Navigation = styled.div`
     img {
       width: 165px;
     }
+
     > button {
       display: none;
     }
@@ -242,6 +248,7 @@ const NavigationTablet = styled.ul`
 
     > li:hover a {
       color: white;
+      transition: 200ms all;
     }
 
     > li {
@@ -252,7 +259,6 @@ const NavigationTablet = styled.ul`
       a {
         text-decoration: none;
         color: black;
-        transition: 200ms all;
         font-weight: 600;
       }
 
@@ -263,10 +269,10 @@ const NavigationTablet = styled.ul`
         padding: 5px 10px;
         margin-top: -5px;
         transition: 200ms all;
-
         > a {
           font-family: font_strong;
-          color: black !important;
+          transition: 200ms all;
+          color: black important;
         }
       }
       button:hover {
@@ -322,7 +328,7 @@ const Banner = styled.div`
   position: relative;
 
   @media screen and (max-width: 800px) {
-    height: 420px;
+    height: 350px;
   }
 
   @media screen and (min-width: 800px) {
@@ -343,118 +349,182 @@ const Banner = styled.div`
     left: -145px;
   }
 
-  > div:nth-child(2) {
-    width: 100%;
+  @media screen and (max-width: 800px) {
+    > h1 {
+      width: 100%;
+      font-size: 30px;
+      text-align: center;
+      top: 30%;
+    }
+  }
+
+  @media screen and (min-width: 800px) {
+    > h1 {
+      top: 25%;
+      font-size: 42px;
+    }
+  }
+
+  > h1 {
+    color: ${props => (props.isShowNavbar ? 'rgba(255,255,255,.2)' : 'white')};
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
-    color: ${props => (props.isShowNavbar ? 'rgba(255,255,255,.2)' : 'white')};
-    text-align: center;
+    transform: translate(-50%);
+  }
+`;
 
-    @media screen and (max-width: 800px) {
-      top: 30%;
+const Content = styled.div`
+  padding: 0 5%;
 
-      > h1:nth-child(1) {
-        font-size: 30px;
-        text-align: center;
-        top: 30%;
-      }
-      > h1:nth-child(2) {
-        font-size: 20px;
-      }
+  @media screen and (min-width: 800px) {
+    display: flex;
+
+    > div:nth-child(1) {
+      display: none;
     }
 
-    @media screen and (min-width: 800px) {
-      top: 25%;
-      > h1:nth-child(1) {
-        top: 25%;
-        font-size: 42px;
+    > div:nth-child(2) {
+      flex: 2.5;
+      padding-right: 7%;
+    }
+    > div:nth-child(3) {
+      flex: 1;
+      border: 1px solid;
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    > div:nth-child(3) {
+      display: none;
+    }
+  }
+
+  .posts {
+    > p {
+      display: flex;
+      position: relative;
+
+      > i {
+        position: absolute;
+        left: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgb(44, 166, 239);
       }
-      > h1:nth-child(2) {
-        font-size: 32px;
+
+      > input {
+        padding: 5px 0;
+        font-size: 13px;
+        width: 100%;
+        padding-left: 20px;
+        padding-right: 75px;
+        border-radius: 15px;
+        border: 1px solid darkgrey;
+        outline: none;
+      }
+      > button {
+        position: absolute;
+        right: 0;
+        width: 75px;
+        height: 100%;
+        border-radius: 15px;
+        background: rgb(44, 166, 239);
+        color: white;
+        font-weight: bold;
+        border: 1px solid darkgray;
+      }
+
+      @media screen and (min-width: 800px) {
+        > input {
+          padding: 10px 0;
+          font-size: 16px;
+          border-radius: 20px;
+          padding-left: 30px;
+          padding-right: 100px;
+        }
+        > i {
+          left: 10px;
+          font-size: 18px;
+        }
+        > button {
+          width: 100px;
+          border-radius: 20px;
+          font-size: 16px;
+        }
       }
     }
   }
 `;
 
 const Wrapper = styled.div``;
-
-const Content = styled.div`
-  @media screen and (min-width: 800px) {
-    padding: 0 10%;
-  }
-  text-align: center;
-`;
-
-const ItemTutorial = styled.div`
-  display: inline-block;
-  width: 323px;
-  height: 298px;
-  margin: 15px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 8px;
-  border: 8px solid #2ca6ef;
-  background: #2ca6ef;
-  cursor: pointer;
-
-  > img {
-    border-radius: 8px;
-    height: 100%;
-  }
-
-  > div {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.4);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    color: white;
-
-    > p:nth-child(1) {
-      font-size: 30px;
-      font-weight: 600;
-    }
-
-    > p:nth-child(2) {
-      border: 2px solid white;
-      padding: 10px 15px;
-      font-size: 16px;
-    }
-
-    > img {
-      width: 65px;
-    }
-  }
-`;
-
-const Tutorial = ({ tutorials, history }) => {
-  useEffect(() => {
-    store.dispatch({ type: GET_ALL_TUTORIAL_REQUEST });
-  }, []);
+const Feed = ({ posts, setting, populatePosts, match, history }) => {
   const [isShowNavbar, setIsShowNavbar] = useState(false);
+  const [valueSearch, setValueSearch] = useState(null);
+  const [isGetLimit, setIsGetLimit] = useState(true);
 
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  const { numberPage } = match.params;
+  const object = window.location.href.split('/')[window.location.href.split('/').length - 2];
+
+  if (
+    object === 'page' &&
+    numberPage !== undefined &&
+    numberPage != window.localStorage.getItem('page')
+  ) {
+    window.localStorage.setItem('page', numberPage);
+
+    store.dispatch({
+      type: GET_LIMIT_POST_REQUEST,
+      payload: { numberPage: numberPage },
+    });
+  } else if (isGetLimit === true && object !== 'tags' && object !== 'page') {
+    store.dispatch({
+      type: GET_LIMIT_POST_REQUEST,
+      payload: {
+        numberPage: 1,
+      },
+    });
+    setIsGetLimit(false);
+  }
+
+  useEffect(() => {
+    store.dispatch({ type: GET_SETTING_REQUEST });
+
+    if (object === 'page' && numberPage > 0) {
+      store.dispatch({
+        type: GET_LIMIT_POST_REQUEST,
+        payload: {
+          numberPage: numberPage === undefined ? 1 : numberPage,
+        },
+      });
+    } else if (object === 'tags') {
+      store.dispatch({
+        type: GET_TAGS_POST_REQUEST,
+        payload: {
+          tag: window.location.href.split('/')[window.location.href.split('/').length - 1],
+        },
+      });
+    }
+    store.dispatch({ type: GET_ALL_POST_POLULATE_REQUEST });
+  }, []);
+
+  const redirectPageHandler = numberPage => {
+    setIsGetLimit(true);
+    window.localStorage.setItem('page', numberPage);
+    history.push(`/feed/page/${numberPage}`);
+    if (numberPage > 0) store.dispatch({ type: GET_LIMIT_POST_REQUEST, payload: { numberPage } });
+  };
+
+  const redirectTagHandler = tag => {
+    setIsGetLimit(true);
+    history.push(`/feed/tags/${tag}`);
+    store.dispatch({ type: GET_TAGS_POST_REQUEST, payload: { tag } });
+  };
 
   const subcriptionHandler = () => {
     window.open(
       'https://forms.gle/bNtEgyX6ijdGWeL16?fbclid=IwAR36hqYi-XTc_CsdWFukFKB8CNgIhPtYGoCuSddOFi_As2x9ZGtu0BUe3vE',
       '_blank',
     );
-  };
-
-  const onClickHandler = nameCourse => {
-    const string = nameCourse
-      .split(' ')
-      .join('-')
-      .toLowerCase();
-
-    history.push(`/khoa-hoc/${string}`);
   };
 
   return (
@@ -516,27 +586,94 @@ const Tutorial = ({ tutorials, history }) => {
             </li>
           </NavigationPhone>
         </Navigation>
-        <div>
-          <h1>CÁC KHÓA HỌC Ở TKSTUDIO</h1>
-          <h1>Bấm vào hình để xem chi tiết khóa học</h1>
-        </div>
+        <h1>TKSTUDIO BLOG</h1>
       </Banner>
       <Content>
-        {tutorials &&
-          tutorials.map((tutorial, index) => (
-            <ItemTutorial
-              key={index.toString()}
-              onClick={() => onClickHandler(tutorial.nameCourse)}
-            >
-              <img src={tutorial.poster} alt={tutorial.nameCourse} />
-              <div>
-                <p>{tutorial.subject}</p>
-                <p>{tutorial.nameCourse}</p>
-                <img src={logo} alt="logo" />
-              </div>
-            </ItemTutorial>
-          ))}
+        <div>
+          <div>nav cho muc luc</div>
+        </div>
+        <div className="posts">
+          <p>
+            <i className="fa fa-search" />
+            <input
+              type="text"
+              placeholder="Tìm kiếm..."
+              value={valueSearch || ''}
+              onChange={e => setValueSearch(e.target.value)}
+            />
+            <button type="button">Tìm kiếm</button>
+          </p>
+          {posts && (
+            <div>
+              <ListPost posts={posts} />
+
+              {object === 'page' &&
+                match.params !== undefined &&
+                window.location.href.split('/')[window.location.href.split('/').length - 1] > 1 && (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      redirectPageHandler(
+                        parseInt(
+                          window.location.href.split('/')[
+                            window.location.href.split('/').length - 1
+                          ],
+                        ) - 1,
+                      )
+                    }
+                  >
+                    Back
+                  </button>
+                )}
+
+              {object === 'page' && (
+                <button
+                  type="button"
+                  onClick={() =>
+                    redirectPageHandler(
+                      parseInt(
+                        window.location.href.split('/')[window.location.href.split('/').length - 1],
+                      ) + 1,
+                    )
+                  }
+                >
+                  Next
+                </button>
+              )}
+              {window.location.href
+                .split('/')
+                [window.location.href.split('/').length - 1].toLowerCase() === 'feed' && (
+                <button type="button" onClick={() => redirectPageHandler(2)}>
+                  Next
+                </button>
+              )}
+            </div>
+          )}
+          <div></div>
+        </div>
+        <div>
+          <div>
+            <p>MỤC LỤC</p>
+            <hr />
+            <p>Tất cả</p>
+            {setting &&
+              setting.tags.length > 0 &&
+              setting.tags.map((item, index) => (
+                <button onClick={() => redirectTagHandler(item)} key={index.toString()}>
+                  {item}
+                </button>
+              ))}
+          </div>
+          <div>
+            <p>PHỔ BIẾN</p>
+            <hr />
+            {populatePosts &&
+              populatePosts.length > 0 &&
+              populatePosts.map((item, index) => <div key={index.toString()}>{item.title}</div>)}
+          </div>
+        </div>
       </Content>
+
       <Footer>
         <img src={backgroundFooter} alt="footer background" />
         <div>
@@ -570,8 +707,7 @@ const Tutorial = ({ tutorials, history }) => {
           </div>
           <div>
             <p>
-              ĐĂNG KÝ <span />
-              LIÊN HỆ
+              ĐĂNG KÝ <span /> LIÊN HỆ
             </p>
             <p>0702450542</p>
           </div>
@@ -590,5 +726,7 @@ const Tutorial = ({ tutorials, history }) => {
 };
 
 export default connect(state => ({
-  tutorials: state.tutorials,
-}))(Tutorial);
+  posts: state.posts,
+  setting: state.setting,
+  populatePosts: state.populatePosts,
+}))(Feed);

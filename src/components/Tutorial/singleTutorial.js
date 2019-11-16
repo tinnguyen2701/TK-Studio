@@ -560,6 +560,9 @@ const Tutorial = ({ match, tutorial }) => {
                 <Link to="/gioi-thieu">GIỚI THIỆU</Link>
               </li>
               <li>
+                <Link to="/feed">FEED</Link>
+              </li>
+              <li>
                 <Link to="/khoa-hoc">KHÓA HỌC</Link>
               </li>
               <li>
@@ -579,6 +582,9 @@ const Tutorial = ({ match, tutorial }) => {
               </li>
               <li>
                 <Link to="/gioi-thieu">GIỚI THIỆU</Link>
+              </li>
+              <li>
+                <Link to="/feed">FEED</Link>
               </li>
               <li>
                 <Link to="/khoa-hoc">KHÓA HỌC</Link>
@@ -673,6 +679,9 @@ const Tutorial = ({ match, tutorial }) => {
               </p>
               <p>
                 <Link to="/gioi-thieu">GIỚI THIỆU</Link>
+              </p>
+              <p>
+                <Link to="/feed">FEED</Link>
               </p>
               <p>
                 <Link to="/khoa-hoc">KHÓA HỌC</Link>

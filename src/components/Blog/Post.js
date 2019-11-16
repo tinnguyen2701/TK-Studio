@@ -210,6 +210,15 @@ const Div = styled.div`
           > p {
             margin: 10px 0;
           }
+
+          > p:last-child {
+            margin-left: 10px;
+
+            > span {
+              color: rgb(44, 166, 239);
+            }
+          }
+
           > p > input {
             margin-left: 15px;
             width: 40%;
@@ -230,7 +239,7 @@ const Div = styled.div`
   }
 `;
 
-export default ({ post }) => {
+export default ({ post, tagsOriginal }) => {
   const [isVisibleRemove, setIsVisibleRemove] = useState(false);
   const [isVisibleEdit, setIsVisibleEdit] = useState(false);
   const [isVisibleMedia, setIsVisibleMedia] = useState(false);
@@ -328,13 +337,19 @@ export default ({ post }) => {
     setDisplayImages(displayImages.filter(img => img !== value));
   };
 
+  const changeTagFromTagOringinal = value => {
+    setTag(value);
+  };
+
   return (
     <Div>
       <span>{post.title}</span>
       <span>
         {post.tags &&
           post.tags.length > 0 &&
-          post.tags.map((item, index) => <span key={index.toString()}>{item}&nbsp;&nbsp;</span>)}
+          post.tags.map((item, index) => (
+            <span key={index.toString()}>{item}&nbsp;&nbsp;&nbsp;</span>
+          ))}
       </span>
       <span>
         <button type="button" onClick={() => setIsVisibleEdit(true)}>
@@ -476,6 +491,19 @@ export default ({ post }) => {
                       <button type="button" onClick={() => addTagHandler()}>
                         Thêm
                       </button>
+                    </p>
+                    <p>Các tag hiện có: </p>
+                    <p>
+                      {tagsOriginal &&
+                        tagsOriginal.map((item, index) => (
+                          <button
+                            key={index.toString()}
+                            type="button"
+                            onClick={() => changeTagFromTagOringinal(item)}
+                          >
+                            <span>{item} &nbsp; &nbsp; &nbsp;</span>
+                          </button>
+                        ))}
                     </p>
                   </div>
                 )}

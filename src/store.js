@@ -31,6 +31,7 @@ import {
   statusReducer as status,
   videosReducer as videos,
   postsReducer as posts,
+  populatePostsReducer as populatePosts,
 } from './ducks';
 import { tutorialSaga, tutorialReducer as tutorial } from './components/Tutorial/duck';
 import { allVideosSaga } from './components/About/duck';
@@ -41,6 +42,9 @@ import {
   getAllPostSaga,
   removePostSaga,
   editPostSaga,
+  getAllPostPopulateSaga,
+  getLimitPostSaga,
+  getTagsPostSaga,
 } from './components/Blog/ducks';
 
 export const rootReducer = combineReducers({
@@ -53,6 +57,7 @@ export const rootReducer = combineReducers({
   tutorial,
   videos,
   posts,
+  populatePosts,
 });
 
 const rootSaga = function* rootSaga() {
@@ -85,6 +90,9 @@ const rootSaga = function* rootSaga() {
     ...getAllPostSaga,
     ...removePostSaga,
     ...editPostSaga,
+    ...getAllPostPopulateSaga,
+    ...getLimitPostSaga,
+    ...getTagsPostSaga,
   ]);
 };
 
