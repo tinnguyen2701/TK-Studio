@@ -1,6 +1,8 @@
 import { fork, put, call, takeLatest } from 'redux-saga/effects';
 import { callApi, createAction, logger } from 'dorothy/utils';
 
+export const UPDATE_POST_REQUEST = 'UPDATE_POST_REQUEST';
+
 export const ADD_TAG_REQUEST = 'ADD_TAG_REQUEST';
 export const ADD_TAG_RESPONSE = 'ADD_TAG_RESPONSE';
 export const ADD_TAG_ERROR = 'ADD_TAG_ERROR';
@@ -16,6 +18,10 @@ export const EDIT_POST_ERROR = 'EDIT_POST_ERROR';
 export const GET_ALL_POST_REQUEST = 'GET_ALL_POST_REQUEST';
 export const GET_ALL_POST_RESPONSE = 'GET_ALL_POST_RESPONSE';
 export const GET_ALL_POST_ERROR = 'GET_ALL_POST_ERROR';
+
+export const GET_POST_REQUEST = 'GET_POST_REQUEST';
+export const GET_POST_RESPONSE = 'GET_POST_RESPONSE';
+export const GET_POST_ERROR = 'GET_POST_ERROR';
 
 export const GET_LIMIT_POST_REQUEST = 'GET_LIMIT_POST_REQUEST';
 export const GET_LIMIT_POST_RESPONSE = 'GET_LIMIT_POST_RESPONSE';
@@ -36,6 +42,10 @@ export const REMOVE_POST_ERROR = 'REMOVE_POST_ERROR';
 export const REMOVE_TAG_REQUEST = 'REMOVE_TAG_REQUEST';
 export const REMOVE_TAG_RESPONSE = 'REMOVE_TAG_RESPONSE';
 export const REMOVE_TAG_ERROR = 'REMOVE_TAG_ERROR';
+
+export const SEARCH_REQUEST = 'SEARCH_REQUEST';
+export const SEARCH_RESPONSE = 'SEARCH_RESPONSE';
+export const SEARCH_ERROR = 'SEARCH_ERROR';
 
 /* handler state for add tag */
 function* requestAddTag(action) {
@@ -109,6 +119,24 @@ function* watchGetAllPostRequest() {
   yield takeLatest(GET_ALL_POST_REQUEST, requestGetALlPost);
 }
 export const getAllPostSaga = [fork(watchGetAllPostRequest)];
+
+/* handler state for get post */
+function* requestGetPost(action) {
+  try {
+    const response = yield call(
+      callApi,
+      'get',
+      `${process.env.REACT_APP_BASE_URL}api/post/title/${action.payload.title}`,
+    );
+    yield put(createAction(GET_POST_RESPONSE, response.data));
+  } catch (error) {
+    yield put(createAction(GET_POST_ERROR, error));
+  }
+}
+function* watchGetPostRequest() {
+  yield takeLatest(GET_POST_REQUEST, requestGetPost);
+}
+export const getPostSaga = [fork(watchGetPostRequest)];
 
 /* handler state for get all post */
 function* requestGetALlPostPopulate() {
@@ -201,3 +229,21 @@ function* watchEditPostRequest() {
   yield takeLatest(EDIT_POST_REQUEST, requestEditPost);
 }
 export const editPostSaga = [fork(watchEditPostRequest)];
+
+/* handler state for search post */
+function* requestSearch(action) {
+  try {
+    const response = yield call(
+      callApi,
+      'get',
+      `${process.env.REACT_APP_BASE_URL}api/post/search/${action.payload.valueSearch}`,
+    );
+    yield put(createAction(SEARCH_RESPONSE, response.data));
+  } catch (error) {
+    yield put(createAction(SEARCH_ERROR, error));
+  }
+}
+function* watchSearchRequest() {
+  yield takeLatest(SEARCH_REQUEST, requestSearch);
+}
+export const searchSaga = [fork(watchSearchRequest)];

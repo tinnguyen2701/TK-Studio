@@ -22,6 +22,7 @@ export default () => {
           <Route exact path="/feed" component={Feed} />
           <Route exact path="/feed/page/:numberPage" component={Feed} />
           <Route exact path="/feed/tags/:tag" component={Feed} />
+          <Route exact path="/feed/post/:title" component={Feed} />
           <Route exact path="/khoa-hoc" component={Tutorial} />
           <Route exact path="/" component={Tutorial} />
           <Route path="/khoa-hoc/:nameCourse" component={singleTutorial} />

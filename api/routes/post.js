@@ -121,6 +121,49 @@ PostRouter.get('/', async (req, res) => {
     });
 });
 
+PostRouter.get('/title/:title', async (req, res) => {
+  await Post.find({ title: req.params.title })
+    .then(post => {
+      return res.status(200).send({ post });
+    })
+    .catch(err => {
+      logger.logError('Get post went wrong', err);
+      return res.sendStatus(500);
+    });
+});
+
+PostRouter.get('/search/:valueSearch', async (req, res) => {
+  function bodauTiengViet(str) {
+    str = str.toLowerCase();
+    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, 'e');
+    str = str.replace(/ì|í|ị|ỉ|ĩ/g, 'i');
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, 'o');
+    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, 'u');
+    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, 'y');
+    str = str.replace(/đ/g, 'd');
+    str = str.replace(/ /g, '-');
+    return str;
+  }
+
+  await Post.find({})
+    .then(posts => {
+      const postsSearch = [];
+      posts.map(post =>
+        bodauTiengViet(post.title.toLowerCase()).search(
+          bodauTiengViet(req.params.valueSearch.toLowerCase()),
+        ) > -1
+          ? postsSearch.push(post)
+          : post,
+      );
+      return res.status(200).send({ postsSearch });
+    })
+    .catch(err => {
+      logger.logError('find posts to search went wrong', err);
+      return res.sendStatus(500);
+    });
+});
+
 PostRouter.get('/page/:numberPage', async (req, res) => {
   const { numberPage } = req.params;
 
@@ -138,9 +181,6 @@ PostRouter.get('/page/:numberPage', async (req, res) => {
 });
 
 PostRouter.get('/tags/:tag', async (req, res) => {
-  console.log(req.params.tag);
-  console.log('------------------');
-
   await Post.find({ tags: { $in: [req.params.tag] } })
     .sort({ _id: -1 })
     .then(posts => {

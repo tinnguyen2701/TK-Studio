@@ -12,10 +12,14 @@ import instagram from 'images/logo/instagram.png';
 import youtube from 'images/logo/youtube.png';
 import { connect } from 'react-redux';
 import store from 'store';
+import { createAction } from 'dorothy/utils';
 import {
   GET_ALL_POST_POLULATE_REQUEST,
   GET_LIMIT_POST_REQUEST,
   GET_TAGS_POST_REQUEST,
+  UPDATE_POST_REQUEST,
+  GET_POST_REQUEST,
+  SEARCH_REQUEST,
 } from '../Blog/ducks';
 import { GET_SETTING_REQUEST } from '../Admin/ducks';
 import ListPost from './ListPost';
@@ -389,7 +393,6 @@ const Content = styled.div`
     }
     > div:nth-child(3) {
       flex: 1;
-      border: 1px solid;
     }
   }
 
@@ -457,10 +460,11 @@ const Content = styled.div`
 `;
 
 const Wrapper = styled.div``;
-const Feed = ({ posts, setting, populatePosts, match, history }) => {
+const Feed = ({ posts, setting, populatePosts, postsSearch, match, history }) => {
   const [isShowNavbar, setIsShowNavbar] = useState(false);
   const [valueSearch, setValueSearch] = useState(null);
   const [isGetLimit, setIsGetLimit] = useState(true);
+  const [visiblePosts, setVisiblePost] = useState(true);
 
   const { numberPage } = match.params;
   const object = window.location.href.split('/')[window.location.href.split('/').length - 2];
@@ -476,7 +480,7 @@ const Feed = ({ posts, setting, populatePosts, match, history }) => {
       type: GET_LIMIT_POST_REQUEST,
       payload: { numberPage: numberPage },
     });
-  } else if (isGetLimit === true && object !== 'tags' && object !== 'page') {
+  } else if (isGetLimit === true && object !== 'tags' && object !== 'page' && object !== 'post') {
     store.dispatch({
       type: GET_LIMIT_POST_REQUEST,
       payload: {
@@ -503,6 +507,13 @@ const Feed = ({ posts, setting, populatePosts, match, history }) => {
           tag: window.location.href.split('/')[window.location.href.split('/').length - 1],
         },
       });
+    } else if (object === 'post') {
+      store.dispatch({
+        type: GET_POST_REQUEST,
+        payload: {
+          title: window.location.href.split('/')[window.location.href.split('/').length - 1],
+        },
+      });
     }
     store.dispatch({ type: GET_ALL_POST_POLULATE_REQUEST });
   }, []);
@@ -515,9 +526,28 @@ const Feed = ({ posts, setting, populatePosts, match, history }) => {
   };
 
   const redirectTagHandler = tag => {
+    setVisiblePost(true);
     setIsGetLimit(true);
     history.push(`/feed/tags/${tag}`);
     store.dispatch({ type: GET_TAGS_POST_REQUEST, payload: { tag } });
+  };
+
+  const redirectPagePopulateHandler = item => {
+    setVisiblePost(true);
+    setIsGetLimit(true);
+    store.dispatch(createAction(UPDATE_POST_REQUEST, item));
+    history.push(`/feed/post/${item.title}`);
+  };
+
+  const redirectPageFeedHandler = e => {
+    e.preventDefault();
+    setVisiblePost(true);
+    history.push('/feed');
+  };
+
+  const searchHandler = () => {
+    setVisiblePost(false);
+    store.dispatch({ type: SEARCH_REQUEST, payload: { valueSearch } });
   };
 
   const subcriptionHandler = () => {
@@ -545,7 +575,9 @@ const Feed = ({ posts, setting, populatePosts, match, history }) => {
               <Link to="/gioi-thieu">GIỚI THIỆU</Link>
             </li>
             <li>
-              <Link to="/feed">FEED</Link>
+              <Link to="/feed" onClick={e => redirectPageFeedHandler(e)}>
+                FEED
+              </Link>
             </li>
             <li>
               <Link to="/khoa-hoc">KHÓA HỌC</Link>
@@ -569,7 +601,9 @@ const Feed = ({ posts, setting, populatePosts, match, history }) => {
               <Link to="/gioi-thieu">GIỚI THIỆU</Link>
             </li>
             <li>
-              <Link to="/feed">FEED</Link>
+              <Link to="/feed" onClick={e => redirectPageFeedHandler(e)}>
+                FEED
+              </Link>
             </li>
             <li>
               <Link to="/khoa-hoc">KHÓA HỌC</Link>
@@ -601,9 +635,11 @@ const Feed = ({ posts, setting, populatePosts, match, history }) => {
               value={valueSearch || ''}
               onChange={e => setValueSearch(e.target.value)}
             />
-            <button type="button">Tìm kiếm</button>
+            <button type="button" onClick={() => searchHandler()}>
+              Tìm kiếm
+            </button>
           </p>
-          {posts && (
+          {posts && visiblePosts === true && (
             <div>
               <ListPost posts={posts} />
 
@@ -649,7 +685,15 @@ const Feed = ({ posts, setting, populatePosts, match, history }) => {
               )}
             </div>
           )}
-          <div></div>
+          {visiblePosts === false && (
+            <div className="posts-search">
+              Danh sách tìm kiếm
+              {postsSearch && postsSearch.length === 0 && <div>Không Tìm Thấy Bài Viết này!</div>}
+              {postsSearch &&
+                postsSearch.length !== 0 &&
+                postsSearch.map((post, index) => <div key={index.toString()}>{post.title}</div>)}
+            </div>
+          )}
         </div>
         <div>
           <div>
@@ -669,7 +713,12 @@ const Feed = ({ posts, setting, populatePosts, match, history }) => {
             <hr />
             {populatePosts &&
               populatePosts.length > 0 &&
-              populatePosts.map((item, index) => <div key={index.toString()}>{item.title}</div>)}
+              populatePosts.map((item, index) => (
+                <div key={index.toString()} onClick={() => redirectPagePopulateHandler(item)}>
+                  <img alt="logo" src={logoBlack} />
+                  {item.title}
+                </div>
+              ))}
           </div>
         </div>
       </Content>
@@ -699,7 +748,9 @@ const Feed = ({ posts, setting, populatePosts, match, history }) => {
               <Link to="/gioi-thieu">GIỚI THIỆU</Link>
             </p>
             <p>
-              <Link to="/feed">FEED</Link>
+              <Link to="/feed" onClick={e => redirectPageFeedHandler(e)}>
+                FEED
+              </Link>
             </p>
             <p>
               <Link to="/khoa-hoc">KHÓA HỌC</Link>
@@ -729,4 +780,5 @@ export default connect(state => ({
   posts: state.posts,
   setting: state.setting,
   populatePosts: state.populatePosts,
+  postsSearch: state.postsSearch,
 }))(Feed);

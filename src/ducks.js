@@ -33,6 +33,9 @@ import {
   GET_ALL_POST_POLULATE_RESPONSE,
   GET_LIMIT_POST_RESPONSE,
   GET_TAGS_POST_RESPONSE,
+  UPDATE_POST_REQUEST,
+  GET_POST_RESPONSE,
+  SEARCH_RESPONSE,
 } from './components/Blog/ducks';
 
 export const UPDATE_TAB = 'UPDATE_TAB';
@@ -164,6 +167,7 @@ export const videosReducer = createReducer(initVideos, videosActionHandler);
 const initPosts = [];
 const postsActionHandler = {
   [GET_ALL_POST_RESPONSE]: (state, action) => action.payload.posts,
+  [GET_POST_RESPONSE]: (state, action) => action.payload.post,
   [GET_LIMIT_POST_RESPONSE]: (state, action) => action.payload.posts,
   [GET_TAGS_POST_RESPONSE]: (state, action) => action.payload.posts,
   [ADD_POST_RESPONSE]: (state, action) => [...state, action.payload],
@@ -181,6 +185,7 @@ const postsActionHandler = {
       return post;
     });
   },
+  [UPDATE_POST_REQUEST]: (state, action) => [action.payload],
 };
 export const postsReducer = createReducer(initPosts, postsActionHandler);
 
@@ -189,3 +194,9 @@ const populatePostsActionHandler = {
   [GET_ALL_POST_POLULATE_RESPONSE]: (state, action) => action.payload.posts,
 };
 export const populatePostsReducer = createReducer(initPopulatePosts, populatePostsActionHandler);
+
+const initPostsSearch = null;
+const postsSearchActionHandler = {
+  [SEARCH_RESPONSE]: (state, action) => action.payload.postsSearch,
+};
+export const postsSearchReducer = createReducer(initPostsSearch, postsSearchActionHandler);
