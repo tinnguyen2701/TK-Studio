@@ -32,6 +32,9 @@ const Footer = styled.div`
 
   > img {
     width: 100%;
+    @media screen and (max-width: 800px) {
+      height: 165px;
+    }
     vertical-align: middle;
   }
   > div {

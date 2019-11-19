@@ -30,6 +30,9 @@ const Footer = styled.div`
 
   > img {
     width: 100%;
+    @media screen and (max-width: 800px) {
+      height: 165px;
+    }
     vertical-align: middle;
   }
   > div {
@@ -863,8 +866,8 @@ const Feed = ({ posts, setting, populatePosts, postsSearch, match, history }) =>
     window.scrollTo({ top: 330, behavior: 'smooth' });
     setIsGetLimit(true);
     window.localStorage.setItem('page', numberPage);
-    history.push(`/feed/page/${numberPage}`);
     if (numberPage > 0) store.dispatch({ type: GET_LIMIT_POST_REQUEST, payload: { numberPage } });
+    history.push(`/feed/page/${numberPage}`);
   };
 
   const redirectTagHandler = tag => {
@@ -897,7 +900,10 @@ const Feed = ({ posts, setting, populatePosts, postsSearch, match, history }) =>
 
   const searchHandler = () => {
     setVisiblePost(false);
-    store.dispatch({ type: SEARCH_REQUEST, payload: { valueSearch } });
+    store.dispatch({
+      type: SEARCH_REQUEST,
+      payload: valueSearch ? { valueSearch } : { valueSearch: null },
+    });
   };
 
   const subcriptionHandler = () => {
@@ -1060,7 +1066,7 @@ const Feed = ({ posts, setting, populatePosts, postsSearch, match, history }) =>
                   FEED
                 </Link>
 
-                {object === 'page' && (
+                {object === 'page' && posts && posts.length === 5 && (
                   <button
                     className="next-control"
                     type="button"
@@ -1087,23 +1093,25 @@ const Feed = ({ posts, setting, populatePosts, postsSearch, match, history }) =>
                 )}
                 {window.location.href
                   .split('/')
-                  [window.location.href.split('/').length - 1].toLowerCase() === 'feed' && (
-                  <button
-                    className="next-control"
-                    type="button"
-                    onClick={() => redirectPageHandler(2)}
-                  >
-                    <span>
-                      <span />
-                    </span>
-                    <span>
-                      <span />
-                    </span>
-                    <span>
-                      <span />
-                    </span>
-                  </button>
-                )}
+                  [window.location.href.split('/').length - 1].toLowerCase() === 'feed' &&
+                  posts &&
+                  posts.length === 5 && (
+                    <button
+                      className="next-control"
+                      type="button"
+                      onClick={() => redirectPageHandler(2)}
+                    >
+                      <span>
+                        <span />
+                      </span>
+                      <span>
+                        <span />
+                      </span>
+                      <span>
+                        <span />
+                      </span>
+                    </button>
+                  )}
               </div>
             </div>
           )}

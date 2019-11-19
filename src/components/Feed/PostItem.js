@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -45,6 +46,13 @@ const Div = styled.div`
       :hover {
         box-shadow: 1px 1px 3px rgb(0, 0, 0, 0.2), -1px -1px 3px rgb(0, 0, 0, 0.2);
       }
+    }
+
+    > iframe {
+      display: ${props => (props.isShowMore ? 'block' : 'none')};
+      width: 100%;
+      height: 400px;
+      margin: 15px 0;
     }
 
     > p:last-child {
@@ -133,6 +141,17 @@ export default ({ post }) => {
             (image, indexImage) =>
               image && <img key={indexImage.toString()} alt={post.title} src={image} />,
           )}
+        {post.videos &&
+          post.videos.length > 0 &&
+          post.videos.map((video, videoIndex) => (
+            <iframe
+              key={videoIndex.toString()}
+              src={`https://www.youtube.com/embed/${video.substring(video.search('=') + 1)}`}
+              frameBorder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          ))}
         <p>
           <button type="button" onClick={() => setIsShowMore(!isShowMore)}>
             <span />
