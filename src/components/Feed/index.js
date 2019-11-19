@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 import backgroundHeader from 'images/about/backgroundHeader.png';
 
@@ -377,8 +377,144 @@ const Banner = styled.div`
   }
 `;
 
+const moveControlRight = keyframes`
+  0%{
+    opacity: 0;
+
+  }
+  50%{
+    opacity: 1;
+    
+  }
+  100% {
+      transform: translateX(10px);
+    opacity: 0;
+  }
+`;
+
+const moveControlLeft = keyframes`
+  0%{
+    opacity: 0;
+
+  }
+  50%{
+    opacity: 1;
+    
+  }
+  100% {
+      transform: translateX(-10px);
+    opacity: 0;
+  }
+`;
+
 const Content = styled.div`
   padding: 0 5%;
+
+  > div:nth-child(2) {
+    .pagination-control {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 50px;
+
+      > a {
+        width: 55px;
+        height: 55px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        text-decoration: none;
+        margin: 0 10px;
+        transition: 300ms;
+        background: rgb(44, 166, 239);
+        color: white;
+
+        :hover {
+          box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.5), -1px 3px 7px rgba(0, 0, 0, 0.5),
+            0px -3px 7px rgba(0, 0, 0, 0.5);
+          width: 60px;
+          height: 60px;
+        }
+      }
+
+      > .back-control,
+      .next-control {
+        border: none;
+        background: none;
+        display: flex;
+        outline: none;
+        cursor: pointer;
+
+        > span > span {
+          width: 15px;
+          height: 15px;
+          display: block;
+          border: 3px solid rgb(44, 166, 239);
+          border-right: none;
+          border-top: none;
+        }
+      }
+
+      > .back-control {
+        > span > span {
+          transform: rotate(45deg);
+        }
+
+        :hover > span {
+          position: relative;
+          animation: ${moveControlLeft} 700ms linear infinite;
+        }
+      }
+
+      > .next-control {
+        > span > span {
+          transform: rotate(-135deg);
+        }
+
+        :hover > span {
+          position: relative;
+          animation: ${moveControlRight} 700ms linear infinite;
+        }
+      }
+    }
+
+    > p {
+      margin-bottom: 20px;
+    }
+
+    .posts-search {
+      > p {
+        font-size: 18px;
+      }
+      > div {
+        display: flex;
+        align-items: center;
+        margin: 15px 0;
+        cursor: pointer;
+
+        > span:nth-child(1) {
+          flex: 2;
+          border: 1px solid rgba(0, 0, 0, 0.2);
+          border-radius: 2px;
+          padding: 5px;
+          > img {
+            width: 100%;
+          }
+        }
+        > span:nth-child(2) {
+          flex: 7;
+          padding-left: 20px;
+          font-size: 20px;
+          color: #798a9c;
+        }
+        > span:nth-child(3) {
+          flex: 2;
+          text-align: right;
+        }
+      }
+    }
+  }
 
   @media screen and (min-width: 800px) {
     display: flex;
@@ -393,10 +529,197 @@ const Content = styled.div`
     }
     > div:nth-child(3) {
       flex: 1;
+
+      .tags-category {
+        margin-top: 10%;
+        > p:nth-child(1) {
+          font-size: 20px;
+          font-weight: bold;
+          color: rgb(44, 166, 239);
+        }
+        > hr {
+          height: 3px;
+          background: rgb(44, 166, 239);
+          width: 50px;
+          border: none;
+          margin-top: 10px;
+        }
+        > p:nth-child(3) {
+          background: rgb(44, 166, 238);
+          color: white;
+          margin: 10px 0;
+          padding: 7px 10px;
+        }
+        > button {
+          width: 100%;
+          margin: 5px 0;
+          font-weight: bold;
+          padding: 7px 10px;
+          text-align: left;
+          background: white;
+          color: #798a9c;
+          border-radius: 2px;
+          border: 1px solid #798a9c;
+          cursor: pointer;
+          transition: 200ms all;
+          :hover {
+            box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.5);
+          }
+        }
+      }
+
+      .populate-category {
+        margin-top: 10%;
+
+        > p:nth-child(1) {
+          font-size: 20px;
+          font-weight: bold;
+          color: rgb(44, 166, 239);
+        }
+        > hr {
+          height: 3px;
+          background: rgb(44, 166, 239);
+          width: 50px;
+          border: none;
+          margin-top: 10px;
+        }
+        > div {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          margin-top: 10px;
+          border-bottom: 2px solid rgb(44, 166, 239);
+          padding-bottom: 10px;
+
+          > div > p {
+            margin-bottom: 3px;
+            color: #798a9c;
+          }
+
+          > div > p:nth-child(1) {
+            font-weight: bold;
+          }
+
+          > img {
+            width: 90px;
+            margin-right: 10px;
+            border: 1px solid #798a9c;
+            padding: 3px;
+            border-radius: 2px;
+          }
+        }
+      }
     }
   }
 
   @media screen and (max-width: 800px) {
+    > div:nth-child(1) {
+      .tags-category {
+        margin-bottom: 3%;
+        > p {
+          background: rgb(44, 166, 239);
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 5px 15px 5px 5px;
+          font-size: 18px;
+
+          > span {
+            display: block;
+            width: 12px;
+            height: 12px;
+            border: 4px solid white;
+            border-left: none;
+            transform: ${props =>
+              props.visibleTagsCategory
+                ? 'rotate(-135deg) translate(-20%,15%)'
+                : 'rotate(45deg) translateY(-40%);'};
+
+            border-top: none;
+          }
+        }
+
+        > div {
+          display: ${props => (props.visibleTagsCategory ? 'block' : 'none')};
+          > button {
+            width: 100%;
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            margin: 3px 0;
+            color: #798a9c;
+            text-align: left;
+            padding: 3px 5px;
+            font-weight: bold;
+          }
+        }
+      }
+
+      .populate-category {
+        margin-bottom: 3%;
+
+        > p {
+          background: rgb(44, 166, 239);
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 5px 15px 5px 5px;
+          font-size: 18px;
+
+          > span {
+            display: block;
+            width: 12px;
+            height: 12px;
+            border: 4px solid white;
+            border-left: none;
+            transform: ${props =>
+              props.visiblePopulateCategory
+                ? 'rotate(-135deg) translate(-20%,15%)'
+                : 'rotate(45deg) translateY(-40%);'};
+
+            border-top: none;
+          }
+        }
+
+        > div {
+          display: ${props => (props.visiblePopulateCategory ? 'block' : 'none')};
+
+          > div {
+            display: flex;
+            align-items: center;
+            margin: 7px 0;
+            border-bottom: 1px solid rgb(44, 166, 239);
+            padding-bottom: 5px;
+
+            > img {
+              width: 85px;
+              margin-right: 6px;
+            }
+            > div > p:nth-child(1) {
+              font-size: 15px;
+              font-weight: bold;
+              color: #798a9c;
+            }
+            > div > p:nth-child(2) {
+              font-size: 13px;
+            }
+          }
+        }
+      }
+    }
+    > div:nth-child(2) {
+      .posts-search {
+        > div {
+          > span:nth-child(2) {
+            font-size: 16px;
+          }
+          > span:nth-child(3) {
+            flex: 5;
+          }
+        }
+      }
+    }
     > div:nth-child(3) {
       display: none;
     }
@@ -424,7 +747,14 @@ const Content = styled.div`
         border-radius: 15px;
         border: 1px solid darkgrey;
         outline: none;
+        transition: 300ms all;
+
+        :hover {
+          box-shadow: 1px 1px 3px rgba(44, 166, 239), -1px 1px 3px rgba(44, 166, 239),
+            0px -1px 3px rgba(44, 166, 239);
+        }
       }
+
       > button {
         position: absolute;
         right: 0;
@@ -435,6 +765,15 @@ const Content = styled.div`
         color: white;
         font-weight: bold;
         border: 1px solid darkgray;
+        cursor: pointer;
+        transition: 300ms all;
+        outline: none;
+
+        :hover {
+          background: white;
+          color: #798a9c;
+          border: 1px solid rgba(44, 166, 239);
+        }
       }
 
       @media screen and (min-width: 800px) {
@@ -465,6 +804,8 @@ const Feed = ({ posts, setting, populatePosts, postsSearch, match, history }) =>
   const [valueSearch, setValueSearch] = useState(null);
   const [isGetLimit, setIsGetLimit] = useState(true);
   const [visiblePosts, setVisiblePost] = useState(true);
+  const [visibleTagsCategory, setVisibleTagsCategory] = useState(false);
+  const [visiblePopulateCategory, setVisiblePopulatesCategory] = useState(false);
 
   const { numberPage } = match.params;
   const object = window.location.href.split('/')[window.location.href.split('/').length - 2];
@@ -511,7 +852,7 @@ const Feed = ({ posts, setting, populatePosts, postsSearch, match, history }) =>
       store.dispatch({
         type: GET_POST_REQUEST,
         payload: {
-          title: window.location.href.split('/')[window.location.href.split('/').length - 1],
+          id: window.location.href.split('/')[window.location.href.split('/').length - 1],
         },
       });
     }
@@ -519,6 +860,7 @@ const Feed = ({ posts, setting, populatePosts, postsSearch, match, history }) =>
   }, []);
 
   const redirectPageHandler = numberPage => {
+    window.scrollTo({ top: 330, behavior: 'smooth' });
     setIsGetLimit(true);
     window.localStorage.setItem('page', numberPage);
     history.push(`/feed/page/${numberPage}`);
@@ -526,20 +868,28 @@ const Feed = ({ posts, setting, populatePosts, postsSearch, match, history }) =>
   };
 
   const redirectTagHandler = tag => {
-    setVisiblePost(true);
+    window.scrollTo({ top: 330, behavior: 'smooth' });
+    setVisibleTagsCategory(false);
+    setValueSearch(null);
     setIsGetLimit(true);
-    history.push(`/feed/tags/${tag}`);
     store.dispatch({ type: GET_TAGS_POST_REQUEST, payload: { tag } });
+    setVisiblePost(true);
+    history.push(`/feed/tags/${tag}`);
   };
 
   const redirectPagePopulateHandler = item => {
+    window.scrollTo({ top: 330, behavior: 'smooth' });
+    setVisiblePopulatesCategory(false);
+    setValueSearch(null);
     setVisiblePost(true);
     setIsGetLimit(true);
     store.dispatch(createAction(UPDATE_POST_REQUEST, item));
-    history.push(`/feed/post/${item.title}`);
+    history.push(`/feed/post/${item._id}`);
   };
 
   const redirectPageFeedHandler = e => {
+    window.scrollTo({ top: 330, behavior: 'smooth' });
+    setValueSearch(null);
     e.preventDefault();
     setVisiblePost(true);
     history.push('/feed');
@@ -622,9 +972,43 @@ const Feed = ({ posts, setting, populatePosts, postsSearch, match, history }) =>
         </Navigation>
         <h1>TKSTUDIO BLOG</h1>
       </Banner>
-      <Content>
+      <Content
+        visibleTagsCategory={visibleTagsCategory}
+        visiblePopulateCategory={visiblePopulateCategory}
+      >
         <div>
-          <div>nav cho muc luc</div>
+          <div className="tags-category">
+            <p onClick={() => setVisibleTagsCategory(!visibleTagsCategory)}>
+              MỤC LỤC <span />
+            </p>
+            <div>
+              {setting &&
+                setting.tags.length > 0 &&
+                setting.tags.map((item, index) => (
+                  <button onClick={() => redirectTagHandler(item)} key={index.toString()}>
+                    {item}
+                  </button>
+                ))}
+            </div>
+          </div>
+          <div className="populate-category">
+            <p onClick={() => setVisiblePopulatesCategory(!visiblePopulateCategory)}>
+              PHỔ BIẾN <span />
+            </p>
+            <div>
+              {populatePosts &&
+                populatePosts.length > 0 &&
+                populatePosts.map((item, index) => (
+                  <div key={index.toString()} onClick={() => redirectPagePopulateHandler(item)}>
+                    <img alt="logo" src={logoBlack} />
+                    <div>
+                      <p>{item.title}</p>
+                      <p>{item.created_at.substring(0, 10)}</p>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
         </div>
         <div className="posts">
           <p>
@@ -641,12 +1025,44 @@ const Feed = ({ posts, setting, populatePosts, postsSearch, match, history }) =>
           </p>
           {posts && visiblePosts === true && (
             <div>
-              <ListPost posts={posts} />
+              {posts.length > 0 && <ListPost posts={posts} />}
+              <div className="pagination-control">
+                {object === 'page' &&
+                  match.params !== undefined &&
+                  window.location.href.split('/')[window.location.href.split('/').length - 1] >
+                    1 && (
+                    <button
+                      className="back-control"
+                      type="button"
+                      onClick={() =>
+                        redirectPageHandler(
+                          parseInt(
+                            window.location.href.split('/')[
+                              window.location.href.split('/').length - 1
+                            ],
+                          ) - 1,
+                        )
+                      }
+                    >
+                      <span>
+                        <span />
+                      </span>
+                      <span>
+                        <span />
+                      </span>
+                      <span>
+                        <span />
+                      </span>
+                    </button>
+                  )}
 
-              {object === 'page' &&
-                match.params !== undefined &&
-                window.location.href.split('/')[window.location.href.split('/').length - 1] > 1 && (
+                <Link to="/feed" title="Trở về trang Feed">
+                  FEED
+                </Link>
+
+                {object === 'page' && (
                   <button
+                    className="next-control"
                     type="button"
                     onClick={() =>
                       redirectPageHandler(
@@ -654,49 +1070,66 @@ const Feed = ({ posts, setting, populatePosts, postsSearch, match, history }) =>
                           window.location.href.split('/')[
                             window.location.href.split('/').length - 1
                           ],
-                        ) - 1,
+                        ) + 1,
                       )
                     }
                   >
-                    Back
+                    <span>
+                      <span />
+                    </span>
+                    <span>
+                      <span />
+                    </span>
+                    <span>
+                      <span />
+                    </span>
                   </button>
                 )}
-
-              {object === 'page' && (
-                <button
-                  type="button"
-                  onClick={() =>
-                    redirectPageHandler(
-                      parseInt(
-                        window.location.href.split('/')[window.location.href.split('/').length - 1],
-                      ) + 1,
-                    )
-                  }
-                >
-                  Next
-                </button>
-              )}
-              {window.location.href
-                .split('/')
-                [window.location.href.split('/').length - 1].toLowerCase() === 'feed' && (
-                <button type="button" onClick={() => redirectPageHandler(2)}>
-                  Next
-                </button>
-              )}
+                {window.location.href
+                  .split('/')
+                  [window.location.href.split('/').length - 1].toLowerCase() === 'feed' && (
+                  <button
+                    className="next-control"
+                    type="button"
+                    onClick={() => redirectPageHandler(2)}
+                  >
+                    <span>
+                      <span />
+                    </span>
+                    <span>
+                      <span />
+                    </span>
+                    <span>
+                      <span />
+                    </span>
+                  </button>
+                )}
+              </div>
             </div>
           )}
           {visiblePosts === false && (
             <div className="posts-search">
-              Danh sách tìm kiếm
-              {postsSearch && postsSearch.length === 0 && <div>Không Tìm Thấy Bài Viết này!</div>}
+              {postsSearch && postsSearch.length === 0 ? (
+                <p>Không Tìm Thấy Bài Viết này!</p>
+              ) : (
+                <p>Kết quả tìm kiếm</p>
+              )}
               {postsSearch &&
                 postsSearch.length !== 0 &&
-                postsSearch.map((post, index) => <div key={index.toString()}>{post.title}</div>)}
+                postsSearch.map((post, index) => (
+                  <div key={index.toString()} onClick={() => redirectPagePopulateHandler(post)}>
+                    <span>
+                      <img alt="logo" src={logoBlack} />
+                    </span>
+                    <span>{post.title}</span>
+                    <span>{post.created_at.substring(0, 10)}</span>
+                  </div>
+                ))}
             </div>
           )}
         </div>
         <div>
-          <div>
+          <div className="tags-category">
             <p>MỤC LỤC</p>
             <hr />
             <p>Tất cả</p>
@@ -708,7 +1141,7 @@ const Feed = ({ posts, setting, populatePosts, postsSearch, match, history }) =>
                 </button>
               ))}
           </div>
-          <div>
+          <div className="populate-category">
             <p>PHỔ BIẾN</p>
             <hr />
             {populatePosts &&
@@ -716,7 +1149,10 @@ const Feed = ({ posts, setting, populatePosts, postsSearch, match, history }) =>
               populatePosts.map((item, index) => (
                 <div key={index.toString()} onClick={() => redirectPagePopulateHandler(item)}>
                   <img alt="logo" src={logoBlack} />
-                  {item.title}
+                  <div>
+                    <p>{item.title}</p>
+                    <p>{item.created_at.substring(0, 10)}</p>
+                  </div>
                 </div>
               ))}
           </div>

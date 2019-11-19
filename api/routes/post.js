@@ -121,8 +121,8 @@ PostRouter.get('/', async (req, res) => {
     });
 });
 
-PostRouter.get('/title/:title', async (req, res) => {
-  await Post.find({ title: req.params.title })
+PostRouter.get('/title/:id', async (req, res) => {
+  await Post.findById(req.params.id)
     .then(post => {
       return res.status(200).send({ post });
     })

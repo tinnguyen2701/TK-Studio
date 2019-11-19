@@ -126,7 +126,7 @@ function* requestGetPost(action) {
     const response = yield call(
       callApi,
       'get',
-      `${process.env.REACT_APP_BASE_URL}api/post/title/${action.payload.title}`,
+      `${process.env.REACT_APP_BASE_URL}api/post/title/${action.payload.id}`,
     );
     yield put(createAction(GET_POST_RESPONSE, response.data));
   } catch (error) {
