@@ -59,7 +59,6 @@ PostRouter.post(
   upload.fields([{ name: 'images[]', maxCount: 100 }]),
   async (req, res) => {
     const { title, description, videos, tags, isPopulate, id, displayImages } = req.body;
-
     let images = [];
     if (req.files['images[]'] !== undefined) {
       images = await Promise.all(
@@ -86,15 +85,17 @@ PostRouter.post(
       { $set: { title, description, isPopulate, images, videos, tags } },
     )
       .then(async () => {
-        var tagsOriginal = await Setting.find({}).then(result => result[0].tags);
+        if (tags) {
+          var tagsOriginal = await Setting.find({}).then(result => result[0].tags);
 
-        for (var i = 0; i < tags.length; i++) {
-          if (!tagsOriginal.includes(tags[i])) {
-            tagsOriginal.push(tags[i]);
+          for (var i = 0; i < tags.length; i++) {
+            if (!tagsOriginal.includes(tags[i])) {
+              tagsOriginal.push(tags[i]);
+            }
           }
-        }
 
-        await Setting.updateOne({}, { $set: { tags: tagsOriginal } }, { upsert: true });
+          await Setting.updateOne({}, { $set: { tags: tagsOriginal } }, { upsert: true });
+        }
 
         logger.logInfo('update Post thanh cong');
         return res.status(200).send({

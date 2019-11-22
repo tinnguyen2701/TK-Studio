@@ -368,17 +368,19 @@ const AddBlog = ({ displayTags }) => {
                       Thêm
                     </button>
                     <span className="list-video">
-                      {videos.map((video, index) => (
-                        <span key={index.toString()}>
-                          {video}{' '}
-                          <button
-                            type="button"
-                            onClick={() => setVideos(videos.filter(item => item != video))}
-                          >
-                            Xóa
-                          </button>
-                        </span>
-                      ))}
+                      {videos &&
+                        videos.length > 0 &&
+                        videos.map((video, index) => (
+                          <span key={index.toString()}>
+                            {video}{' '}
+                            <button
+                              type="button"
+                              onClick={() => setVideos(videos.filter(item => item != video))}
+                            >
+                              Xóa
+                            </button>
+                          </span>
+                        ))}
                     </span>
                   </p>
                 </div>
