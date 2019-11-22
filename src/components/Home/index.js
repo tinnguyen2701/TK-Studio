@@ -91,9 +91,13 @@ const Navigation = styled.div`
       display: none;
     }
 
+    img.logo {
+      width: 165px;
+    }
+
     img.nguoi-ve {
       position: absolute;
-      top: 210%;
+      top: 220%;
       left: 54%;
       transform: scale(0.6);
       @media (min-width: 1225px) {
@@ -132,118 +136,118 @@ const Navigation = styled.div`
       left: 81%;
     }
     img.cup {
-      top: 154%;
+      top: 220%;
       left: 65%;
     }
   }
   @media (min-width: 1348px) {
     img.boom {
-      top: 89%;
+      top: 113%;
       left: 79%;
     }
     img.cup {
-      top: 167%;
       left: 64%;
+      top: 230%;
     }
   }
 
   @media (min-width: 1497px) {
     img.boom {
-      top: 105%;
+      top: 130%;
       left: 78%;
     }
     img.cup {
-      top: 187%;
+      top: 250%;
       left: 64%;
     }
   }
 
   @media (min-width: 1685px) {
     img.boom {
-      top: 112%;
+      top: 155%;
       left: 76%;
     }
     img.cup {
-      top: 201%;
+      top: 260%;
       left: 63%;
     }
   }
 
   @media (min-width: 1797px) {
     img.boom {
-      top: 126%;
+      top: 170%;
       left: 75%;
     }
     img.cup {
-      top: 206%;
+      top: 270%;
       left: 63%;
     }
   }
 
   @keyframes move4 {
     50% {
-      top: 310%;
-      left: 40%;
+      top: 430%;
+      left: 39%;
     }
     75% {
-      top: 350%;
-      left: 35%;
+      top: 470%;
+      left: 34%;
       transform: scale(0.6) skewX(6deg);
     }
     100% {
-      top: 310%;
-      left: 40%;
+      top: 420%;
+      left: 39%;
       transform: scale(0.6) skewX(6deg);
     }
   }
 
   @keyframes move3 {
     50% {
-      top: 270%;
-      left: 40%;
+      top: 400%;
+      left: 38%;
     }
     75% {
-      top: 310%;
-      left: 35%;
+      top: 430%;
+      left: 32%;
       transform: scale(0.6) skewX(6deg);
     }
     100% {
-      top: 270%;
-      left: 40%;
+      top: 390%;
+      left: 38%;
       transform: scale(0.6) skewX(6deg);
     }
   }
 
   @keyframes move2 {
     50% {
-      top: 250%;
-      left: 40%;
+      top: 350%;
+      left: 38%;
     }
     75% {
-      top: 290%;
-      left: 35%;
+      top: 390%;
+      left: 33%;
       transform: scale(0.6) skewX(6deg);
     }
     100% {
-      top: 250%;
-      left: 40%;
+      top: 350%;
+      left: 38%;
       transform: scale(0.6) skewX(6deg);
     }
   }
 
   @keyframes move1 {
     50% {
-      top: 250%;
-      left: 36%;
+      top: 375%;
+      left: 35%;
     }
     75% {
-      top: 280%;
-      left: 31%;
+      top: 335%;
+      left: 36%;
       transform: scale(0.6) skewX(6deg);
     }
     100% {
-      top: 250%;
-      left: 36%;
+      top: 380%;
+      left: 30%;
       transform: scale(0.6) skewX(6deg);
     }
   }
@@ -302,11 +306,12 @@ const NavigationTablet = styled.ul`
         text-decoration: none;
         color: black;
         font-weight: 600;
+        font-size: 16px;
       }
 
       button {
         background: none;
-        border: 2px solid rgb(44, 166, 239);
+        border: none;
         border-radius: 12px;
         padding: 5px 10px;
         margin-top: -5px;
@@ -316,6 +321,10 @@ const NavigationTablet = styled.ul`
           font-family: font_strong;
           color: black;
         }
+      }
+
+      button.btn-contact {
+        border: 2px solid rgb(10, 199, 244);
       }
     }
   }
@@ -401,6 +410,7 @@ const Banner = styled.div`
 
       > a {
         transition: 200ms all;
+        font-weight: bold;
         color: black;
         font-family: font_strong;
         text-decoration: none;
@@ -449,6 +459,7 @@ const Wrapper = styled.div`
         font-family: font_strong;
         transition: 200ms all;
         text-decoration: none;
+        font-weight: bold;
       }
     }
 
@@ -483,6 +494,10 @@ const Wrapper = styled.div`
         top: 0;
         transform: translateX(-50%);
         width: 100%;
+
+        > h1 {
+          transform: translateY(250%);
+        }
       }
 
       h1 {
@@ -662,7 +677,7 @@ const Footer = styled.div`
   > img {
     width: 100%;
     @media screen and (max-width: 800px) {
-      height: 165px;
+      height: 175px;
     }
     vertical-align: middle;
   }
@@ -733,6 +748,8 @@ const Footer = styled.div`
 
     @media screen and (max-width: 800px) {
       > div:nth-child(2) {
+        position: relative;
+        transform: translateX(-7px);
         p {
           margin-bottom: 5px;
           font-size: 9px;
@@ -746,11 +763,16 @@ const Footer = styled.div`
       }
 
       > div:nth-child(3) {
+        position: relative;
+        transform: translateX(-13px);
+        .subscription {
+          word-break: break-word;
+        }
         p {
-          margin-bottom: 10px;
+          margin-bottom: 4px;
           font-weight: 600;
           font-size: 9px;
-          text-align: center;
+          word-break: break-all;
 
           > span {
             display: block;
@@ -760,6 +782,7 @@ const Footer = styled.div`
       }
 
       > div:nth-child(4) {
+        transform: translateX(-7px);
         font-weight: 600;
         font-size: 9px;
         position: relative;
@@ -786,6 +809,13 @@ const Footer = styled.div`
       }
 
       > div:nth-child(3) {
+        .subscription {
+          cursor: pointer;
+          transition: 200ms all;
+          :hover {
+            color: white;
+          }
+        }
         p {
           margin-bottom: 10px;
           font-weight: 600;
@@ -850,24 +880,34 @@ const Home = ({ users }) => {
 
           <NavigationTablet>
             <li>
-              <Link to="/">TRANG CHỦ</Link>
-            </li>
-            <li>
-              <Link to="/gioi-thieu">GIỚI THIỆU</Link>
-            </li>
-            <li>
-              <Link to="/feed">FEED</Link>
-            </li>
-            <li>
-              <Link to="/khoa-hoc">KHÓA HỌC</Link>
-            </li>
-            <li>
-              <Link to="/#" onClick={() => subcriptionHandler()}>
-                ĐĂNG KÝ
-              </Link>
+              <button type="button">
+                <Link to="/">TRANG CHỦ</Link>
+              </button>
             </li>
             <li>
               <button type="button">
+                <Link to="/gioi-thieu">GIỚI THIỆU</Link>
+              </button>
+            </li>
+            <li>
+              <button type="button">
+                <Link to="/khoa-hoc">KHÓA HỌC</Link>
+              </button>
+            </li>
+            <li>
+              <button type="button">
+                <Link to="/feed">BLOG</Link>
+              </button>
+            </li>
+            <li>
+              <button type="button">
+                <Link to="/#" onClick={() => subcriptionHandler()}>
+                  ĐĂNG KÝ
+                </Link>
+              </button>
+            </li>
+            <li>
+              <button type="button" className="btn-contact">
                 <Link to="/lien-he">LIÊN HỆ</Link>
               </button>
             </li>
@@ -880,10 +920,10 @@ const Home = ({ users }) => {
               <Link to="/gioi-thieu">GIỚI THIỆU</Link>
             </li>
             <li>
-              <Link to="/feed">FEED</Link>
+              <Link to="/khoa-hoc">KHÓA HỌC</Link>
             </li>
             <li>
-              <Link to="/khoa-hoc">KHÓA HỌC</Link>
+              <Link to="/feed">BLOG</Link>
             </li>
             <li>
               <Link to="/#" onClick={() => subcriptionHandler()}>
@@ -905,7 +945,7 @@ const Home = ({ users }) => {
           <p>Chất lượng hàng đầu trên địa bàn tỉnh Thừa Thiên Huế.</p>
           <p>
             Với tiêu chí &quot;thi là đậu&quot;, TK-Studio sẽ là điểm đến tin cậy đến các bạn có nhu
-            cầu luyện thi nói riêng
+            cầu luyện thi nói riêng và nhu cầu ...
           </p>
           <br />
           <button type="button">
@@ -1030,21 +1070,20 @@ const Home = ({ users }) => {
               <Link to="/gioi-thieu">GIỚI THIỆU</Link>
             </p>
             <p>
-              <Link to="/feed">FEED</Link>
-            </p>
-            <p>
               <Link to="/khoa-hoc">KHÓA HỌC</Link>
             </p>
+            <p>
+              <Link to="/feed">BLOG</Link>
+            </p>
           </div>
           <div>
-            <p>
-              ĐĂNG KÝ <span />
-              LIÊN HỆ
+            <p className="subscription" onClick={() => subcriptionHandler()}>
+              ĐĂNG KÝ LIÊN HỆ
             </p>
             <p>0702450542</p>
+            <p>tonkhoastudio@gmail.com</p>
           </div>
           <div>
-            <p>tonkhoastudio@gmail.com</p>
             <p>Cs1: 69 Lê Trung Định, TP.Huế</p>
             <p>
               Cs2: Tổ dân phố Hòa Tây - Thị Trấn Phú Đa - Thành Phố Huế (Cách THPT Nguyễn Sinh Cung

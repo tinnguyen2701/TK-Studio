@@ -33,7 +33,7 @@ const Footer = styled.div`
   > img {
     width: 100%;
     @media screen and (max-width: 800px) {
-      height: 165px;
+      height: 175px;
     }
     vertical-align: middle;
   }
@@ -104,6 +104,8 @@ const Footer = styled.div`
 
     @media screen and (max-width: 800px) {
       > div:nth-child(2) {
+        position: relative;
+        transform: translateX(-7px);
         p {
           margin-bottom: 5px;
           font-size: 9px;
@@ -117,11 +119,16 @@ const Footer = styled.div`
       }
 
       > div:nth-child(3) {
+        position: relative;
+        transform: translateX(-13px);
+        .subscription {
+          word-break: break-word;
+        }
         p {
-          margin-bottom: 10px;
+          margin-bottom: 4px;
           font-weight: 600;
           font-size: 9px;
-          text-align: center;
+          word-break: break-all;
 
           > span {
             display: block;
@@ -131,6 +138,7 @@ const Footer = styled.div`
       }
 
       > div:nth-child(4) {
+        transform: translateX(-7px);
         font-weight: 600;
         font-size: 9px;
         position: relative;
@@ -157,6 +165,13 @@ const Footer = styled.div`
       }
 
       > div:nth-child(3) {
+        .subscription {
+          cursor: pointer;
+          transition: 200ms all;
+          :hover {
+            color: white;
+          }
+        }
         p {
           margin-bottom: 10px;
           font-weight: 600;
@@ -269,11 +284,12 @@ const NavigationTablet = styled.ul`
         text-decoration: none;
         color: black;
         font-weight: 600;
+        font-size: 16px;
       }
 
       button {
         background: none !important;
-        border: 2px solid rgb(44, 166, 239) !important;
+        border: none;
         border-radius: 12px;
         padding: 5px 10px;
         margin-top: -5px;
@@ -284,6 +300,11 @@ const NavigationTablet = styled.ul`
           color: black important;
         }
       }
+
+      button.btn-contact {
+        border: 2px solid rgb(10, 199, 244);
+      }
+
       button:hover {
         background: rgb(44, 166, 239) !important;
         > a {
@@ -369,7 +390,7 @@ const Banner = styled.div`
 
   @media screen and (min-width: 800px) {
     > h1 {
-      top: 25%;
+      top: 33%;
       font-size: 42px;
     }
   }
@@ -708,24 +729,34 @@ const About = ({ videos }) => {
           </button>
           <NavigationTablet>
             <li>
-              <Link to="/">TRANG CHỦ</Link>
-            </li>
-            <li>
-              <Link to="/gioi-thieu">GIỚI THIỆU</Link>
-            </li>
-            <li>
-              <Link to="/feed">FEED</Link>
-            </li>
-            <li>
-              <Link to="/khoa-hoc">KHÓA HỌC</Link>
-            </li>
-            <li>
-              <Link to="/#" onClick={() => subcriptionHandler()}>
-                ĐĂNG KÝ
-              </Link>
+              <button type="button">
+                <Link to="/">TRANG CHỦ</Link>
+              </button>
             </li>
             <li>
               <button type="button">
+                <Link to="/gioi-thieu">GIỚI THIỆU</Link>
+              </button>
+            </li>
+            <li>
+              <button type="button">
+                <Link to="/khoa-hoc">KHÓA HỌC</Link>
+              </button>
+            </li>
+            <li>
+              <button type="button">
+                <Link to="/feed">BLOG</Link>
+              </button>
+            </li>
+            <li>
+              <button type="button">
+                <Link to="/#" onClick={() => subcriptionHandler()}>
+                  ĐĂNG KÝ
+                </Link>
+              </button>
+            </li>
+            <li>
+              <button type="button" className="btn-contact">
                 <Link to="/lien-he">LIÊN HỆ</Link>
               </button>
             </li>
@@ -735,13 +766,13 @@ const About = ({ videos }) => {
               <Link to="/">TRANG CHỦ</Link>
             </li>
             <li>
-              <Link to="/feed">FEED</Link>
-            </li>
-            <li>
               <Link to="/gioi-thieu">GIỚI THIỆU</Link>
             </li>
             <li>
               <Link to="/khoa-hoc">KHÓA HỌC</Link>
+            </li>
+            <li>
+              <Link to="/feed">BLOG</Link>
             </li>
             <li>
               <Link to="/#" onClick={() => subcriptionHandler()}>
@@ -884,20 +915,18 @@ const About = ({ videos }) => {
               <Link to="/gioi-thieu">GIỚI THIỆU</Link>
             </p>
             <p>
-              <Link to="/feed">FEED</Link>
-            </p>
-            <p>
               <Link to="/khoa-hoc">KHÓA HỌC</Link>
             </p>
-          </div>
-          <div>
             <p>
-              ĐĂNG KÝ <span /> LIÊN HỆ
+              <Link to="/feed">BLOG</Link>
             </p>
-            <p>0702450542</p>
           </div>
           <div>
+            <p className="subscription">ĐĂNG KÝ LIÊN HỆ</p>
+            <p>0702450542</p>
             <p>tonkhoastudio@gmail.com</p>
+          </div>
+          <div>
             <p>Cs1: 69 Lê Trung Định, TP.Huế</p>
             <p>
               Cs2: Tổ dân phố Hòa Tây - Thị Trấn Phú Đa - Thành Phố Huế (Cách THPT Nguyễn Sinh Cung
