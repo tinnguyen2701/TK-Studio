@@ -41,13 +41,13 @@ const Dashboard = ({ isAuthenticate, dispatch }) => {
         payload: { token: window.localStorage.getItem('JWT') },
       });
     } else {
-      window.location.href = `${process.env.REACT_APP_BASE_URL}login`;
+      window.location.href = `${process.env.REACT_APP_MAIN_URL}login`;
     }
   }, []);
 
   const signOut = () => {
     window.localStorage.removeItem('JWT');
-    window.location.href = `${process.env.REACT_APP_BASE_URL}login`;
+    window.location.href = `${process.env.REACT_APP_MAIN_URL}login`;
   };
 
   return (

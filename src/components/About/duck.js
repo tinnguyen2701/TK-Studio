@@ -11,7 +11,7 @@ function* requestVideo() {
     const response = yield call(
       callApi,
       'GET',
-      `${process.env.REACT_APP_BASE_URL}api/setting/videos`,
+      `${process.env.REACT_APP_MAIN_URL}api/setting/videos`,
     );
     yield put(createAction(GET_VIDEO_RESPONSE, response.data));
   } catch (error) {

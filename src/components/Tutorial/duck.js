@@ -11,7 +11,7 @@ function* requestTutorial(action) {
     const response = yield call(
       callApi,
       'GET',
-      `${process.env.REACT_APP_BASE_URL}api/tutorial/${action.payload}`,
+      `${process.env.REACT_APP_MAIN_URL}api/tutorial/${action.payload}`,
     );
     yield put(createAction(GET_TUTORIAL_RESPONSE, response.data[0]));
   } catch (error) {

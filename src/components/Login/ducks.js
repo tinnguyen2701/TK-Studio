@@ -13,7 +13,7 @@ function* requestLogin(action) {
     const response = yield call(
       callApi,
       'POST',
-      `${process.env.REACT_APP_BASE_URL}api/auth/login`,
+      `${process.env.REACT_APP_MAIN_URL}api/auth/login`,
       {
         username,
         password,

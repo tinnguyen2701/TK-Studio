@@ -53,7 +53,7 @@ function* requestAddTag(action) {
     const response = yield call(
       callApi,
       'POST',
-      `${process.env.REACT_APP_BASE_URL}api/setting/addTag`,
+      `${process.env.REACT_APP_MAIN_URL}api/setting/addTag`,
       action.payload,
     );
     yield put(createAction(ADD_TAG_RESPONSE, response.data));
@@ -73,7 +73,7 @@ function* requestAddPost(action) {
     const response = yield call(
       callApi,
       'POST',
-      `${process.env.REACT_APP_BASE_URL}api/post/add`,
+      `${process.env.REACT_APP_MAIN_URL}api/post/add`,
       action.payload,
     );
     yield put(createAction(ADD_POST_RESPONSE, response.data));
@@ -93,7 +93,7 @@ function* requestRemoveTag(action) {
     const response = yield call(
       callApi,
       'POST',
-      `${process.env.REACT_APP_BASE_URL}api/setting/removeTag`,
+      `${process.env.REACT_APP_MAIN_URL}api/setting/removeTag`,
       action.payload,
     );
     yield put(createAction(REMOVE_TAG_RESPONSE, response.data));
@@ -109,7 +109,7 @@ export const removeTagSaga = [fork(watchRemoveTagRequest)];
 /* handler state for get all post */
 function* requestGetALlPost() {
   try {
-    const response = yield call(callApi, 'get', `${process.env.REACT_APP_BASE_URL}api/post`);
+    const response = yield call(callApi, 'get', `${process.env.REACT_APP_MAIN_URL}api/post`);
     yield put(createAction(GET_ALL_POST_RESPONSE, response.data));
   } catch (error) {
     yield put(createAction(GET_ALL_POST_ERROR, error));
@@ -126,7 +126,7 @@ function* requestGetPost(action) {
     const response = yield call(
       callApi,
       'get',
-      `${process.env.REACT_APP_BASE_URL}api/post/title/${action.payload.id}`,
+      `${process.env.REACT_APP_MAIN_URL}api/post/title/${action.payload.id}`,
     );
     yield put(createAction(GET_POST_RESPONSE, response.data));
   } catch (error) {
@@ -144,7 +144,7 @@ function* requestGetALlPostPopulate() {
     const response = yield call(
       callApi,
       'get',
-      `${process.env.REACT_APP_BASE_URL}api/post/populate`,
+      `${process.env.REACT_APP_MAIN_URL}api/post/populate`,
     );
     yield put(createAction(GET_ALL_POST_POLULATE_RESPONSE, response.data));
   } catch (error) {
@@ -162,7 +162,7 @@ function* requestGetLimitPost(action) {
     const response = yield call(
       callApi,
       'get',
-      `${process.env.REACT_APP_BASE_URL}api/post/page/${action.payload.numberPage}`,
+      `${process.env.REACT_APP_MAIN_URL}api/post/page/${action.payload.numberPage}`,
     );
     yield put(createAction(GET_LIMIT_POST_RESPONSE, response.data));
   } catch (error) {
@@ -180,7 +180,7 @@ function* requestGetTagsPost(action) {
     const response = yield call(
       callApi,
       'get',
-      `${process.env.REACT_APP_BASE_URL}api/post/tags/${action.payload.tag}`,
+      `${process.env.REACT_APP_MAIN_URL}api/post/tags/${action.payload.tag}`,
     );
     yield put(createAction(GET_TAGS_POST_RESPONSE, response.data));
   } catch (error) {
@@ -198,7 +198,7 @@ function* requestRemovePost(action) {
     const response = yield call(
       callApi,
       'post',
-      `${process.env.REACT_APP_BASE_URL}api/post/remove`,
+      `${process.env.REACT_APP_MAIN_URL}api/post/remove`,
       action.payload,
     );
     yield put(createAction(REMOVE_POST_RESPONSE, response.data));
@@ -217,7 +217,7 @@ function* requestEditPost(action) {
     const response = yield call(
       callApi,
       'post',
-      `${process.env.REACT_APP_BASE_URL}api/post/edit`,
+      `${process.env.REACT_APP_MAIN_URL}api/post/edit`,
       action.payload,
     );
     yield put(createAction(EDIT_POST_RESPONSE, response.data));
@@ -236,7 +236,7 @@ function* requestSearch(action) {
     const response = yield call(
       callApi,
       'get',
-      `${process.env.REACT_APP_BASE_URL}api/post/search/${action.payload.valueSearch}`,
+      `${process.env.REACT_APP_MAIN_URL}api/post/search/${action.payload.valueSearch}`,
     );
     yield put(createAction(SEARCH_RESPONSE, response.data));
   } catch (error) {

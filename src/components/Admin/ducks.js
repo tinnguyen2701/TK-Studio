@@ -86,7 +86,7 @@ function* requestCurrentUser(action) {
     const response = yield call(
       callApi,
       'POST',
-      `${process.env.REACT_APP_BASE_URL}api/auth/currentUser`,
+      `${process.env.REACT_APP_MAIN_URL}api/auth/currentUser`,
       action.payload,
     );
     if (response.status === 200) {
@@ -98,7 +98,7 @@ function* requestCurrentUser(action) {
     }
   } catch (error) {
     logger.logError('invalid token');
-    window.location.href = `${process.env.REACT_APP_BASE_URL}login`;
+    window.location.href = `${process.env.REACT_APP_MAIN_URL}login`;
   }
 }
 function* watchCurrentUserRequest() {
@@ -112,7 +112,7 @@ function* requestFrame(action) {
     // const response = yield call(
     //   callApi,
     //   'GET',
-    //   `${process.env.REACT_APP_BASE_URL}api/auth/currentUser`,
+    //   `${process.env.REACT_APP_MAIN_URL}api/auth/currentUser`,
     // );
     yield put(createAction('UPDATE_TAB', action.payload));
     // yield put(createAction(GET_CURRENT_USER_RESPONSE, response));
@@ -131,7 +131,7 @@ function* requestAddStudent(action) {
     const response = yield call(
       callApi,
       'POST',
-      `${process.env.REACT_APP_BASE_URL}api/user/addStudent`,
+      `${process.env.REACT_APP_MAIN_URL}api/user/addStudent`,
       action.payload,
     );
     yield put(createAction(ADD_STUDENT_RESPONSE, response.data));
@@ -150,7 +150,7 @@ function* requestAddTeacher(action) {
     const response = yield call(
       callApi,
       'POST',
-      `${process.env.REACT_APP_BASE_URL}api/user/addTeacher`,
+      `${process.env.REACT_APP_MAIN_URL}api/user/addTeacher`,
       action.payload,
     );
     yield put(createAction(ADD_TEACHER_RESPONSE, response.data));
@@ -169,7 +169,7 @@ function* requestEditStudent(action) {
     const response = yield call(
       callApi,
       'POST',
-      `${process.env.REACT_APP_BASE_URL}api/user/editStudent`,
+      `${process.env.REACT_APP_MAIN_URL}api/user/editStudent`,
       action.payload,
     );
     yield put(createAction(EDIT_STUDENT_RESPONSE, response.data));
@@ -188,7 +188,7 @@ function* requestEditTeacher(action) {
     const response = yield call(
       callApi,
       'POST',
-      `${process.env.REACT_APP_BASE_URL}api/user/editTeacher`,
+      `${process.env.REACT_APP_MAIN_URL}api/user/editTeacher`,
       action.payload,
     );
     yield put(createAction(EDIT_TEACHER_RESPONSE, response.data));
@@ -207,7 +207,7 @@ function* requestChangePassword(action) {
     const response = yield call(
       callApi,
       'POST',
-      `${process.env.REACT_APP_BASE_URL}api/auth/changePassword`,
+      `${process.env.REACT_APP_MAIN_URL}api/auth/changePassword`,
       action.payload,
     );
     if (response.status === 200)
@@ -230,7 +230,7 @@ function* requestChangeImageStudent(action) {
     const response = yield call(
       callApi,
       'POST',
-      `${process.env.REACT_APP_BASE_URL}api/setting/changeImageStudent`,
+      `${process.env.REACT_APP_MAIN_URL}api/setting/changeImageStudent`,
       action.payload,
     );
     yield put(createAction(UPDATE_IMAGE_STUDENT_DEFAULT_RESPONSE, response.data));
@@ -249,7 +249,7 @@ function* requestChangeImageTeacher(action) {
     const response = yield call(
       callApi,
       'POST',
-      `${process.env.REACT_APP_BASE_URL}api/setting/changeImageTeacher`,
+      `${process.env.REACT_APP_MAIN_URL}api/setting/changeImageTeacher`,
       action.payload,
     );
     yield put(createAction(UPDATE_IMAGE_TEACHER_DEFAULT_RESPONSE, response.data));
@@ -265,7 +265,7 @@ export const changeImageTeacherSaga = [fork(watchChangeImageTeacherRequest)];
 /* handler state for get setting */
 function* requestSetting() {
   try {
-    const response = yield call(callApi, 'GET', `${process.env.REACT_APP_BASE_URL}api/setting`);
+    const response = yield call(callApi, 'GET', `${process.env.REACT_APP_MAIN_URL}api/setting`);
     yield put(createAction(GET_SETTING_RESPONSE, response.data.setting));
     yield put(createAction(GET_VIDEOS_RESPONSE, response.data.videos));
   } catch (error) {
@@ -283,7 +283,7 @@ function* requestAllUser(action) {
     const response = yield call(
       callApi,
       'GET',
-      `${process.env.REACT_APP_BASE_URL}api/user`,
+      `${process.env.REACT_APP_MAIN_URL}api/user`,
       action.payload,
     );
     yield put(createAction(GET_ALL_USER_RESPONSE, response.data));
@@ -302,7 +302,7 @@ function* requestRemoveUser(action) {
     const response = yield call(
       callApi,
       'POST',
-      `${process.env.REACT_APP_BASE_URL}api/user/remove`,
+      `${process.env.REACT_APP_MAIN_URL}api/user/remove`,
       action.payload,
     );
     yield put(createAction(REMOVE_USER_RESPONSE, response.data));
@@ -321,7 +321,7 @@ function* requestAddTutorial(action) {
     const response = yield call(
       callApi,
       'POST',
-      `${process.env.REACT_APP_BASE_URL}api/tutorial/addTutorial`,
+      `${process.env.REACT_APP_MAIN_URL}api/tutorial/addTutorial`,
       action.payload,
     );
     yield put(createAction(ADD_TUTORIAL_RESPONSE, response.data));
@@ -340,7 +340,7 @@ function* requestAllTutorial(action) {
     const response = yield call(
       callApi,
       'GET',
-      `${process.env.REACT_APP_BASE_URL}api/tutorial`,
+      `${process.env.REACT_APP_MAIN_URL}api/tutorial`,
       action.payload,
     );
     yield put(createAction(GET_ALL_TUTORIAL_RESPONSE, response.data));
@@ -359,7 +359,7 @@ function* requestEditTutorial(action) {
     const response = yield call(
       callApi,
       'POST',
-      `${process.env.REACT_APP_BASE_URL}api/tutorial/editTutorial`,
+      `${process.env.REACT_APP_MAIN_URL}api/tutorial/editTutorial`,
       action.payload,
     );
     yield put(createAction(EDIT_TUTORIAL_RESPONSE, response.data));
@@ -378,7 +378,7 @@ function* requestRemoveTutorial(action) {
     const response = yield call(
       callApi,
       'POST',
-      `${process.env.REACT_APP_BASE_URL}api/tutorial/remove`,
+      `${process.env.REACT_APP_MAIN_URL}api/tutorial/remove`,
       action.payload,
     );
     yield put(createAction(REMOVE_TUTORIAL_RESPONSE, response.data));
@@ -397,7 +397,7 @@ function* requestAddVideo(action) {
     const response = yield call(
       callApi,
       'POST',
-      `${process.env.REACT_APP_BASE_URL}api/setting/addVideo`,
+      `${process.env.REACT_APP_MAIN_URL}api/setting/addVideo`,
       action.payload,
     );
     yield put(createAction(ADD_VIDEO_RESPONSE, response.data));
@@ -416,7 +416,7 @@ function* requestRemoveVideo(action) {
     const response = yield call(
       callApi,
       'POST',
-      `${process.env.REACT_APP_BASE_URL}api/setting/removeVideo`,
+      `${process.env.REACT_APP_MAIN_URL}api/setting/removeVideo`,
       action.payload,
     );
     yield put(createAction(REMOVE_VIDEO_RESPONSE, response.data));
@@ -435,7 +435,7 @@ function* requestEditVideo(action) {
     const response = yield call(
       callApi,
       'POST',
-      `${process.env.REACT_APP_BASE_URL}api/setting/editVideo`,
+      `${process.env.REACT_APP_MAIN_URL}api/setting/editVideo`,
       action.payload,
     );
     yield put(createAction(EDIT_VIDEO_RESPONSE, response.data));

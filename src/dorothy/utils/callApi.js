@@ -33,7 +33,7 @@ const callApi = (method, url, data = {}) => {
     response => response,
     error => {
       Promise.reject(error);
-      if (error.response.status === 401) window.location.href = process.env.REACT_APP_BASE_URL;
+      if (error.response.status === 401) window.location.href = process.env.REACT_APP_MAIN_URL;
     },
   );
 
