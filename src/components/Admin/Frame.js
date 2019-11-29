@@ -8,7 +8,7 @@ import Setting from './Setting';
 import Blog from '../Blog';
 
 const Wrapper = styled.div`
-  width: 75%;
+  width: 85%;
 `;
 
 const Frame = ({ tabVisible, users }) => {

@@ -100,6 +100,7 @@ const UsersActionHandler = {
     return state.map(user => {
       if (user._id === action.payload.id) {
         user.name = action.payload.name;
+        user.job = action.payload.job;
         user.avatar = action.payload.avatar;
       }
       return user;
@@ -110,6 +111,7 @@ const UsersActionHandler = {
     return state.map(user => {
       if (user._id === action.payload.id) {
         user.name = action.payload.name;
+        user.job = action.payload.job;
         user.avatar = action.payload.avatar;
       }
       return user;

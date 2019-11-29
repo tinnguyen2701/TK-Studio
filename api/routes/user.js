@@ -12,7 +12,7 @@ userRouter.post(
   passport.authenticate('jwt', { session: false }),
   upload.fields([{ name: 'avatar', maxCount: 1 }]),
   async (req, res) => {
-    const { name } = req.body;
+    const { name, job } = req.body;
     let avatar = null;
 
     if (req.files['avatar'] !== undefined) {
@@ -35,6 +35,7 @@ userRouter.post(
 
     const newStudent = new User({
       name,
+      job,
       avatar,
       role: 'student',
     });
@@ -56,7 +57,7 @@ userRouter.post(
   passport.authenticate('jwt', { session: false }),
   upload.fields([{ name: 'reAvatar', maxCount: 1 }]),
   async (req, res) => {
-    const { name, id } = req.body;
+    const { name, id, job } = req.body;
     let reAvatar = await User.findById(id).then(user => user.avatar);
 
     if (req.files['reAvatar'] !== undefined) {
@@ -71,10 +72,10 @@ userRouter.post(
         });
     }
 
-    await User.updateOne({ _id: id }, { $set: { name, avatar: reAvatar } }, { upsert: true })
+    await User.updateOne({ _id: id }, { $set: { name, job, avatar: reAvatar } }, { upsert: true })
       .then(() => {
         logger.logInfo('edit user thanh cong');
-        return res.status(200).send({ id, name, avatar: reAvatar });
+        return res.status(200).send({ id, name, job, avatar: reAvatar });
       })
       .catch(err => {
         return res.status(500).send(err);
@@ -87,7 +88,7 @@ userRouter.post(
   passport.authenticate('jwt', { session: false }),
   upload.fields([{ name: 'avatar', maxCount: 1 }]),
   async (req, res) => {
-    const { name } = req.body;
+    const { name, job } = req.body;
     let avatar = null;
 
     if (req.files['avatar'] !== undefined) {
@@ -110,6 +111,7 @@ userRouter.post(
 
     const newTeacher = new User({
       name,
+      job,
       avatar,
       role: 'teacher',
     });
@@ -131,7 +133,7 @@ userRouter.post(
   passport.authenticate('jwt', { session: false }),
   upload.fields([{ name: 'reAvatar', maxCount: 1 }]),
   async (req, res) => {
-    const { name, id } = req.body;
+    const { name, id, job } = req.body;
     let reAvatar = await User.findById(id).then(user => user.avatar);
 
     if (req.files['reAvatar'] !== undefined) {
@@ -146,10 +148,10 @@ userRouter.post(
         });
     }
 
-    await User.updateOne({ _id: id }, { $set: { name, avatar: reAvatar } }, { upsert: true })
+    await User.updateOne({ _id: id }, { $set: { name, job, avatar: reAvatar } }, { upsert: true })
       .then(() => {
         logger.logInfo('edit user thanh cong');
-        return res.status(200).send({ id, name, avatar: reAvatar });
+        return res.status(200).send({ id, name, job, avatar: reAvatar });
       })
       .catch(err => {
         return res.status(500).send(err);

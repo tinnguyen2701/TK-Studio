@@ -7,7 +7,8 @@ import { REMOVE_USER_REQUEST, EDIT_TEACHER_REQUEST } from './ducks';
 const Div = styled.div`
   display: flex;
   align-items: center;
-  input:nth-child(1) {
+  input:nth-child(1),
+  input:nth-child(2) {
     background: rgb(44, 166, 239);
     color: white;
     border: none;
@@ -48,6 +49,7 @@ export default ({ teacher }) => {
   const [visibleRemove, setVisibleRemove] = useState(false);
   const [visibleEdit, setVisibleEdit] = useState(false);
   const [name, setName] = useState(teacher.name || '');
+  const [job, setJob] = useState(teacher.job || '');
   const [reAvatar, setReAvatar] = useState(null);
 
   const setReAvatarHandler = e => {
@@ -64,6 +66,7 @@ export default ({ teacher }) => {
     const formData = new FormData();
     formData.append('id', id);
     formData.append('name', name);
+    formData.append('job', job);
     formData.append('reAvatar', reAvatar);
 
     store.dispatch({
@@ -83,7 +86,11 @@ export default ({ teacher }) => {
       </Div>
       <Div>
         {visibleEdit ? (
-          <input type="text" value={name} onChange={e => setName(e.target.value)} />
+          <span>
+            <input type="text" value={name} onChange={e => setName(e.target.value)} />
+            &nbsp; &nbsp;
+            <input type="text" value={job} onChange={e => setJob(e.target.value)} />
+          </span>
         ) : (
           teacher.name
         )}

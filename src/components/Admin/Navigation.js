@@ -4,7 +4,7 @@ import store from 'store';
 import { UPDATE_FRAME_REQUEST } from './ducks';
 
 const Wrapper = styled.div`
-  width: 25%;
+  width: 15%;
 
   > p > button {
     cursor: pointer;

@@ -9,6 +9,7 @@ import About from './components/About';
 import Tutorial from './components/Tutorial';
 import singleTutorial from './components/Tutorial/singleTutorial';
 import Feed from './components/Feed';
+import Footer from './components/Footer';
 
 export default () => {
   return (
@@ -27,6 +28,7 @@ export default () => {
           <Route exact path="/" component={Tutorial} />
           <Route path="/khoa-hoc/:nameCourse" component={singleTutorial} />
         </Router>
+        <Footer />
       </BrowserRouter>
     </ThemeProvider>
   );

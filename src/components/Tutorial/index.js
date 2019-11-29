@@ -1,182 +1,13 @@
 /* eslint-disable*/
-
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import backgroundHeader from 'images/about/backgroundHeader.png';
-
-import backgroundFooter from 'images/background/backgroundFooter.png';
 import logo from 'images/logo/logo.png';
-import logoBlack from 'images/logo/logoBlack.png';
-import facebook from 'images/logo/facebook.png';
-import instagram from 'images/logo/instagram.png';
-import youtube from 'images/logo/youtube.png';
+import logoWhite from 'images/logo/logoWhite.png';
 import { connect } from 'react-redux';
 import store from 'store';
 import { GET_ALL_TUTORIAL_REQUEST } from '../Admin/ducks';
-
-const Footer = styled.div`
-  margin-top: 10%;
-  position: relative;
-
-  > img {
-    width: 100%;
-    @media screen and (max-width: 800px) {
-      height: 175px;
-    }
-    vertical-align: middle;
-  }
-  > div {
-    display: flex;
-    flex-flow: wrap;
-    justify-content: space-between;
-    width: 100%;
-    @media screen and (min-width: 800px) {
-      padding: 0 5%;
-    }
-    @media screen and (max-width: 800px) {
-      padding: 0 1%;
-    }
-    top: 50%;
-    transform: translateY(0%);
-    position: absolute;
-
-    > div {
-      flex: 1;
-    }
-
-    > div:nth-child(1) {
-      @media screen and (max-width: 800px) {
-        > img {
-          width: 90px;
-        }
-      }
-
-      @media screen and (min-width: 800px) {
-        > img {
-          width: 200px;
-        }
-      }
-
-      position: relative;
-
-      > div {
-        position: absolute;
-
-        @media screen and (max-width: 800px) {
-          display: flex;
-          left: 0;
-          top: 50%;
-        }
-
-        @media screen and (min-width: 800px) {
-          top: 60px;
-          left: 100px;
-        }
-      }
-
-      a {
-        margin-left: 4px;
-        @media screen and (max-width: 800px) {
-          > img {
-            width: 20px;
-          }
-        }
-
-        @media screen and (min-width: 800px) {
-          > img {
-            width: 30px;
-          }
-        }
-      }
-    }
-
-    @media screen and (max-width: 800px) {
-      > div:nth-child(2) {
-        position: relative;
-        transform: translateX(-7px);
-        p {
-          margin-bottom: 5px;
-          font-size: 9px;
-          text-align: center;
-        }
-        a {
-          text-decoration: none;
-          color: black;
-          font-weight: 600;
-        }
-      }
-
-      > div:nth-child(3) {
-        position: relative;
-        transform: translateX(-13px);
-        .subscription {
-          word-break: break-word;
-        }
-        p {
-          margin-bottom: 4px;
-          font-weight: 600;
-          font-size: 9px;
-          word-break: break-all;
-
-          > span {
-            display: block;
-            margin: 5px;
-          }
-        }
-      }
-
-      > div:nth-child(4) {
-        transform: translateX(-7px);
-        font-weight: 600;
-        font-size: 9px;
-        position: relative;
-        top: -4px;
-      }
-    }
-
-    @media screen and (min-width: 800px) {
-      > div:nth-child(2) {
-        p {
-          margin-bottom: 10px;
-          font-size: 18px;
-        }
-        a {
-          text-decoration: none;
-          color: black;
-          font-weight: 600;
-        }
-
-        a:hover {
-          color: white;
-          transition: 200ms all;
-        }
-      }
-
-      > div:nth-child(3) {
-        .subscription {
-          cursor: pointer;
-          transition: 200ms all;
-          :hover {
-            color: white;
-          }
-        }
-        p {
-          margin-bottom: 10px;
-          font-weight: 600;
-          font-size: 18px;
-        }
-      }
-
-      > div:nth-child(4) {
-        font-weight: 600;
-        font-size: 18px;
-        position: relative;
-        top: -4px;
-      }
-    }
-  }
-`;
 
 const Navigation = styled.div`
   position: absolute;
@@ -226,7 +57,7 @@ const Navigation = styled.div`
       }
     }
     img {
-      width: 120px;
+      width: 48px;
     }
     img.logo {
       margin: 15px 0 15px 15px;
@@ -237,7 +68,7 @@ const Navigation = styled.div`
     padding: 15px 5% 0 5%;
 
     img {
-      width: 165px;
+      width: 73px;
     }
     > button {
       display: none;
@@ -487,7 +318,7 @@ const Tutorial = ({ tutorials, history }) => {
     <Wrapper>
       <Banner isShowNavbar={isShowNavbar}>
         <Navigation isShowNavbar={isShowNavbar}>
-          <img src={logo} className="logo" alt="logo" />
+          <img src={logoWhite} className="logo" alt="logo" />
           <button type="button" onClick={() => setIsShowNavbar(!isShowNavbar)}>
             <span />
             <span />
@@ -573,51 +404,6 @@ const Tutorial = ({ tutorials, history }) => {
             </ItemTutorial>
           ))}
       </Content>
-      <Footer>
-        <img src={backgroundFooter} alt="footer background" />
-        <div>
-          <div>
-            <img src={logoBlack} alt="logo black" />
-            <div>
-              <a href="https://www.facebook.com/TonKhoaStudio/" target="_blank">
-                <img src={facebook} alt="logo facebook" />
-              </a>
-              <a href="https://www.instagram.com/tonkhoastudio/" target="_blank">
-                <img src={instagram} alt="logo instagram" />
-              </a>
-              <a href="/">
-                <img src={youtube} alt="logo youtube" />
-              </a>
-            </div>
-          </div>
-          <div>
-            <p>
-              <Link to="/">TRANG CHỦ</Link>
-            </p>
-            <p>
-              <Link to="/gioi-thieu">GIỚI THIỆU</Link>
-            </p>
-            <p>
-              <Link to="/khoa-hoc">KHÓA HỌC</Link>
-            </p>
-            <p>
-              <Link to="/feed">BLOG</Link>
-            </p>
-          </div>
-          <div>
-            <p className="subscription">ĐĂNG KÝ LIÊN HỆ</p>
-            <p>0702450542</p>
-            <p>tonkhoastudio@gmail.com</p>
-          </div>
-          <div>
-            <p>Cs1: 69 Lê Trung Định, TP.Huế</p>
-            <p>
-              Cs2: Tổ dân phố Hòa Tây - Thị Trấn Phú Đa - Thành Phố Huế (Cách THPT Nguyễn Sinh Cung
-              500m)
-            </p>
-          </div>
-        </div>
-      </Footer>
     </Wrapper>
   );
 };

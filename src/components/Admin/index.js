@@ -54,7 +54,9 @@ const Dashboard = ({ isAuthenticate, dispatch }) => {
     isAuthenticate && (
       <Wrapper>
         <div>
-          <Link to="/">Home </Link>
+          <Link to="/" target="_top">
+            Home{' '}
+          </Link>
           <button type="button" onClick={() => signOut()}>
             Sign out
           </button>

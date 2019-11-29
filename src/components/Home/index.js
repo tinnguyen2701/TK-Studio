@@ -8,14 +8,8 @@ import bannerBackground from 'images/banner/bannerBackground.png';
 import bannerBackgroundPhone from 'images/banner/bannerBackgroundPhone.png';
 import cup from 'images/banner/cup.png';
 import boom from 'images/banner/boom.png';
-import backgroundFooter from 'images/background/backgroundFooter.png';
 import doiNgu from 'images/home/doi-ngu.png';
-import logo from 'images/logo/logo.png';
-import logoBlack from 'images/logo/logoBlack.png';
-import facebook from 'images/logo/facebook.png';
-import instagram from 'images/logo/instagram.png';
-import youtube from 'images/logo/youtube.png';
-
+import logoWhite from 'images/logo/logoWhite.png';
 import nguoive from 'images/person/nguoive.png';
 import lamp from 'images/home/lamp.png';
 import { GET_ALL_USER_REQUEST } from '../Admin/ducks';
@@ -71,7 +65,7 @@ const Navigation = styled.div`
       }
     }
     img {
-      width: 120px;
+      width: 48px;
     }
 
     img.logo {
@@ -92,7 +86,7 @@ const Navigation = styled.div`
     }
 
     img.logo {
-      width: 165px;
+      width: 73px;
     }
 
     img.nguoi-ve {
@@ -295,6 +289,7 @@ const NavigationTablet = styled.ul`
 
     > li:hover button {
       background: rgb(44, 166, 239);
+      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2), -1px -1px 2px rgba(0, 0, 0, 0.2);
     }
 
     > li {
@@ -419,6 +414,7 @@ const Banner = styled.div`
 
     button:hover {
       background: rgb(10, 199, 244);
+      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2), -1px -1px 2px rgba(0, 0, 0, 0.2);
       > a {
         color: white;
       }
@@ -464,6 +460,7 @@ const Wrapper = styled.div`
     }
 
     button:hover {
+      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2), -1px -1px 2px rgba(0, 0, 0, 0.2);
       background: rgb(10, 199, 244);
       > a {
         color: white;
@@ -494,91 +491,29 @@ const Wrapper = styled.div`
         top: 0;
         transform: translateX(-50%);
         width: 100%;
+        height: 100%;
 
         > h1 {
           transform: translateY(250%);
         }
       }
 
-      h1 {
-        margin-bottom: 300px;
-      }
-
-      @media (min-width: 1620px) {
-        margin-bottom: 450px;
-      }
-
       > div {
-        @media screen and (max-width: 800px) {
-          display: flex;
-          flex-flow: wrap;
-          justify-content: center;
+        display: flex;
+        flex-flow: wrap;
+        justify-content: center;
+        width: 100%;
+        @media screen and (min-width: 800px) {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          > div {
+            margin: 0px 50px 50px 50px;
+          }
         }
-
-        > div {
-          @media screen and (min-width: 800px) {
-            width: 180px;
-            height: 180px;
-            margin: 50px 100px;
-            ::before {
-              width: calc(100% + 50px);
-              height: calc(100% + 50px);
-            }
-            ::after {
-              width: calc(100% + 20px);
-              height: calc(100% + 20px);
-            }
-          }
-          @media screen and (max-width: 800px) {
-            width: 100px;
-            height: 100px;
-            margin: 20px 20px;
-            ::before {
-              width: calc(100% + 20px);
-              height: calc(100% + 20px);
-            }
-            ::after {
-              width: calc(100% + 10px);
-              height: calc(100% + 10px);
-            }
-          }
-
-          border-radius: 50%;
-          position: relative;
-          z-index: 1;
-          display: inline-block;
-
-          @media (min-width: 1620px) {
-            width: 250px;
-            height: 250px;
-          }
-
-          > img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            z-index: 9;
-          }
-          ::after {
-            content: '';
-            position: absolute;
-            background: rgb(244, 244, 238);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            z-index: -1;
-          }
-
-          ::before {
-            content: '';
-            position: absolute;
-            background: rgb(233, 235, 243);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            z-index: -2;
+        @media screen and (max-width: 800px) {
+          > div {
+            margin: 15px 50px 15px 50px;
           }
         }
       }
@@ -670,169 +605,6 @@ const Wrapper = styled.div`
   }
 `;
 
-const Footer = styled.div`
-  margin-top: 10%;
-  position: relative;
-
-  > img {
-    width: 100%;
-    @media screen and (max-width: 800px) {
-      height: 175px;
-    }
-    vertical-align: middle;
-  }
-  > div {
-    display: flex;
-    flex-flow: wrap;
-    justify-content: space-between;
-    width: 100%;
-    @media screen and (min-width: 800px) {
-      padding: 0 5%;
-    }
-    @media screen and (max-width: 800px) {
-      padding: 0 1%;
-    }
-    top: 50%;
-    transform: translateY(0%);
-    position: absolute;
-
-    > div {
-      flex: 1;
-    }
-
-    > div:nth-child(1) {
-      @media screen and (max-width: 800px) {
-        > img {
-          width: 90px;
-        }
-      }
-
-      @media screen and (min-width: 800px) {
-        > img {
-          width: 200px;
-        }
-      }
-
-      position: relative;
-
-      > div {
-        position: absolute;
-
-        @media screen and (max-width: 800px) {
-          display: flex;
-          left: 0;
-          top: 50%;
-        }
-
-        @media screen and (min-width: 800px) {
-          top: 60px;
-          left: 100px;
-        }
-      }
-
-      a {
-        margin-left: 4px;
-        @media screen and (max-width: 800px) {
-          > img {
-            width: 20px;
-          }
-        }
-
-        @media screen and (min-width: 800px) {
-          > img {
-            width: 30px;
-          }
-        }
-      }
-    }
-
-    @media screen and (max-width: 800px) {
-      > div:nth-child(2) {
-        position: relative;
-        transform: translateX(-7px);
-        p {
-          margin-bottom: 5px;
-          font-size: 9px;
-          text-align: center;
-        }
-        a {
-          text-decoration: none;
-          color: black;
-          font-weight: 600;
-        }
-      }
-
-      > div:nth-child(3) {
-        position: relative;
-        transform: translateX(-13px);
-        .subscription {
-          word-break: break-word;
-        }
-        p {
-          margin-bottom: 4px;
-          font-weight: 600;
-          font-size: 9px;
-          word-break: break-all;
-
-          > span {
-            display: block;
-            margin: 5px;
-          }
-        }
-      }
-
-      > div:nth-child(4) {
-        transform: translateX(-7px);
-        font-weight: 600;
-        font-size: 9px;
-        position: relative;
-        top: -4px;
-      }
-    }
-
-    @media screen and (min-width: 800px) {
-      > div:nth-child(2) {
-        p {
-          margin-bottom: 10px;
-          font-size: 18px;
-        }
-        a {
-          text-decoration: none;
-          color: black;
-          font-weight: 600;
-        }
-
-        a:hover {
-          color: white;
-          transition: 200ms all;
-        }
-      }
-
-      > div:nth-child(3) {
-        .subscription {
-          cursor: pointer;
-          transition: 200ms all;
-          :hover {
-            color: white;
-          }
-        }
-        p {
-          margin-bottom: 10px;
-          font-weight: 600;
-          font-size: 18px;
-        }
-      }
-
-      > div:nth-child(4) {
-        font-weight: 600;
-        font-size: 18px;
-        position: relative;
-        top: -4px;
-      }
-    }
-  }
-`;
-
 const AvatarStudent = styled.div`
   @media screen and (max-width: 800px) {
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.2);
@@ -844,6 +616,162 @@ const AvatarStudent = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+
+  > span {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    color: white;
+    transition: 350ms all;
+
+    > span {
+      width: 100%;
+      transition: 350ms all;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      bottom: 2%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+
+      > span:first-child {
+        font-size: 23px;
+        text-transform: uppercase;
+        @media screen and (max-width: 800px) {
+          font-size: 16px;
+        }
+      }
+
+      > hr {
+        transition: 500ms all;
+        width: 0%;
+        display: block;
+        margin: 15px;
+      }
+
+      > span:last-child {
+        font-size: 20px;
+        @media screen and (max-width: 800px) {
+          font-size: 13px;
+        }
+      }
+    }
+    :hover {
+      background: rgba(0, 0, 0, 0.3);
+
+      > span {
+        opacity: 1;
+        bottom: 5%;
+
+        > hr {
+          width: 35%;
+        }
+      }
+    }
+  }
+`;
+
+const FlipBox = styled.div`
+  width: 260px;
+  height: 260px;
+  @media screen and (max-width: 800px) {
+    width: 210px;
+    height: 210px;
+  }
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #dfecf4;
+  .flip-box {
+    background-color: rgb(240, 247, 247);
+    width: 230px;
+    height: 230px;
+    @media screen and (max-width: 800px) {
+      width: 180px;
+      height: 180px;
+    }
+    perspective: 1000px;
+    border-radius: 50%;
+    position: relative;
+    ::after {
+      content: '';
+      position: absolute;
+      width: 88%;
+      height: 88%;
+      @media screen and (max-width: 800px) {
+        width: 85%;
+        height: 85%;
+      }
+      border: 14px solid rgba(255, 255, 255, 0.2);
+      top: 0;
+      left: 0;
+      border-radius: 50%;
+    }
+  }
+  .flip-box-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+  }
+
+  .flip-box:hover .flip-box-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flip-box-front,
+  .flip-box-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 50%;
+  }
+
+  .flip-box-front {
+    background-color: #bbb;
+    color: black;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+  }
+
+  .flip-box-back {
+    background: rgb(44, 166, 239);
+    color: white;
+    transform: rotateY(180deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    > p:first-child {
+      font-size: 30px;
+      text-transform: uppercase;
+    }
+
+    > hr {
+      width: 60%;
+      padding: 1px;
+      background: rgba(255, 255, 255, 0.7);
+      border: none;
+      display: block;
+      margin: 15px;
+    }
+    > p:last-child {
+      font-size: 18px;
+    }
+  }
 `;
 
 const Home = ({ users }) => {
@@ -868,7 +796,7 @@ const Home = ({ users }) => {
     <Wrapper>
       <Banner>
         <Navigation isShowNavbar={isShowNavbar}>
-          <img src={logo} className="logo" alt="logo" />
+          <img src={logoWhite} className="logo" alt="logo" />
           <img src={nguoive} className="nguoi-ve" alt="nguoi ve" />
           <img src={cup} className="cup" alt="cup" />
           <img src={boom} className="boom" alt="boom" />
@@ -961,7 +889,6 @@ const Home = ({ users }) => {
           <Link to="/khoa-hoc">XEM THÊM</Link>
         </button>
       </div>
-
       <div>
         <img className="background-doi-ngu" alt="anh test" src={doiNgu} style={{ width: '100%' }} />
         <div>
@@ -971,9 +898,20 @@ const Home = ({ users }) => {
               users.map(
                 (user, index) =>
                   user.role === 'teacher' && (
-                    <div key={index.toString()}>
-                      <img src={user.avatar} alt={user.name} />
-                    </div>
+                    <FlipBox key={index.toString()}>
+                      <div className="flip-box">
+                        <div className="flip-box-inner">
+                          <div className="flip-box-front">
+                            <img src={user.avatar} alt={user.name} />
+                          </div>
+                          <div className="flip-box-back">
+                            <p>{user.name}</p>
+                            <hr />
+                            <p>{user.job}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </FlipBox>
                   ),
               )}
           </div>
@@ -986,25 +924,61 @@ const Home = ({ users }) => {
             <div>
               <AvatarStudent>
                 {students[0] && <img src={students[0].avatar} alt={students[0].name} />}
+                <span>
+                  <span>
+                    <span>{students[0] && students[0].name}</span>
+                    <hr /> <span>{students[0] && students[0].job}</span>
+                  </span>
+                </span>
               </AvatarStudent>
               <AvatarStudent>
                 {students[1] && <img src={students[1].avatar} alt={students[1].name} />}
+                <span>
+                  <span>
+                    <span>{students[1] && students[1].name}</span>
+                    <hr /> <span>{students[1] && students[1].job}</span>
+                  </span>
+                </span>
               </AvatarStudent>
             </div>
             <div>
               <AvatarStudent>
                 {students[2] && <img src={students[2].avatar} alt={students[2].name} />}
+                <span>
+                  <span>
+                    <span>{students[2] && students[2].name}</span>
+                    <hr /> <span>{students[2] && students[2].job}</span>
+                  </span>
+                </span>
               </AvatarStudent>
               <div>
                 <AvatarStudent>
                   {students[3] && <img src={students[3].avatar} alt={students[3].name} />}
+                  <span>
+                    <span>
+                      <span>{students[3] && students[3].name}</span>
+                      <hr /> <span>{students[3] && students[3].job}</span>
+                    </span>
+                  </span>
                 </AvatarStudent>
                 <div>
                   <AvatarStudent>
                     {students[4] && <img src={students[4].avatar} alt={students[4].name} />}
+                    <span>
+                      <span>
+                        <span>{students[4] && students[4].name}</span>
+                        <hr /> <span>{students[4] && students[4].job}</span>
+                      </span>
+                    </span>
                   </AvatarStudent>
                   <AvatarStudent>
                     {students[5] && <img src={students[5].avatar} alt={students[5].name} />}
+                    <span>
+                      <span>
+                        <span>{students[5] && students[5].name}</span>
+                        <hr /> <span>{students[5] && students[5].job}</span>
+                      </span>
+                    </span>
                   </AvatarStudent>
                 </div>
               </div>
@@ -1015,83 +989,72 @@ const Home = ({ users }) => {
             {students[0] && (
               <AvatarStudent>
                 {students[0] && <img src={students[0].avatar} alt={students[0].name} />}
+                <span>
+                  <span>
+                    <span>{students[0] && students[0].name}</span>
+                    <hr /> <span>{students[0] && students[0].job}</span>
+                  </span>
+                </span>
               </AvatarStudent>
             )}
             {students[1] && (
               <AvatarStudent>
                 {students[1] && <img src={students[1].avatar} alt={students[1].name} />}
+                <span>
+                  <span>
+                    <span>{students[1] && students[1].name}</span>
+                    <hr /> <span>{students[1] && students[1].job}</span>
+                  </span>
+                </span>
               </AvatarStudent>
             )}
             {students[2] && (
               <AvatarStudent>
                 {students[2] && <img src={students[2].avatar} alt={students[2].name} />}
+                <span>
+                  <span>
+                    <span>{students[2] && students[2].name}</span>
+                    <hr /> <span>{students[2] && students[2].job}</span>
+                  </span>
+                </span>
               </AvatarStudent>
             )}
             {students[3] && (
               <AvatarStudent>
                 {students[3] && <img src={students[3].avatar} alt={students[3].name} />}
+                <span>
+                  <span>
+                    <span>{students[3] && students[3].name}</span>
+                    <hr /> <span>{students[3] && students[3].job}</span>
+                  </span>
+                </span>
               </AvatarStudent>
             )}
             {students[4] && (
               <AvatarStudent>
                 {students[4] && <img src={students[4].avatar} alt={students[4].name} />}
+                <span>
+                  <span>
+                    <span>{students[4] && students[4].name}</span>
+                    <hr /> <span>{students[4] && students[4].job}</span>
+                  </span>
+                </span>
               </AvatarStudent>
             )}
             {students[5] && (
               <AvatarStudent>
                 {students[5] && <img src={students[5].avatar} alt={students[5].name} />}
+                <span>
+                  <span>
+                    <span>{students[5] && students[5].name}</span>
+                    <hr /> <span>{students[5] && students[5].job}</span>
+                  </span>
+                </span>
               </AvatarStudent>
             )}
           </div>
         )}
       </div>
-      <Footer>
-        <img src={backgroundFooter} alt="footer background" />
-        <div>
-          <div>
-            <img src={logoBlack} alt="logo black" />
-            <div>
-              <a href="https://www.facebook.com/TonKhoaStudio/" target="_blank">
-                <img src={facebook} alt="logo facebook" />
-              </a>
-              <a href="https://www.instagram.com/tonkhoastudio/" target="_blank">
-                <img src={instagram} alt="logo instagram" />
-              </a>
-              <a href="/">
-                <img src={youtube} alt="logo youtube" />
-              </a>
-            </div>
-          </div>
-          <div>
-            <p>
-              <Link to="/">TRANG CHỦ</Link>
-            </p>
-            <p>
-              <Link to="/gioi-thieu">GIỚI THIỆU</Link>
-            </p>
-            <p>
-              <Link to="/khoa-hoc">KHÓA HỌC</Link>
-            </p>
-            <p>
-              <Link to="/feed">BLOG</Link>
-            </p>
-          </div>
-          <div>
-            <p className="subscription" onClick={() => subcriptionHandler()}>
-              ĐĂNG KÝ LIÊN HỆ
-            </p>
-            <p>0702450542</p>
-            <p>tonkhoastudio@gmail.com</p>
-          </div>
-          <div>
-            <p>Cs1: 69 Lê Trung Định, TP.Huế</p>
-            <p>
-              Cs2: Tổ dân phố Hòa Tây - Thị Trấn Phú Đa - Thành Phố Huế (Cách THPT Nguyễn Sinh Cung
-              500m)
-            </p>
-          </div>
-        </div>
-      </Footer>
     </Wrapper>
   );
 };

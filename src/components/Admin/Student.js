@@ -11,7 +11,8 @@ const Form = styled.form`
   margin: 5px 0;
   justify-content: space-between;
 
-  input:nth-child(1) {
+  input:nth-child(1),
+  input:nth-child(2) {
     background: rgb(44, 166, 239);
     color: white;
     border: none;
@@ -42,6 +43,7 @@ const Form = styled.form`
 
 export default ({ students }) => {
   const [name, setName] = useState(null);
+  const [job, setJob] = useState(null);
   const [avatar, setAvatar] = useState(null);
 
   const setAvatarHandler = e => {
@@ -54,6 +56,7 @@ export default ({ students }) => {
 
     const formData = new FormData();
     formData.append('name', name);
+    formData.append('job', job);
     formData.append('avatar', avatar);
 
     store.dispatch({
@@ -62,6 +65,7 @@ export default ({ students }) => {
     });
 
     setName(null);
+    setJob(null);
     setAvatar(null);
   };
 
@@ -74,6 +78,13 @@ export default ({ students }) => {
           placeholder="name.."
           value={name || ''}
           onChange={e => setName(e.target.value)}
+        />
+        job:{' '}
+        <input
+          type="text"
+          placeholder="job.."
+          value={job || ''}
+          onChange={e => setJob(e.target.value)}
         />
         avatar: <input type="file" onChange={e => setAvatarHandler(e)} />
         <button type="submit" disabled={!name}>
