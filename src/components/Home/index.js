@@ -622,7 +622,7 @@ const AvatarStudent = styled.div`
     position: absolute;
     color: white;
     transition: 350ms all;
-
+    padding: 5px;
     > span {
       width: 100%;
       transition: 350ms all;
@@ -636,10 +636,10 @@ const AvatarStudent = styled.div`
       opacity: 0;
 
       > span:first-child {
-        font-size: 23px;
+        font-size: 21px;
         text-transform: uppercase;
         @media screen and (max-width: 800px) {
-          font-size: 16px;
+          font-size: 15px;
         }
       }
 
@@ -651,9 +651,9 @@ const AvatarStudent = styled.div`
       }
 
       > span:last-child {
-        font-size: 20px;
+        font-size: 18px;
         @media screen and (max-width: 800px) {
-          font-size: 13px;
+          font-size: 12px;
         }
       }
     }
@@ -753,9 +753,9 @@ const FlipBox = styled.div`
     padding: 30px;
 
     > p:first-child {
-      font-size: 19px;
+      font-size: 21px;
       @media screen and (max-width: 800px) {
-        font-size: 17px;
+        font-size: 19px;
       }
       width: 100%;
       text-transform: uppercase;

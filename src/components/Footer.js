@@ -283,7 +283,7 @@ export default () => {
             </p>
           </div>
           <div>
-            <q>BẢN QUYỀN THUỘC CÔNG TY TNHH TKSTUDIO MÃ SỐ DOANH NGHIỆP: 3301660982</q>
+            <q>BẢN QUYỀN THUỘC CÔNG TY TNHH TKSTUDIO - MÃ SỐ DOANH NGHIỆP: 3301660982</q>
           </div>
         </div>
       </Footer>
