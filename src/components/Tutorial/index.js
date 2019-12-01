@@ -120,10 +120,6 @@ const NavigationTablet = styled.ul`
         }
       }
 
-      button.btn-contact {
-        border: 2px solid rgb(10, 199, 244);
-      }
-
       button:hover {
         background: rgb(44, 166, 239) !important;
         > a {
@@ -314,6 +310,11 @@ const Tutorial = ({ tutorials, history }) => {
     history.push(`/khoa-hoc/${string}`);
   };
 
+  const contactHandler = e => {
+    e.preventDefault();
+    window.scrollTo({ top: window.document.body.offsetHeight, behavior: 'smooth' });
+  };
+
   return (
     <Wrapper>
       <Banner isShowNavbar={isShowNavbar}>
@@ -354,7 +355,9 @@ const Tutorial = ({ tutorials, history }) => {
             </li>
             <li>
               <button type="button" className="btn-contact">
-                <Link to="/lien-he">LIÊN HỆ</Link>
+                <Link to="/lien-he" onClick={e => contactHandler(e)}>
+                  LIÊN HỆ
+                </Link>
               </button>
             </li>
           </NavigationTablet>
@@ -378,7 +381,9 @@ const Tutorial = ({ tutorials, history }) => {
             </li>
             <li>
               <button type="button">
-                <Link to="/lien-he">LIÊN HỆ</Link>
+                <Link to="/lien-he" onClick={e => contactHandler(e)}>
+                  LIÊN HỆ
+                </Link>
               </button>
             </li>
           </NavigationPhone>

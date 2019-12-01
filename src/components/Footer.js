@@ -24,6 +24,7 @@ const Footer = styled.div`
     }
     vertical-align: middle;
   }
+
   > div {
     display: flex;
     flex-flow: wrap;
@@ -188,6 +189,20 @@ const Footer = styled.div`
         }
       }
     }
+
+    > div:nth-child(5) {
+      width: 100%;
+      flex: none;
+      margin-top: 0;
+      > q {
+        font-size: 12px;
+        @media screen and (max-width: 800px) {
+          font-size: 10px;
+        }
+        display: block;
+        text-align: center;
+      }
+    }
   }
 `;
 export default () => {
@@ -266,6 +281,9 @@ export default () => {
               Cs2: Tổ dân phố Hòa Tây - Thị Trấn Phú Đa - Thành Phố Huế (Cách THPT Nguyễn Sinh Cung
               500m)
             </p>
+          </div>
+          <div>
+            <q>BẢN QUYỀN THUỘC CÔNG TY TNHH TKSTUDIO MÃ SỐ DOANH NGHIỆP: 3301660982</q>
           </div>
         </div>
       </Footer>

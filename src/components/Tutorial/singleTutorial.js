@@ -119,10 +119,6 @@ const NavigationTablet = styled.ul`
         }
       }
 
-      button.btn-contact {
-        border: 2px solid rgb(10, 199, 244);
-      }
-
       button:hover {
         background: rgb(44, 166, 239) !important;
         > a {
@@ -392,12 +388,20 @@ const Tutorial = ({ match, tutorial }) => {
     store.dispatch({ type: GET_TUTORIAL_REQUEST, payload: string });
   }, []);
 
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
   const subcriptionHandler = () => {
     window.open(
       'https://forms.gle/bNtEgyX6ijdGWeL16?fbclid=IwAR36hqYi-XTc_CsdWFukFKB8CNgIhPtYGoCuSddOFi_As2x9ZGtu0BUe3vE',
       '_blank',
     );
   };
+
+  const contactHandler = e => {
+    e.preventDefault();
+    window.scrollTo({ top: window.document.body.offsetHeight, behavior: 'smooth' });
+  };
+
   const [isShowNavbar, setIsShowNavbar] = useState(false);
 
   if (tutorial) {
@@ -441,7 +445,9 @@ const Tutorial = ({ match, tutorial }) => {
               </li>
               <li>
                 <button type="button" className="btn-contact">
-                  <Link to="/lien-he">LIÊN HỆ</Link>
+                  <Link to="/lien-he" onClick={e => contactHandler(e)}>
+                    LIÊN HỆ
+                  </Link>
                 </button>
               </li>
             </NavigationTablet>
@@ -465,7 +471,9 @@ const Tutorial = ({ match, tutorial }) => {
               </li>
               <li>
                 <button type="button">
-                  <Link to="/lien-he">LIÊN HỆ</Link>
+                  <Link to="/lien-he" onClick={e => contactHandler(e)}>
+                    LIÊN HỆ
+                  </Link>
                 </button>
               </li>
             </NavigationPhone>

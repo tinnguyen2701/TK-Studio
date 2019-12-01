@@ -317,10 +317,6 @@ const NavigationTablet = styled.ul`
           color: black;
         }
       }
-
-      button.btn-contact {
-        border: 2px solid rgb(10, 199, 244);
-      }
     }
   }
 `;
@@ -494,7 +490,7 @@ const Wrapper = styled.div`
         height: 100%;
 
         > h1 {
-          transform: translateY(250%);
+          transform: translateY(100%);
         }
       }
 
@@ -528,7 +524,7 @@ const Wrapper = styled.div`
       }
     }
 
-    padding: 5% 5%;
+    padding: 0 5%;
     text-align: center;
 
     div {
@@ -754,9 +750,14 @@ const FlipBox = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding: 30px;
 
     > p:first-child {
-      font-size: 30px;
+      font-size: 19px;
+      @media screen and (max-width: 800px) {
+        font-size: 17px;
+      }
+      width: 100%;
       text-transform: uppercase;
     }
 
@@ -769,7 +770,10 @@ const FlipBox = styled.div`
       margin: 15px;
     }
     > p:last-child {
-      font-size: 18px;
+      font-size: 17px;
+      @media screen and (max-width: 800px) {
+        font-size: 13px;
+      }
     }
   }
 `;
@@ -790,6 +794,11 @@ const Home = ({ users }) => {
       'https://forms.gle/bNtEgyX6ijdGWeL16?fbclid=IwAR36hqYi-XTc_CsdWFukFKB8CNgIhPtYGoCuSddOFi_As2x9ZGtu0BUe3vE',
       '_blank',
     );
+  };
+
+  const contactHandler = e => {
+    e.preventDefault();
+    window.scrollTo({ top: window.document.body.offsetHeight, behavior: 'smooth' });
   };
 
   return (
@@ -836,7 +845,9 @@ const Home = ({ users }) => {
             </li>
             <li>
               <button type="button" className="btn-contact">
-                <Link to="/lien-he">LIÊN HỆ</Link>
+                <Link to="/lien-he" onClick={e => contactHandler(e)}>
+                  LIÊN HỆ
+                </Link>
               </button>
             </li>
           </NavigationTablet>
@@ -860,7 +871,9 @@ const Home = ({ users }) => {
             </li>
             <li>
               <button type="button">
-                <Link to="/lien-he">LIÊN HỆ</Link>
+                <Link to="/lien-he" onClick={e => contactHandler(e)}>
+                  LIÊN HỆ
+                </Link>
               </button>
             </li>
           </NavigationPhone>
