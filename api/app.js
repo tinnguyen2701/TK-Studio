@@ -13,6 +13,7 @@ const setting = require('./routes/setting');
 const tutorial = require('./routes/tutorial');
 const post = require('./routes/post');
 // const Account = require('./models/account');
+var http = require('http');
 
 const app = express();
 
@@ -55,6 +56,10 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve('build', 'index.html'));
   });
 }
+
+setInterval(function() {
+  http.get('http://tk-studio.herokuapp.com');
+}, 600000); // every 5 minutes (300000)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
