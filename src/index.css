@@ -11,8 +11,5 @@ body{
 
 @font-face {
   font-family:font_strong;
-  src:url('./font/TTF/helveticaneue.ttf') format('truetype');
-  
-  font-weight:normal;
-  font-style:normal;
+  src:url('./font/TTF/UTM_Aircona.ttf') format('truetype');
 }

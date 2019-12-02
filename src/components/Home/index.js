@@ -490,7 +490,10 @@ const Wrapper = styled.div`
         height: 100%;
 
         > h1 {
-          transform: translateY(100%);
+          @media screen and (min-width: 1367px) {
+            position: relative;
+            top: 10%;
+          }
         }
       }
 

@@ -490,13 +490,13 @@ const Video = styled.div`
     align-items: center;
     margin-top: 2%;
     letter-spacing: 1px;
+    img {
+      width: 100%;
+    }
 
     @media screen and (max-width: 800px) {
       padding-top: 20px;
 
-      img {
-        width: 100%;
-      }
       > div:nth-child(2) {
         text-align: left;
       }
