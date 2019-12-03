@@ -347,6 +347,28 @@ const Content = styled.div`
       text-align: left;
     }
   }
+
+  > div:nth-child(4) {
+    text-align: center;
+    button {
+      background: none;
+      border: 1px solid rgb(44, 166, 239);
+      border-radius: 8px;
+      padding: 10px 15px;
+      -webkit-transition: 200ms all;
+      -webkit-transition: 200ms all;
+      transition: 200ms all;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10%;
+      font-size: 18px;
+      :hover {
+        background: rgb(44, 166, 239);
+        color: white;
+      }
+    }
+  }
 `;
 
 const ItemTutorial = styled.div`
@@ -532,6 +554,11 @@ const Tutorial = ({ match, tutorial }) => {
               </div>
             </div>
           )}
+          <div>
+            <button type="button" onClick={() => subcriptionHandler()}>
+              ĐĂNG KÝ KHÓA HỌC
+            </button>
+          </div>
         </Content>
       </Wrapper>
     );
