@@ -176,4 +176,41 @@ userRouter.post('/remove', passport.authenticate('jwt', { session: false }), asy
     });
 });
 
+userRouter.post(
+  '/updateAvatarDevicePhone',
+  passport.authenticate('jwt', { session: false }),
+  upload.fields([{ name: 'avatarDevicePhone', maxCount: 1 }]),
+  async (req, res) => {
+    const { number } = req.body;
+    let avatarDevicePhone = null;
+    if (req.files['avatarDevicePhone'] !== undefined) {
+      avatarDevicePhone = await cloudinary.v2.uploader
+        .upload(req.files['avatarDevicePhone'][0].path)
+        .then(result => {
+          return result.secure_url;
+        })
+        .catch(err => {
+          logger.logError('failed to upload avatar Devide Phone', err);
+          res.sendStatus(500);
+        });
+    }
+
+    const users = await User.find({ role: 'student' });
+
+    await User.updateOne(
+      { _id: users[number - 1]._id },
+      { $set: { avatarDevicePhone } },
+      { upsert: true },
+    )
+      .then(() => {
+        users[number - 1].avatarDevicePhone = avatarDevicePhone;
+        logger.logInfo('update avatar device phone user thanh cong');
+        return res.status(200).send(users[number - 1]);
+      })
+      .catch(err => {
+        return res.status(500).send(err);
+      });
+  },
+);
+
 module.exports = userRouter;

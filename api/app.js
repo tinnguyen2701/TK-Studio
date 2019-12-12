@@ -4,7 +4,7 @@ const path = require('path');
 const logger = require('morgan');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const bcrypt = require('bcryptjs');
+// const bcrypt = require('bcryptjs');
 const passport = require('passport');
 
 const admin = require('./routes/admin');
@@ -12,7 +12,7 @@ const user = require('./routes/user');
 const setting = require('./routes/setting');
 const tutorial = require('./routes/tutorial');
 const post = require('./routes/post');
-const Account = require('./models/account');
+// const Account = require('./models/account');
 var http = require('http');
 
 const app = express();
@@ -29,19 +29,19 @@ app.use(cookieParser());
 app.use(passport.initialize());
 require('./config/passport')(passport);
 
-bcrypt.genSalt(10, function(err, salt) {
-  bcrypt.hash('tkstudio2450542', salt, function(err, hash) {
-    const newUser = new Account({
-      username: 'tkstudio',
-      password: hash,
-    });
+// bcrypt.genSalt(10, function(err, salt) {
+//   bcrypt.hash('tkstudio2450542', salt, function(err, hash) {
+//     const newUser = new Account({
+//       username: 'tkstudio',
+//       password: hash,
+//     });
 
-    newUser
-      .save()
-      .then(newUser => console.log('ok'))
-      .catch(err => console.log('can not save user', err));
-  });
-});
+//     newUser
+//       .save()
+//       .then(newUser => console.log('ok'))
+//       .catch(err => console.log('can not save user', err));
+//   });
+// });
 
 app.use('/api/auth', admin);
 app.use('/api/user', user);

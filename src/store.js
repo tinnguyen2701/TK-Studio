@@ -22,6 +22,7 @@ import {
   addVideoSaga,
   RemoveVideoSaga,
   EditVideoSaga,
+  updateAvatarDevicePhoneSaga,
 } from './components/Admin/ducks';
 import {
   modalReducer as modal,
@@ -99,6 +100,7 @@ const rootSaga = function* rootSaga() {
     ...getTagsPostSaga,
     ...getPostSaga,
     ...searchSaga,
+    ...updateAvatarDevicePhoneSaga,
   ]);
 };
 

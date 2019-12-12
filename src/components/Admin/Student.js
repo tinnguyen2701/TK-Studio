@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import store from 'store';
 import SingleStudent from './SingleStudent';
-import { ADD_STUDENT_REQUEST } from './ducks';
+import positionStudent from 'images/positionStudent.jpg';
+import { ADD_STUDENT_REQUEST, UPDATE_AVATAR_STUDENT_DEVICE_PHONE_REQUEST } from './ducks';
 
 const Form = styled.form`
   display: flex;
@@ -46,6 +47,8 @@ export default ({ students }) => {
   const [job, setJob] = useState(null);
   const [avatar, setAvatar] = useState(null);
 
+  const [ImagePhone, setImagePhone] = useState(null);
+
   const setAvatarHandler = e => {
     e.persist();
     setAvatar(e.target.files[0]);
@@ -69,35 +72,99 @@ export default ({ students }) => {
     setAvatar(null);
   };
 
+  const setAvatarDevicePhoneHandler = e => {
+    e.persist();
+    setImagePhone(e.target.files[0]);
+  };
+
+  const onUpdateImageDevicePhone = (e, number) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('number', number);
+    formData.append('avatarDevicePhone', ImagePhone);
+
+    store.dispatch({
+      type: UPDATE_AVATAR_STUDENT_DEVICE_PHONE_REQUEST,
+      payload: formData,
+    });
+
+    setImagePhone(null);
+  };
+
   return (
     <div>
-      <Form onSubmit={e => onSubmitHandler(e)}>
-        name:{' '}
-        <input
-          type="text"
-          placeholder="name.."
-          value={name || ''}
-          onChange={e => setName(e.target.value)}
-        />
-        job:{' '}
-        <input
-          type="text"
-          placeholder="job.."
-          value={job || ''}
-          onChange={e => setJob(e.target.value)}
-        />
-        avatar: <input type="file" onChange={e => setAvatarHandler(e)} />
-        <button type="submit" disabled={!name}>
-          Add Student
-        </button>
-      </Form>
-
+      {students.length < 7 && (
+        <Form onSubmit={e => onSubmitHandler(e)}>
+          name:{' '}
+          <input
+            type="text"
+            placeholder="name.."
+            value={name || ''}
+            onChange={e => setName(e.target.value)}
+          />
+          job:{' '}
+          <input
+            type="text"
+            placeholder="job.."
+            value={job || ''}
+            onChange={e => setJob(e.target.value)}
+          />
+          avatar: <input type="file" onChange={e => setAvatarHandler(e)} />
+          <button type="submit" disabled={!name}>
+            Add Student
+          </button>
+        </Form>
+      )}
       <div>
         <h3> danh sach hoc vien</h3>
         {students.map((student, index) => (
-          <SingleStudent key={index.toString()} student={student} />
+          <div key={student._id}>
+            {index + 1} <SingleStudent student={student} />
+          </div>
         ))}
       </div>
+
+      <p style={{ marginTop: '100px' }}>
+        ảnh hiện thị dành riêng cho điện thoại (kích thước chọn là hình vuông!)
+      </p>
+      <div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          2{' '}
+          <img
+            style={{ width: '100px', height: '100px', borderRadius: '50%' }}
+            src={students[1] && students[1].avatarDevicePhone}
+          />
+          <input type="file" onChange={e => setAvatarDevicePhoneHandler(e)} />
+          <button type="button" onClick={e => onUpdateImageDevicePhone(e, 2)}>
+            Cập nhật
+          </button>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          3{' '}
+          <img
+            style={{ width: '100px', height: '100px', borderRadius: '50%' }}
+            src={students[2] && students[2].avatarDevicePhone}
+          />
+          <input type="file" onChange={e => setAvatarDevicePhoneHandler(e)} />
+          <button type="button" onClick={e => onUpdateImageDevicePhone(e, 3)}>
+            Cập nhật
+          </button>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          4{' '}
+          <img
+            style={{ width: '100px', height: '100px', borderRadius: '50%' }}
+            src={students[3] && students[3].avatarDevicePhone}
+          />
+          <input type="file" onChange={e => setAvatarDevicePhoneHandler(e)} />
+          <button type="button" onClick={e => onUpdateImageDevicePhone(e, 4)}>
+            Cập nhật
+          </button>
+        </div>
+      </div>
+
+      <img src={positionStudent} alt="position" />
     </div>
   );
 };

@@ -14,6 +14,12 @@ export const ADD_STUDENT_REQUEST = 'ADD_STUDENT_REQUEST';
 export const ADD_STUDENT_RESPONSE = 'ADD_STUDENT_RESPONSE';
 export const ADD_STUDENT_ERROR = 'ADD_STUDENT_ERROR';
 
+export const UPDATE_AVATAR_STUDENT_DEVICE_PHONE_REQUEST =
+  'UPDATE_AVATAR_STUDENT_DEVICE_PHONE_REQUEST';
+export const UPDATE_AVATAR_STUDENT_DEVICE_PHONE_RESPONSE =
+  'UPDATE_AVATAR_STUDENT_DEVICE_PHONE_RESPONSE';
+export const UPDATE_AVATAR_STUDENT_DEVICE_PHONE_ERROR = 'UPDATE_AVATAR_STUDENT_DEVICE_PHONE_ERROR';
+
 export const ADD_TEACHER_REQUEST = 'ADD_TEACHER_REQUEST';
 export const ADD_TEACHER_RESPONSE = 'ADD_TEACHER_RESPONSE';
 export const ADD_TEACHER_ERROR = 'ADD_TEACHER_ERROR';
@@ -143,6 +149,25 @@ function* watchAddStudentRequest() {
   yield takeLatest(ADD_STUDENT_REQUEST, requestAddStudent);
 }
 export const addStudentSaga = [fork(watchAddStudentRequest)];
+
+/* handler state for add device avatar */
+function* requestUpdateAvatarDevicePhone(action) {
+  try {
+    const response = yield call(
+      callApi,
+      'POST',
+      `${process.env.REACT_APP_MAIN_URL}api/user/updateAvatarDevicePhone`,
+      action.payload,
+    );
+    yield put(createAction(UPDATE_AVATAR_STUDENT_DEVICE_PHONE_RESPONSE, response.data));
+  } catch (error) {
+    yield put(createAction(UPDATE_AVATAR_STUDENT_DEVICE_PHONE_ERROR, error));
+  }
+}
+function* watchUpdateAvatarDevicePhone() {
+  yield takeLatest(UPDATE_AVATAR_STUDENT_DEVICE_PHONE_REQUEST, requestUpdateAvatarDevicePhone);
+}
+export const updateAvatarDevicePhoneSaga = [fork(watchUpdateAvatarDevicePhone)];
 
 /* handler state for add teacher */
 function* requestAddTeacher(action) {

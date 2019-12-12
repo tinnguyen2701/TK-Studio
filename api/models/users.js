@@ -13,6 +13,9 @@ const userSchema = new Schema({
   avatar: {
     type: String,
   },
+  avatarDevicePhone: {
+    type: String,
+  },
   role: {
     type: String,
     required: true,

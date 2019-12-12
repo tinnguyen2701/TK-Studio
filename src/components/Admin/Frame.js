@@ -51,7 +51,6 @@ const Frame = ({ tabVisible, users }) => {
   return (
     <Wrapper>
       <h1>T K ____ S T U D I O ____ A R T</h1>
-      {/* <Blog /> */}
     </Wrapper>
   );
 };

@@ -10,6 +10,7 @@ import muoihai from 'images/about/muoihai.jpg';
 import muoimot from 'images/about/muoimot.jpg';
 import muoi from 'images/about/muoi.jpg';
 import chin from 'images/about/chin.jpg';
+import chinPhone from 'images/about/chinPhone.jpg';
 import tam from 'images/about/tam.jpg';
 import bay from 'images/about/bay.jpg';
 import sau from 'images/about/sau.jpg';
@@ -249,18 +250,6 @@ const Content = styled.div`
       > img {
         width: 45%;
         margin: 5px;
-      }
-      > div {
-        display: flex;
-        flex-direction: row;
-
-        > img:nth-child(1) {
-          width: 49%;
-          margin: 0 5px;
-        }
-        > img:nth-child(2) {
-          width: 45%;
-        }
       }
     }
   }
@@ -702,10 +691,8 @@ const About = ({ videos }) => {
             <img src={muoihai} alt="muoihai" />
             <img src={bon} alt="bon" />
             <img src={mot} alt="mot" />
-            <div>
-              <img src={hai} alt="hai" />
-              <img src={chin} alt="chin" />
-            </div>
+            <img src={hai} alt="hai" />
+            <img src={chinPhone} alt="chinPhone" />
             <img src={nam} alt="nam" />
             <img src={sau} alt="sau" />
           </div>

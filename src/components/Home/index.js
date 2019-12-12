@@ -1015,7 +1015,7 @@ const Home = ({ users }) => {
             )}
             {students[1] && (
               <AvatarStudent>
-                {students[1] && <img src={students[1].avatar} alt={students[1].name} />}
+                {students[1] && <img src={students[1].avatarDevicePhone} alt={students[1].name} />}
                 <span>
                   <span>
                     <span>{students[1] && students[1].name}</span>
@@ -1026,7 +1026,7 @@ const Home = ({ users }) => {
             )}
             {students[2] && (
               <AvatarStudent>
-                {students[2] && <img src={students[2].avatar} alt={students[2].name} />}
+                {students[2] && <img src={students[2].avatarDevicePhone} alt={students[2].name} />}
                 <span>
                   <span>
                     <span>{students[2] && students[2].name}</span>
@@ -1037,7 +1037,7 @@ const Home = ({ users }) => {
             )}
             {students[3] && (
               <AvatarStudent>
-                {students[3] && <img src={students[3].avatar} alt={students[3].name} />}
+                {students[3] && <img src={students[3].avatarDevicePhone} alt={students[3].name} />}
                 <span>
                   <span>
                     <span>{students[3] && students[3].name}</span>

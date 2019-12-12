@@ -21,6 +21,7 @@ import {
   REMOVE_VIDEO_RESPONSE,
   ADD_VIDEO_RESPONSE,
   EDIT_VIDEO_RESPONSE,
+  UPDATE_AVATAR_STUDENT_DEVICE_PHONE_RESPONSE,
 } from './components/Admin/ducks';
 import { GET_VIDEO_RESPONSE } from './components/About/duck';
 import {
@@ -102,6 +103,14 @@ const UsersActionHandler = {
         user.name = action.payload.name;
         user.job = action.payload.job;
         user.avatar = action.payload.avatar;
+      }
+      return user;
+    });
+  },
+  [UPDATE_AVATAR_STUDENT_DEVICE_PHONE_RESPONSE]: (state, action) => {
+    return state.map(user => {
+      if (user._id === action.payload._id) {
+        user.avatarDevicePhone = action.payload.avatarDevicePhone;
       }
       return user;
     });

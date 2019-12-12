@@ -261,12 +261,13 @@ const Banner = styled.div`
       }
       > div:nth-child(2) {
         @media screen and (max-width: 800px) {
-          font-size: 16px;
           padding-left: 15px;
+          font-size: 14px;
           padding-top: 5px;
+          padding-right: 5px;
         }
         @media screen and (min-width: 800px) {
-          font-size: 21px;
+          font-size: 18px;
           padding-left: 100px;
         }
         text-align: left;
@@ -304,7 +305,6 @@ const Content = styled.div`
         justify-content: center;
         > img {
           height: 222px;
-          min-width: 100%;
         }
       }
 
